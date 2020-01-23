@@ -4,6 +4,19 @@ const PaymentMethod = require('./payment_method');
 const Password = require('../utils/password');
 const emailValidator = require('email-validator');
 
+/**
+ * @typedef {Object} User
+ * @property {string} username
+ * @property {string} name
+ * @property {string} nickname
+ * @property {string} email
+ * @property {string} password hashed
+ * @property {import('./address').Address[]} shipping_addresses
+ * @property {import('./payment_method').PaymentMethod[]} payment_methods
+ * @property {Date} created_at
+ * @property {Date} updated_at
+ */
+
 const schema = new mongoose.Schema({
     username: {
         type: String,

@@ -1,21 +1,8 @@
 const User = require('../models/user');
 
 /**
- * @typedef {Object} User
- * @property {string} username
- * @property {string} name
- * @property {string} nickname
- * @property {string} email
- * @property {string} password hashed
- * @property {Address[]} shipping_addresses
- * @property {PaymentMethod[]} payment_methods
- * @property {Date} created_at
- * @property {Date} updated_at
- */
-
-/**
  * @param {Object} data @todo document user model
- * @return {Promise<User>}
+ * @return {Promise<import('../models/user').User>}
  */
 const create = async (data) => {
     const new_user = new User(data);
@@ -24,7 +11,7 @@ const create = async (data) => {
 
 /**
  * @param {string} _id
- * @return {Promise<User>}
+ * @return {Promise<import('../models/user').User>}
  */
 const findById = async (_id) => {
     return await User.findOne({ _id });
@@ -32,7 +19,7 @@ const findById = async (_id) => {
 
 /**
  * @param {string} _id
- * @return {Promise<User>}
+ * @return {Promise<import('../models/user').User>}
  */
 const findByEmail = async (email) => {
     return await User.findOne({ email });
