@@ -26,6 +26,14 @@ const findByEmail = async (email) => {
 };
 
 /**
+ * @param {string} username
+ * @return {Promise<import('../models/user').User>}
+ */
+const findByUsername = async (username) => {
+    return await User.findOne({ username });
+};
+
+/**
  * @param {string} _id
  * @param {User} data
  * @return {Promise<{n: number, nModified: number}>}
@@ -46,6 +54,7 @@ module.exports = {
     create,
     findById,
     findByEmail,
+    findByUsername,
     update,
     delete: _delete,
 };
