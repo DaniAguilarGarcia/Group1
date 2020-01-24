@@ -5,7 +5,7 @@ const Users = require('../src/services/users');
 
 describe('UsersService', () => {
     /**
-     * @type {import('../src/services/users').User}
+     * @type {import('../src/models/user').User}
      */
     let test_user;
     
@@ -38,6 +38,16 @@ describe('UsersService', () => {
     describe('findByEmail()', () => {
         it('Should find users by email', (done) => {
             Users.findByEmail(test_user.email)
+                .then((user) => {
+                    assert.notEqual(user._id, null);
+                    done();
+                });
+        });
+    });
+
+    describe('findByUsername()', () => {
+        it('Should find users by username', (done) => {
+            Users.findByUsername(test_user.username)
                 .then((user) => {
                     assert.notEqual(user._id, null);
                     done();
