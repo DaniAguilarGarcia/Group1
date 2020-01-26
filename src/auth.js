@@ -6,6 +6,7 @@ const uuid = require('uuid/v4');
 const FileStore = require('session-file-store')(Session);
 
 const Users = require('./services/users');
+const Password = require('./utils/password');
 
 // Session
 const session = Session({
@@ -21,27 +22,19 @@ const session = Session({
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
     async (username, password, done) => {
-        const Password = require('./utils/password');
-
-        console.log('Inside local strategy callback', {username, password});
         try {
             const user = await Users.findByUsername(username);
 
             if (!user) {
-                console.log('no user');
                 return done('no user by that username');
             }
 
-            console.log('found user', user);
-
             if (!Password.compare(password, user.password)) {
-                console.log('invalid password');
                 return done('invalid password');
             }
 
             return done(null, user);
         } catch (error) {
-            console.error(error);
             return done('user lookup error');
         }
     }
@@ -52,7 +45,14 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((_id, done) => {
-    Users.findById(_id).then(done);
+    Users.findById(_id)
+        .then((user) => {
+            return done(null, user);
+        })
+        .catch(err => {
+            console.log('deserializeUser error', err);
+            return done(err);
+        });
 });
 
 module.exports = (app) => {
