@@ -63,6 +63,11 @@ const schema = new mongoose.Schema({
     },
 });
 
+schema.hidden = [
+    'password',
+    '__v',
+];
+
 schema.pre('save', function (next) {
     // password hashing
     if (this.password && this.isModified('password')) {
@@ -70,6 +75,18 @@ schema.pre('save', function (next) {
     }
     next();
 });
+
+schema.methods.toJSON = function() {
+    const obj = this.toObject();
+    
+    schema.hidden.forEach((field) => { // @todo move this and make it recursive
+        if (Object.prototype.hasOwnProperty.call(obj, field)) {
+            delete obj[field];
+        }
+    })
+
+    return obj;
+};
 
 const model = new mongoose.model('User', schema);
 
