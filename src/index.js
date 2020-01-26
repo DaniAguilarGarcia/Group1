@@ -18,8 +18,26 @@ require('./routes')(app);
 
 // Listen
 const port = process.env.PORT;
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-module.export = app;
+// Create testing user
+if (process.env.NODE_ENV === 'local') {
+    const test_username = 'test_user';
+    const test_password = 'AbsoluteUnit1134!';
+    (async () => {
+        const Users = require('./services/users');
+        const user = await Users.findByUsername(test_username);
+        if (!user) {
+            Users.create({
+                username: test_username,
+                password: test_password,
+                email: 'test@example.com',
+                name: 'Test User',
+                nickname: 'Test User',
+            });
+        }
+    })();
+}
+
+module.exports = app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 
