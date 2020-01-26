@@ -1,17 +1,17 @@
-const assert = require('assert');
+const assert = require('chai').assert;
 const faker = require('faker');
 
 const Users = require('../src/services/users');
 
-describe('UsersService', () => {
+describe('UsersService', function() {
     /**
      * @type {import('../src/models/user').User}
      */
     let test_user;
     
-    describe('create()', () => {
-        it('Should create users', (done) => {
-            Users.create({
+    describe('create()', function() {
+        it('Should create users', function() {
+            return Users.create({
                 username: faker.hacker.noun(),
                 name: faker.name.findName(),
                 nickname: faker.name.firstName(),
@@ -20,61 +20,55 @@ describe('UsersService', () => {
             }).then((user) => {
                 assert.notEqual(user._id, null);
                 test_user = user;
-                done();
             });
         });
     });
 
-    describe('findById()', () => {
-        it('Should find users by ID', (done) => {
-            Users.findById(test_user._id)
+    describe('findById()', function() {
+        it('Should find users by ID', function() {
+            return Users.findById(test_user._id)
                 .then((user) => {
-                    assert.notEqual(user._id, null);
-                    done();
+                    assert.isOk(user._id, 'user should have an ID');
                 });
         });
     });
 
-    describe('findByEmail()', () => {
-        it('Should find users by email', (done) => {
-            Users.findByEmail(test_user.email)
+    describe('findByEmail()', function() {
+        it('Should find users by email', function() {
+            return Users.findByEmail(test_user.email)
                 .then((user) => {
-                    assert.notEqual(user._id, null);
-                    done();
+                    assert.isOk(user._id, 'user should have an ID');
                 });
         });
     });
 
-    describe('findByUsername()', () => {
-        it('Should find users by username', (done) => {
-            Users.findByUsername(test_user.username)
+    describe('findByUsername()', function() {
+        it('Should find users by username', function() {
+            return Users.findByUsername(test_user.username)
                 .then((user) => {
-                    assert.notEqual(user._id, null);
-                    done();
+                    assert.isOk(user._id, 'user should have an ID');
                 });
         });
     });
 
-    describe('update()', () => {
-        it('Should update users', (done) => {
+    describe('update()', function() {
+        it('Should update users', function() {
             nickname = faker.hacker.verb();
-            Users.update(test_user._id, { nickname })
-            .then((result) => {
-                assert.equal(result.n, 1);
-                assert.equal(result.nModified, 1);
-                done();
-            });
+            return Users.update(test_user._id, { nickname })
+                .then((result) => {
+                    assert.equal(result.n, 1, 'should have one record match')
+                    assert.equal(result.n, 1, 'should have updated one record')
+                });
         });
     });
 
-    describe('deleteOne()', () => {
-        it('Should delete users', (done) => {
-            Users.delete(test_user._id)
-            .then((result) => {
-                assert.equal(result.ok, 1);
-                assert.equal(result.deletedCount, 1);
-                done();
-            });
+    describe('deleteOne()', function() {
+        it('Should delete users', function() {
+            return Users.delete(test_user._id)
+                .then((result) => {
+                    assert.equal(result.ok, 1);
+                    assert.equal(result.deletedCount, 1);
+                });
         });
     });
 });

@@ -1,4 +1,4 @@
-before((done) => {
+before(function(done) {
     require('dotenv').config({
         path: '.env.testing'
     });
