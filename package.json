@@ -44,6 +44,7 @@
     "file": [
       "./test/setup.js",
       "./test/teardown.js"
-    ]
+    ],
+    "exit": true
   }
 }

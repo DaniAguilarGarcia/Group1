@@ -17,6 +17,13 @@ describe('UsersService', function() {
                 nickname: faker.name.firstName(),
                 email: faker.internet.email(),
                 password: 'S4uc3B4ws!',
+                address: {
+                    street: '1234 test street',
+                    city: 'test town',
+                    state: 'fl',
+                    postal: '33012',
+                    country: 'usa',
+                },
             }).then((user) => {
                 assert.notEqual(user._id, null);
                 test_user = user;

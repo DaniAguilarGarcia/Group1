@@ -9,20 +9,35 @@ const faker = require('faker');
 const Users = require('../src/services/users');
 const app = require('../src/index');
 
-describe('/user', async function() {
+
+describe('/user', function() {
+
     const username = 'user_routes';
     const password = 'S4uc3B4ws!';
-
-    const user = await Users.create({
-        username,
-        name: faker.name.findName(),
-        nickname: faker.name.firstName(),
-        email: faker.internet.email(),
-        password,
+    let user;
+    
+    before(function(done) {
+        Users.create({
+            username,
+            name: faker.name.findName(),
+            nickname: faker.name.firstName(),
+            email: faker.internet.email(),
+            password,
+            address: {
+                street: '1234 test street',
+                city: 'test town',
+                state: 'fl',
+                postal: '33012',
+                country: 'usa',
+            },
+        }).then((u) => {
+            user = u;
+            done();
+        });
     });
 
     describe('/user/login', function() {
-        it('Should lookup by username', function() {
+        it('Should lookup by username', async function() {
             return chai.request(app)
                 .post('/backend/user/login')
                 .send({ username: 'i_dont_exist', password })
@@ -31,7 +46,7 @@ describe('/user', async function() {
                 });
         });
 
-        it('Should validate passwords', function() {
+        it('Should validate passwords', async function() {
             return chai.request(app)
                 .post('/backend/user/login')
                 .send({ username, password : 'total nonsense' })
@@ -40,7 +55,7 @@ describe('/user', async function() {
                 });
         });
 
-        it('Should log users in', function() {
+        it('Should log users in', async function() {
             return chai.request(app)
                 .post('/backend/user/login')
                 .send({ username, password })
@@ -51,7 +66,7 @@ describe('/user', async function() {
     });
 
     describe('/user/me', function() {
-        it('Should require user to be logged in', function() {
+        it('Should require user to be logged in', async function() {
             return chai.request(app)
                 .get('/backend/user/me')
                 .then((res) => {
@@ -59,20 +74,16 @@ describe('/user', async function() {
                 });
         });
 
-        it('Should return current user', function() {
-            return chai.request(app)
-                .post('/backend/user/login')
-                .send({ username, password })
+        it('Should return current user', async function() {
+            const agent = chai.request.agent(app);
+
+            await agent.post('/backend/user/login')
+                .send({ username, password });
+
+            return agent.get('/backend/user/me')
                 .then((res) => {
-                    // Assuming session cookie is first
-                    const cookie_header = res.header['set-cookie'][0];
-                    const cookie = cookie_header.substring(0, cookie_header.indexOf(';'));
-                    return chai.request(app).get('/backend/user/me')
-                        .set('Cookie', cookie)
-                        .then((res) => {
-                            assert.equal(res.status, 200, 'should return status 200');
-                            assert.equal(res.body.username, user.username);
-                        });
+                    assert.equal(res.status, 200, 'should return status 200');
+                    assert.equal(res.body.username, user.username);
                 });
         });
     });
