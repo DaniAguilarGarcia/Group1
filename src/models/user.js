@@ -54,6 +54,10 @@ const schema = new mongoose.Schema({
         },
         required: [true, 'You must provide a password'],
     },
+    address: {
+        type: Address,
+        required: [true, 'You must provide an address'],
+    },
     shipping_addresses: [Address],
     payment_methods: [PaymentMethod],
 }, {
