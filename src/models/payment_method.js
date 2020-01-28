@@ -42,6 +42,11 @@ const schema = new mongoose.Schema({
         required: true,
     },
     address: Address,
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
 });
 
 schema.pre('save', function(next) {
@@ -53,11 +58,6 @@ schema.pre('save', function(next) {
         this.pan = uuid(); // simulate tokenization
     }
     next();
-}, {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
 });
 
 module.exports = schema;
