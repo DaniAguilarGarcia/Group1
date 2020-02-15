@@ -33,6 +33,13 @@ if (process.env.NODE_ENV === 'local') {
                 email: 'test@example.com',
                 name: 'Test User',
                 nickname: 'Test User',
+                address: {
+                    street: '1234 NW 1st ave',
+                    city: 'Testtown',
+                    state: 'FL',
+                    postal: '33028',
+                    country: 'USA',
+                },
             });
         }
     })();
