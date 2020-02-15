@@ -1,4 +1,4 @@
-# Shopping car Schema
+# Shopping cart Schema
 ```json
 {
     "_id": "ObjectId",
