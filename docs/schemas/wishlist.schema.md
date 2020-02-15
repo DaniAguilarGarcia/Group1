@@ -1,3 +1,5 @@
+# Wishlist Schema
+```json
 {
     "_id": "ObjectId",
     "alias": "String",
@@ -8,3 +10,4 @@
     "customer_id": "int",
     
 }
+```
