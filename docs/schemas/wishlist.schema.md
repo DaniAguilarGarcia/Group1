@@ -9,5 +9,6 @@
     "total_price": "Decimal",
     "customer_id": "int",
     "itemCount": "int",
+    "wishlist_id": "int",
 }
 ```
