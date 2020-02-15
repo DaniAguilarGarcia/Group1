@@ -8,6 +8,6 @@
     "updatedAt": "Date",
     "total_price": "Decimal",
     "customer_id": "int",
-    
+    "itemCount": "int",
 }
 ```
