@@ -4,7 +4,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-require('./database');
+const DB = require('./database');
+const cors = require('cors');
+
+const bookService = require('./services/books');
+
+app.use(cors());
+app.use('/', bookService);
 
 // Authentication
 require('./auth')(app);
