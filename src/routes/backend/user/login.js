@@ -1,23 +1,18 @@
 const passport = require('passport');
 
 module.exports = async (req, res, next) => {
-
-    const error_response = {
-        message: 'Your email or password was incorrect.',
-    };
-
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(401)
-                .send(error_response);
+                .send(err);
         }
 
         req.login(user, (err) => {
             if (err) {
                 return res.status(401)
-                    .send(error_response);
+                    .send(err);
             }
-            return res.send(user);
+            return res.send('logged in');
         });
     })(req, res, next);
 }
