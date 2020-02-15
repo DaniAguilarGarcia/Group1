@@ -25,14 +25,21 @@ if (process.env.NODE_ENV === 'local') {
     const test_password = 'AbsoluteUnit1134!';
     (async () => {
         const Users = require('./services/users');
-        const user = await Users.findByUsername(test_username);
+        let user = await Users.findByUsername(test_username);
         if (!user) {
-            Users.create({
+            user = await Users.create({
                 username: test_username,
                 password: test_password,
                 email: 'test@example.com',
                 name: 'Test User',
                 nickname: 'Test User',
+                address: {
+                    street: '1234 test street',
+                    city: 'test town',
+                    state: 'fl',
+                    postal: '33012',
+                    country: 'usa',
+                },
             });
         }
     })();
