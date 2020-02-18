@@ -10,7 +10,6 @@ const cors = require('cors');
 const bookService = require('./services/books');
 
 app.use(cors());
-app.use('/', bookService);
 
 // Authentication
 require('./auth')(app);
