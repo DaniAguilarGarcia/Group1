@@ -35,7 +35,6 @@ const schema = new mongoose.Schema({
         type: String,
         maxlength: [32, 'Your nickname can not be more than 32 characters'],
         minlength: [3, 'Your nickname must be at least 3 characters'],
-        required: [true, 'You must provide a nickname'],
     },
     email: {
         type: String,
@@ -50,13 +49,12 @@ const schema = new mongoose.Schema({
         type: String,
         validate: {
             validator: value => Password.validate(value, 3),
-            message: 'The password your provided was too easy to guess',
+            message: 'The password you provided was too easy to guess',
         },
         required: [true, 'You must provide a password'],
     },
     address: {
         type: Address,
-        required: [true, 'You must provide an address'],
     },
     shipping_addresses: [Address],
     payment_methods: [PaymentMethod],

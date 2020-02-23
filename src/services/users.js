@@ -6,7 +6,26 @@ const User = require('../models/user');
  */
 const create = async (data) => {
     const new_user = new User(data);
-    return await new_user.save();
+    try {
+        return await new_user.save();
+    } catch (error) {
+        /**
+         * Handle 'unique' validation
+         * only username on User model is 'unique'
+         * @see https://mongoosejs.com/docs/validation.html#the-unique-option-is-not-a-validator
+         */
+        if (error.message.indexOf('duplicate key error') !== -1) {
+            return Promise.reject({
+                _message: 'User validation failed',
+                errors: {
+                    username: {
+                        message: 'That username is already taken',
+                    },
+                },
+            });
+        }
+        return Promise.reject(error);
+    }
 };
 
 /**

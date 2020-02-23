@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -62,19 +63,23 @@ class Login extends Component {
   }
 
   render() {
-
     const form = <form onSubmit={this.handleSubmit}>
         <div className="form-row">
-          <div className="col-12 col-md-6 mb-2 mb-md-0">
+          <div className="col-12 mb-2">
             <input type="text" className="form-control" placeholder="Username" required
               value={this.state.username} onChange={(e) => this.onChange('username', e)}/>
           </div>
-          <div className="col-12 col-md-6 mb-2 mb-md-0">
+          <div className="col-12 mb-2">
             <input type="password" className="form-control" placeholder="Password" required
               value={this.state.password} onChange={(e) => this.onChange('password', e)}/>
           </div>
-          <div className="col-12 mt-2">
+          <div className="col-6">
             <button type="submit" className="btn btn-primary btn-block">Login</button>
+          </div>
+          <div className="col-6">
+            <Link to={'./register'} className="btn btn-secondary btn-block" tabIndex="-1">
+              Register
+            </Link>
           </div>
         </div>
       </form>;

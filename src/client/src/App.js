@@ -4,6 +4,7 @@ import './App.scss';
 import MainNav from './components/MainNav';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Cart from './pages/Cart';
 
 class App extends Component {
@@ -51,6 +52,9 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route path='/login'
                 render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin}/>}
+            />
+            <Route path='/register'
+                render={(props) => <Register {...props} onLogin={this.handleLogin}/>}
             />
             <Route path='/cart' component={Cart} />
           </Switch>
