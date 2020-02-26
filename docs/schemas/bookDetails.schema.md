@@ -1,14 +1,15 @@
 # Book Details Schema
 ```json
 {
-    "isbn": "Int",
-    "author_name": "String",
-    "book_name": "String",
-    "book_description": "String",
+    "isbn": "String",
+    "title": "String",
+    "publication_date": "String",
+    "edition": "Number",
+    "quantity": "Number",
+    "price": "Number", 
+    "author": "String", 
+    "publisher": "String",
     "genre": "String",
-    "publication_year": "Int",
-    "available_quantity": "Int",
-    "price": "Decimal",
-    "publisher_name": "String",
+    "book_description": "String", 
 }
 ```

@@ -9,7 +9,9 @@ const schema = new mongoose.Schema({
     quantity: Number,
     price: Number, 
     author: String, 
-    publisher: String
+    publisher: String,
+    genre: String,
+    book_description: String,
 });
 
 const model = new mongoose.model('Books', schema);
