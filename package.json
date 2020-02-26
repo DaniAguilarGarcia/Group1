@@ -11,7 +11,7 @@
     "start": "node ./src/index.js",
     "local": "nodemon ./src/index.js",
     "test": "mocha",
-    "heroku-postbuild": "build-client.sh"
+    "heroku-postbuild": "./build-client.sh"
   },
   "nodemonConfig": {
     "watch": [
