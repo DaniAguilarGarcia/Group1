@@ -10,7 +10,11 @@ const protocol = process.env.DB_PROTOCOL;
 let server = `${protocol}://${address}:${port}/${name}`;
 
 if (user && password) {
-    server = `${protocol}://${user}:${password}@${address}:${port}/${name}`;
+    if (protocol !== 'mongodb') {
+        server = `${protocol}://${user}:${password}@${address}/${name}`;
+    } else {
+        server = `${protocol}://${user}:${password}@${address}:${port}/${name}`;
+    }
 }
 
 mongoose.connect(server, {
