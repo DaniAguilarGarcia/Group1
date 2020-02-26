@@ -5,12 +5,12 @@ const address = process.env.DB_ADDRESS;
 const port = process.env.DB_PORT;
 const user = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
+const protocol = process.env.DB_PROTOCOL;
 
+let server = `${protocol}://${address}:${port}/${name}`;
 
-// let server = `mongodb://${address}:${port}/${name}`;
-let server = `mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/test?retryWrites=true&w=majority`;
 if (user && password) {
-    server = `mongodb://${user}:${password}@${address}:${port}/${name}`;
+    server = `${protocol}://${user}:${password}@${address}:${port}/${name}`;
 }
 
 mongoose.connect(server, {
