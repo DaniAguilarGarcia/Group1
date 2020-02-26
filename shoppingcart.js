@@ -20,7 +20,7 @@ var shoppingCart = (function() {
     this.count = count;
   }
   
-  // Save cart for future purchases
+  // Save books for future purchases 
   function saveCart() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
   }
@@ -75,7 +75,7 @@ var shoppingCart = (function() {
     saveCart();
   }
 
-  // Remove all items from cart
+  // Remove all books from cart
   obj.removeItemFromCartAll = function(name) {
     for(var item in cart) {
       if(cart[item].name === name) {
