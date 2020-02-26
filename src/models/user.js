@@ -4,6 +4,19 @@ const PaymentMethod = require('./payment_method');
 const Password = require('../utils/password');
 const emailValidator = require('email-validator');
 
+/**
+ * @typedef {Object} User
+ * @property {string} username
+ * @property {string} name
+ * @property {string} nickname
+ * @property {string} email
+ * @property {string} password hashed
+ * @property {import('./address').Address[]} shipping_addresses
+ * @property {import('./payment_method').PaymentMethod[]} payment_methods
+ * @property {Date} created_at
+ * @property {Date} updated_at
+ */
+
 const schema = new mongoose.Schema({
     username: {
         type: String,
@@ -22,7 +35,6 @@ const schema = new mongoose.Schema({
         type: String,
         maxlength: [32, 'Your nickname can not be more than 32 characters'],
         minlength: [3, 'Your nickname must be at least 3 characters'],
-        required: [true, 'You must provide a nickname'],
     },
     email: {
         type: String,
@@ -37,9 +49,12 @@ const schema = new mongoose.Schema({
         type: String,
         validate: {
             validator: value => Password.validate(value, 3),
-            message: 'The password your provided was too easy to guess',
+            message: 'The password you provided was too easy to guess',
         },
         required: [true, 'You must provide a password'],
+    },
+    address: {
+        type: Address,
     },
     shipping_addresses: [Address],
     payment_methods: [PaymentMethod],
@@ -50,6 +65,11 @@ const schema = new mongoose.Schema({
     },
 });
 
+schema.hidden = [
+    'password',
+    '__v',
+];
+
 schema.pre('save', function (next) {
     // password hashing
     if (this.password && this.isModified('password')) {
@@ -57,6 +77,18 @@ schema.pre('save', function (next) {
     }
     next();
 });
+
+schema.methods.toJSON = function() {
+    const obj = this.toObject();
+    
+    schema.hidden.forEach((field) => { // @todo move this and make it recursive
+        if (Object.prototype.hasOwnProperty.call(obj, field)) {
+            delete obj[field];
+        }
+    })
+
+    return obj;
+};
 
 const model = new mongoose.model('User', schema);
 
