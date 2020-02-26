@@ -2,12 +2,16 @@
   "name": "cen4010-group1",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.13.0",
+    "npm": "6.12.x"
+  },
   "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
     "local": "nodemon ./src/index.js",
     "test": "mocha",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "build-client.sh"
   },
   "nodemonConfig": {
     "watch": [
