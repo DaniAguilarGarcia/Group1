@@ -7,4 +7,7 @@ Router.route('/login')
 Router.route('/me')
     .get(require('./me'));
 
+Router.route('/signup')
+    .post(require('./signup'));
+
 module.exports = Router;

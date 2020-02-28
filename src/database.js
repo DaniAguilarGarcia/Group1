@@ -5,10 +5,16 @@ const address = process.env.DB_ADDRESS;
 const port = process.env.DB_PORT;
 const user = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
+const protocol = process.env.DB_PROTOCOL;
 
-let server = `mongodb://${address}:${port}/${name}`;
+let server = `${protocol}://${address}:${port}/${name}`;
+
 if (user && password) {
-    server = `mongodb://${user}:${password}@${address}:${port}/${name}`;
+    if (protocol !== 'mongodb') {
+        server = `${protocol}://${user}:${password}@${address}/${name}`;
+    } else {
+        server = `${protocol}://${user}:${password}@${address}:${port}/${name}`;
+    }
 }
 
 mongoose.connect(server, {
