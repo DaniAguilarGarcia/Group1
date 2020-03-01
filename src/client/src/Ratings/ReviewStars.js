@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import cx from "classNames";
+import propTypes from "prop-types";
+import cx from "classnames";
 
 const config = {
     defaultStarCount: 5,
@@ -9,17 +9,17 @@ const config = {
 };
 
 class ReviewStars extends Component {
-    static PropTypes = {
-        name: PropTypes.string.isRequired,
-        value: PropTypes.number,
-        editing: PropTypes.bool,
-        starCount: PropTypes.number,
-        starColor: PropTypes.string,
-        onStarClick: PropTypes.func,
-        onStarHover: PropTypes.func,
-        onStarHoverOut: PropTypes.func,
-        renderStarIcon: PropTypes.func,
-        renderStarIconHalf: PropTypes.func,
+    static propTypes = {
+        name: propTypes.string.isRequired,
+        value: propTypes.number,
+        editing: propTypes.bool,
+        starCount: propTypes.number,
+        starColor: propTypes.string,
+        onStarClick: propTypes.func,
+        onStarHover: propTypes.func,
+        onStarHoverOut: propTypes.func,
+        renderStarIcon: propTypes.func,
+        renderStarIconHalf: propTypes.func,
     };
 
     static defaultProps = {

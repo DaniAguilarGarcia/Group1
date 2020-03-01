@@ -1,5 +1,5 @@
 import React from "react";
-import ReviewStars from "../ReviewStars/ReviewStars";
+import ReviewStars from "./Ratings/ReviewStars";
 
 export default function ReviewRow(props) {
     let review = {};

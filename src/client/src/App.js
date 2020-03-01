@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
+import Ratings from './Ratings'; /*review*/
 
 class App extends Component {
   constructor() {
@@ -57,6 +58,8 @@ class App extends Component {
                 render={(props) => <Register {...props} onLogin={this.handleLogin}/>}
             />
             <Route path='/cart' component={Cart} />
+            /> 
+            <Route path='/ratings' component={Ratings} />  
           </Switch>
         </div>
       </div>

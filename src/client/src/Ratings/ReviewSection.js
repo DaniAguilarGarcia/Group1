@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ReviewsHeader from "../ReviewsHeader/ReviewsHeader";
-import ReviewRow from "../ReviewRow/ReviewRow";
+import ReviewsHeader from "./Ratings/ReviewsHeader";
+import ReviewRow from "./Ratings/ReviewRow";
 
 export default class ReviewSection extends Component {
     render() {

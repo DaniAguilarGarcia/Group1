@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ReviewStars from "../ReviewStars/ReviewStars";
+import ReviewStars from "./Ratings/ReviewStars";
 
 export default function ReviewsHeader(props) {
     const book = props.book;
