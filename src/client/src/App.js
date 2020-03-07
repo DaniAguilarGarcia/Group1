@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './Ratings'; /*review*/
+import Books from './pages/Books';
 
 class App extends Component {
   constructor() {
@@ -60,7 +61,9 @@ class App extends Component {
             <Route path='/cart' component={Cart} />
             /> 
             <Route path='/ratings' component={Ratings} />  
-          </Switch>
+          />
+            <Route path='/books' component={Books} />
+          </Switch> 
         </div>
       </div>
     )
