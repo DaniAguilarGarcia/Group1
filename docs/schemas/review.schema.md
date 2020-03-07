@@ -3,12 +3,9 @@
 {
     "_id": "ObjectId",
     "title": "String",
-    "rating": "Double",
+    "rating": "int",
     "comment": "String",
-    "alias": "String",
+    "book_id": "int",
     "customer_id": "int",
-    "author": "String", 
-    "genre": "String",
-
 }
 ```
