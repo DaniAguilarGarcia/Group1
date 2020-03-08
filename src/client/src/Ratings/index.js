@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import RatingComponent from "./ReviewStars";
+import ReactDom from 'react-dom'
+import App from "../App";
 export default class extends Component {
   constructor() {
     super();
@@ -10,6 +12,16 @@ export default class extends Component {
       rating_half_star: 3.5,
       rating_empty_initial: 0
     };
+  }
+
+  onStarClick(nextValue, prevValue, name) {
+    console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
+    this.setState({ rating: nextValue });
+  }
+
+  onStarClickCustomIcon(nextValue, prevValue, name) {
+    console.log('name: %s, nextValue: %s, prevValue: %s', name, nextValue, prevValue);
+    this.setState({ rating_custom_icon: nextValue });
   }
 
   onStarClickHalfStar(nextValue, prevValue, name, e) {
@@ -72,3 +84,7 @@ export default class extends Component {
     );
   }
 }
+/* ReactDom.render(
+  <App />,
+  document.getElementById('app')
+); */
