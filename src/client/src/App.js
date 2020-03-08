@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './Ratings'; /*review*/
-import Books from './pages/Books';
+import Books from './pages/books';
 
 class App extends Component {
   constructor() {
