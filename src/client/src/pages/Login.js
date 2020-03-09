@@ -22,6 +22,12 @@ class Login extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.state.logged_in) {
+      this.props.history.push('/');
+    }
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
 
