@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RatingComponent from "./ReviewStars";
 import ReactDom from 'react-dom'
 import App from "../App";
+
 export default class extends Component {
   constructor() {
     super();
@@ -84,6 +85,9 @@ export default class extends Component {
     );
   }
 }
+/*React.render(<App />,
+  document.querySelector('#App')); */
+
 /* ReactDom.render(
   <App />,
   document.getElementById('app')
