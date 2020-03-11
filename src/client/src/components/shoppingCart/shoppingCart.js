@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Container, Card, Row, Col, Dropdown, DropdownButton, Button } from "react-bootstrap";
 
-function Cart(props) {
+function shoppingCart(props) {
 
     const [items, setItems] = useState([])
     useEffect(() => {
-        API.getCartForUser({ email: props.userEmail }).then(res => {
+        API.getshoppingCartForUser({ email: props.userEmail }).then(res => {
             setItems(res.data);
             console.log(res.data);
         })
@@ -15,7 +15,7 @@ function Cart(props) {
 
     function handleBookDelete(book){
         API.removeFromCart(props.userEmail, { book_id: book }).then(res => {
-            API.getCartForUser({ email: props.userEmail }).then(res => {
+            API.getshoppingCartForUser({ email: props.userEmail }).then(res => {
                 setItems(res.data);
                 console.log(res.data);
             })
@@ -53,4 +53,4 @@ function Cart(props) {
     )
 }
 
-export default Cart;
+export default shoppingCart;
