@@ -61,7 +61,7 @@ class App extends Component {
             />
             <Route path='/cart' component={Cart} />
             />
-            <Route path='ratings' component={Ratings} />
+            <Route path='/ratings' component={Ratings} />
             <Route path='/books' component={Books} />
           </Switch>
         </div>
