@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Home extends Component {
+class PaymentMethods extends Component {
   render() {
     return (
     <div className="row">
       <div className="col">
-        <h1>Home</h1>
+        <h1>Payment Methods</h1>
       </div>
     </div>
     );
   }
 }
-export default Home;
+export default PaymentMethods;
