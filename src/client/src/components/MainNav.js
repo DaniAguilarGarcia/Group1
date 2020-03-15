@@ -16,7 +16,7 @@ class MainNav extends Component {
         if (this.props.logged_in) {
             return (
                 <li className="nav-item">
-                    <Link to={'./login'} className="nav-link">
+                    <Link to={'/profile'} className="nav-link">
                         {this.props.user.name}
                     </Link>
                 </li>
@@ -25,7 +25,7 @@ class MainNav extends Component {
 
         return (
             <li className="nav-item">
-                <Link to={'./login'} className="nav-link">
+                <Link to={'/login'} className="nav-link">
                     Login
                 </Link>
             </li>
