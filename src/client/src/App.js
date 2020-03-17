@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import MainNav from './components/MainNav';
@@ -47,6 +47,7 @@ class App extends Component {
     });
   }
 
+
   render() {
     return (
       <div className="container-fluid">
@@ -75,3 +76,4 @@ class App extends Component {
 }
 
 export default App;
+
