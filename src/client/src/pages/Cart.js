@@ -1,79 +1,86 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removeFromCart, addQ, subtractQ } from '../components/shoppingCart/cartActions'
 import Calculate from '../components/shoppingCart/Calculate';
 
-class Cart extends Component{
+
+class Cart extends Component {
     //remove book from cart
-     handleRemove = (id)=>{
-        this.props.removeFromCart(id);
+    constructor(props) {
+        super(props) 
+        console.log(props)
+
+        this.books = [
+            {id:1,title: "book1", desc: "Placeholder desc", price: 10.23},
+            {id:2,title: "book2", desc: "Placeholder desc", price: 9.17},
+            {id:3,title: "book3", desc: "Placeholder desc", price: 10.99},
+            {id:3,title: "book4", desc: "Placeholder desc", price: 1.99},
+            {id:3,title: "book5", desc: "Placeholder desc", price: 18.99},
+            {id:3,title: "book6", desc: "Placeholder desc", price: 20.99},
+            {id:3,title: "book7", desc: "Placeholder desc", price: 89.99},
+            {id:3,title: "book8", desc: "Placeholder desc", price: 54.99},
+            {id:3,title: "book9", desc: "Placeholder desc", price: 34.99},
+        ]
+
     }
 
-    //add book quantity
-    handleAddQ = (id)=>{
-        this.props.addQ(id);
-    }
+   
+    // handleRemove = (id)=> {
+    //     removeFromCart(id);
+    // }
+   
+    // //add book quantity
+    // handleAddQ = (id)=>{
+    //     addQ(id);
+    // }
 
-    //subtract book quantity
-    handleSubtractQ = (id)=>{
-        this.props.subtractQ(id);
-    }
-
-    render(){
-        let addedItems = this.props.items.length ?
-        (
-            this.props.items.map(item=>{
-                return(
-                    <li className="book-img-list" key = {item.id}>
-                        <div className="book-img">
-                            <img src={item.img} alt={item.img} className=""/>
-                        </div>
-
-                        <div className="book-desc">
-                            <span className="title">{item.title}</span>
-                            <p>{item.desc}</p>
-                            <p>Price: ${item.price}</p>
-                            <p>Quantity: {item.quantity}</p>
-                        </div>
-
-                        <div classsName="add-remove">
-                            <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAddQ(item.id)}}>arrow_drop_up</i></Link>
-                            <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleSubtractQ(item.id)}}>arrow_drop_down</i></Link>
-                        </div>
-
-                        <button className="removal" onClick={()=>{this.handleRemove(item.id)}}>Remove</button>
-                    </li>
-                )
-            })
-        ):
-        (
-            <p>The cart is empty</p>
-        )
-    return(
-        <div className="container">
-            <div className="cart">
-                <ul clasName="list">
-                    {addedItems}
-                </ul>
+    // //subtract book quantity
+    // handleSubtractQ = (id)=>{
+    //     subtractQ(id);
+    // }
+   
+    renderBooksInCart = () => {
+      return this.books.map((book) => { 
+          return (
+            <div style={{display: 'flex'}}> 
+              <h3>{book.title}</h3>
+              <p>{book.desc}</p>
+              <p>${book.price}</p>
             </div>
-            <Calculate />
-        </div>
-    )
+           )
+      })
+    }
+    
+
+    render() {
+        const books = ["charlotess web", "lala"];
+        return (
+            <div className="row">
+                <div className="col">
+                    { this.props.logged_in ? 
+                         this.renderBooksInCart() :
+                         <div>Please Login To Populate Your Cart</div>
+                    }
+                    
+                </div>
+            </div>
+        );
     }
 }
 
-const mapStateToProps = (state)=>{
-    return{
-        items: state.addedItems
-    }
-}
-const mapDispatchToProps = (dispatch)=>{
-    return{
-        removeFromCart: (id)=>{dispatch(removeFromCart(id))},
-        addQ: (id)=>{dispatch(addQ(id))},
-        subtractQ: (id)=>{dispatch(subtractQ(id))}
-    }
-}
+// const mapStateToProps = (state)=>{
+//     return {
+//         // items: state.addedItems
+//     }
+// }
+// const mapDispatchToProps = (dispatch)=>{
+//     return{
+//         removeFromCart: (id)=>{dispatch(removeFromCart(id))},
+//         addQ: (id)=>{dispatch(addQ(id))},
+//         subtractQ: (id)=>{dispatch(subtractQ(id))}
+//     }
+// }
+export default Cart;
 
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+// export default connect(mapStateToProps,mapDispatchToProps)(Cart);
