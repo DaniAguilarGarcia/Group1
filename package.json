@@ -1,7 +1,7 @@
 {
   "name": "cen4010-group1",
   "version": "1.0.0",
-  "description": "",
+  "description": "# Testing 1. Copy `.env.example` to `.env.testing` 2. Populate `.env.testing` with your environment variables 3. Run `npm test`",
   "engines": {
     "node": "12.13.0",
     "npm": "6.12.x"
@@ -36,22 +36,24 @@
     "bcryptjs": "^2.4.3",
     "card-validator": "^6.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "mongoose": "^5.9.1",
+    "mongodb": "^3.5.4",
+    "mongoose": "^5.9.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "react-star-rating-component": "^1.4.1",
     "session-file-store": "^1.4.0",
     "uuid": "^3.4.0",
-    "zxcvbn": "^4.4.2",
-    "dotenv": "^8.2.0"
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "faker": "^4.1.0",
-    "mocha": "^7.0.1",
+    "mocha": "^7.1.0",
     "nodemon": "^2.0.2"
   },
   "mocha": {
@@ -61,5 +63,9 @@
       "./test/teardown.js"
     ],
     "exit": true
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   }
 }

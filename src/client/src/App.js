@@ -4,8 +4,12 @@ import './App.scss';
 import MainNav from './components/MainNav';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
+import Ratings from './pages/Ratings';
+/*import Ratings from './Ratings/Stars'; /*review*/
+import Books from './pages/books';
 
 class App extends Component {
   constructor() {
@@ -47,19 +51,23 @@ class App extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user}/>
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} />
         <div className="container main-view">
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/login'
-                render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin}/>}
+              render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
+            />
+            <Route path='/profile'
+                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
             <Route path='/register'
-                render={(props) => <Register {...props} onLogin={this.handleLogin}/>}
+              render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-            <Route path='/cart'
-                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
+            <Route path='/cart' component={Cart} />
             />
+            <Route path='/ratings' component={Ratings} />
+            <Route path='/books' component={Books} />
           </Switch>
         </div>
       </div>
