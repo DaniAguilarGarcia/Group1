@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import MainNav from './components/MainNav';
@@ -43,6 +43,7 @@ class App extends Component {
     });
   }
 
+
   render() {
     return (
       <div className="container-fluid">
@@ -56,7 +57,9 @@ class App extends Component {
             <Route path='/register'
                 render={(props) => <Register {...props} onLogin={this.handleLogin}/>}
             />
-            <Route path='/cart' component={Cart} />
+            <Route path='/cart'
+                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
+            />
           </Switch>
         </div>
       </div>
