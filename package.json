@@ -34,6 +34,7 @@
   "homepage": "https://github.com/DaniAguilarGarcia/Group1#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.4.1",
     "card-validator": "^6.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

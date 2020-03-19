@@ -9,7 +9,8 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
 /*import Ratings from './Ratings/Stars'; /*review*/
-import Books from './pages/books';
+import Books from './pages/Books';
+
 
 class App extends Component {
   constructor() {
