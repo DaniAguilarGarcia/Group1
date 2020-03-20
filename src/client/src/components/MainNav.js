@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
+import { NavDropdown, Nav, NavItem, NavLink } from 'react-bootstrap';
 
 
 class MainNav extends Component {
@@ -58,28 +59,9 @@ class MainNav extends Component {
         );
     }
 
-    navCenter(){
-        return(
-                <Col>
-                <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Browse By
-                </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                 <Dropdown.Item href="#/action-1">Genre</Dropdown.Item>
-                 <Dropdown.Item href="#/action-2">Book Rating</Dropdown.Item>
-                 <Dropdown.Divider />
-                 <Dropdown.Item href="#/action-3">Top Sellers</Dropdown.Item>
-            </Dropdown.Menu>
-            </Dropdown>
-            
-                </Col>
-        )
-    }
     render() {
         return (
-<container>
+            <container>
             
             <nav className="navbar navbar-expand-lg navbar-light bg-light row">
                 <Link to={'/'} className="navbar-brand">
@@ -93,10 +75,37 @@ class MainNav extends Component {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline my-2 flex-grow-1">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={this.state.search} onChange = {this.updateSeach.bind(this)}/>
-                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        {this.navCenter()}
+                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>   
                         
-                    </form>
+                       
+  <Nav className="justify-content-center" activeKey="/home">
+    <Nav.Item>
+      <Dropdown as={NavItem}>
+        <Dropdown.Toggle as={NavLink}>Genres</Dropdown.Toggle>
+        <Dropdown.Menu>
+        <Dropdown.Item>Fiction</Dropdown.Item>
+        <Dropdown.Item>Non-Fiction</Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
+    </Nav.Item>
+    <Nav.Item>
+    <Dropdown as={NavItem}>
+        <Dropdown.Toggle as={NavLink}>Ratings</Dropdown.Toggle>
+        <Dropdown.Menu>
+        <Dropdown.Item>Five Star</Dropdown.Item>
+        <Dropdown.Item>Four Star</Dropdown.Item>
+        <Dropdown.Item>Three Star</Dropdown.Item>
+        <Dropdown.Item>Two Star</Dropdown.Item>
+        <Dropdown.Item>One Star</Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link eventKey="link-3">Top Sellers</Nav.Link>
+    </Nav.Item>
+  </Nav>
+        </form>
+                    
                     {this.navRight()}
                 </div>
             </nav>
