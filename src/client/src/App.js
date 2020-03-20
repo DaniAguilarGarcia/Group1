@@ -10,7 +10,7 @@ import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
 /*import Ratings from './Ratings/Stars'; /*review*/
 import Books from './pages/Books';
-
+import seedbooks from './seedbooks';
 
 class App extends Component {
   constructor() {
@@ -68,13 +68,14 @@ class App extends Component {
             <Route path='/cart' component={Cart} />
             />
             <Route path='/ratings' component={Ratings} />
-            <Route path='/books' component={Books} />
+            <Route path='/books' component={Books} />    
           </Switch>
         </div>
       </div>
+
+       
     )
   };
 }
 
 export default App;
-
