@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MainNav.scss';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import { NavDropdown, Nav, NavItem, NavLink } from 'react-bootstrap';
+import { Nav, NavItem, NavLink } from 'react-bootstrap';
 
 
 class MainNav extends Component {
