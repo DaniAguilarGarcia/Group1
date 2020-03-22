@@ -10,4 +10,7 @@ Router.route('/me')
 Router.route('/signup')
     .post(require('./signup'));
 
+Router.route('/profile')
+    .patch(require('./profile'));
+
 module.exports = Router;

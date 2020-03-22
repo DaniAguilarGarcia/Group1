@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
-import Home from './Home';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import EditProfile from './profile/EditProfile';
 import Orders from './profile/Orders';
 import Password from './profile/Password';
@@ -12,11 +11,8 @@ class Profile extends Component {
   constructor(props) {
     super();
     this.state = {
-      error_msg: null,
       user: props.user,
-      change_password: false,
       logged_in: props.logged_in || false,
-      ...props.user,
     };
   }
 
@@ -30,51 +26,11 @@ class Profile extends Component {
     }
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    this.setState({
-      error_msg: null,
-    });
-
-    fetch('/api/user/login', {
-      method: 'post',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      }),
-    }).then(async (res) => {
-      const body = await res.json();
-      if (!res.ok) {
-        return this.setState({
-          error_msg: body.message,
-        });
-      }
-
-      this.setState({
-        logged_in: true,
-      });
-
-      this.props.onLogin(body); // user
-
-    }).catch(err => {
-      console.error(err);
-    });
-  }
-
-  onChange(attr, event) {
-    this.setState({
-      [attr]: event.target.value,
-    });
-  }
-
   render() {
     return (
       <div className="row">
-        <div className="col">
-          <ul className="nav nav-tabs profile mt-3" id="myTab" role="tablist">
+        <div className="col d-flex flex-column">
+          <ul className="nav nav-tabs profile mt-3 flex-order-1" id="myTab" role="tablist">
             <li className="nav-item">
               <NavLink activeClassName="active" className="nav-link"
                 to={'/profile'} exact>
