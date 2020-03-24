@@ -65,6 +65,7 @@ class App extends Component {
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
             <Route path='/cart' component={Cart} />
+                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
             />
             <Route path='/ratings' component={Ratings} />
             <Route path='/books' component={Books} />
