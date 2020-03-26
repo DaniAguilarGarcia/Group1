@@ -4,6 +4,9 @@ const Router = require('express').Router();
 Router.route('/login')
     .post(require('./login'));
 
+Router.route('/logout')
+    .post(require('./logout'));
+
 Router.route('/me')
     .get(require('./me'));
 

@@ -45,10 +45,17 @@ class App extends Component {
     });
   }
 
+  handleLogout = () => {
+    this.setState({
+      logged_in: false,
+      user: {},
+    });
+  }
+
   render() {
     return (
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user}/>
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} onLogout={this.handleLogout}/>
         <div className="container main-view">
           <Switch>
             <Route exact path='/' component={Home} />

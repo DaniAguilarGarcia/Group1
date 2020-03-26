@@ -1,70 +1,87 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 
 class MainNav extends Component {
-    constructor(props) {
-        super(props);
-        this.state = Object.assign({}, props);
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({}, props);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return props;
+  }
+
+  logout = () => {
+    fetch('/api/user/logout', {
+      method: 'post',
+      credentials: 'include',
+    }).then(() => {
+      this.props.onLogout();
+      this.props.history.push('/');
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+  loginItem() {
+    if (this.props.logged_in) {
+      return (
+        <li className="nav-item">
+          <Link to={'/profile'} className="nav-link">
+            {this.props.user.name}
+          </Link>
+        </li>
+      );
     }
 
-    static getDerivedStateFromProps(props, state) {
-      return props;
-    }
+    return (
+      <li className="nav-item">
+        <Link to={'/login'} className="nav-link">
+          Login
+                </Link>
+      </li>
+    );
+  }
 
-    loginItem() {
-        if (this.props.logged_in) {
-            return (
-                <li className="nav-item">
-                    <Link to={'/profile'} className="nav-link">
-                        {this.props.user.name}
-                    </Link>
-                </li>
-            );
+  navRight() {
+    return (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to={'./cart'} className="nav-link">
+            Cart
+          </Link>
+        </li>
+        {this.loginItem()}
+        {this.props.logged_in &&
+          <li className="nav-item">
+            <button className="nav-link btn btn-link" onClick={this.logout}>Logout</button>
+          </li>
         }
+      </ul>
+    );
+  }
 
-        return (
-            <li className="nav-item">
-                <Link to={'/login'} className="nav-link">
-                    Login
+  render() {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light bg-light row">
+        <Link to={'/'} className="navbar-brand">
+          Book Geeks
                 </Link>
-            </li>
-        );
-    }
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-    navRight() {
-        return (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link to={'./cart'} className="nav-link">
-                        Cart
-                    </Link>
-                </li>
-                {this.loginItem()}
-            </ul>
-        );
-    }
-
-    render() {
-        return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light row">
-                <Link to={'/'} className="navbar-brand">
-                    Book Geeks
-                </Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form className="form-inline my-2 flex-grow-1">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    {this.navRight()}
-                </div>
-            </nav>
-        );
-    }
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <form className="form-inline my-2 flex-grow-1">
+            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          {this.navRight()}
+        </div>
+      </nav>
+    );
+  }
 }
 
-export default MainNav;
+export default withRouter(MainNav);
