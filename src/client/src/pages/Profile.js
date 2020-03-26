@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import EditProfile from './profile/EditProfile';
 import Orders from './profile/Orders';
-import Password from './profile/Password';
 import PaymentMethods from './profile/PaymentMethods';
 import ShippingAddresses from './profile/ShippingAddresses';
 import './Profile.scss';
@@ -45,12 +44,6 @@ class Profile extends Component {
             </li>
             <li className="nav-item">
               <NavLink activeClassName="active" className="nav-link"
-                to={'/profile/password'} exact>
-                Password
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink activeClassName="active" className="nav-link"
                 to={'/profile/payment_methods'} exact>
                 Payment Methods
               </NavLink>
@@ -70,9 +63,6 @@ class Profile extends Component {
                 />
                 <Route exact path='/profile/orders'
                   render={(props) => <Orders {...props} user={this.state.user} />}
-                />
-                <Route exact path='/profile/password'
-                  render={(props) => <Password {...props} user={this.state.user} />}
                 />
                 <Route exact path='/profile/payment_methods'
                   render={(props) => <PaymentMethods {...props} user={this.state.user} />}
