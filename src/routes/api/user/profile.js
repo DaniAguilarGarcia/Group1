@@ -7,7 +7,12 @@ module.exports = async (req, res, next) => {
             .send('you need to log in');
     }
 
-    await Users.update(req.user._id, req.body);
+    try {
+      await Users.update(req.user._id, req.body);
+    } catch (error) {
+      return res.status(422)
+        .send(error);
+    }
 
     const updated = await Users.findById(req.user._id);
 

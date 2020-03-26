@@ -70,12 +70,18 @@ schema.hidden = [
     '__v',
 ];
 
+schema.pre('updateOne', function (next) {
+  if (this._update.$set.password) {
+    this._update.$set.password = Password.hash(this._update.$set.password);
+  }
+  next();
+});
+
 schema.pre('save', function (next) {
-    // password hashing
-    if (this.password && this.isModified('password')) {
-        this.password = Password.hash(this.password);
-    }
-    next();
+  if (this.password && this.isModified('password')) {
+    this.password = Password.hash(this.password);
+  }
+  next();
 });
 
 schema.methods.toJSON = function() {

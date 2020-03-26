@@ -49,14 +49,22 @@ const schema = new mongoose.Schema({
     },
 });
 
+function tokenMiddleware(doc) {
+  if (doc.pan && doc.isModified('pan')) {
+    doc.last_four = doc.pan.substr(-4);
+    const result = card_validator.number(doc.pan);
+    doc.brand = result.card.type;
+    doc.pan = uuid(); // simulate tokenization
+  }
+}
+
+schema.pre('updateOne', function(next) {
+    tokenMiddleware(this);
+    next();
+});
+
 schema.pre('save', function(next) {
-    // cc tokenization
-    if (this.pan && this.isModified('pan')) {
-        this.last_four = this.pan.substr(-4);
-        const result = card_validator.number(this.pan);
-        this.brand = result.card.type;
-        this.pan = uuid(); // simulate tokenization
-    }
+    tokenMiddleware(this);
     next();
 });
 
