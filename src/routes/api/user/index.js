@@ -16,4 +16,6 @@ Router.route('/signup')
 Router.route('/profile')
     .patch(require('./profile'));
 
+Router.use("/methods", require('./methods'));
+
 module.exports = Router;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Address = require('./address');
-const PaymentMethod = require('./payment_method');
+const { schema: PaymentMethod } = require('./payment_method');
 const Password = require('../utils/password');
 const emailValidator = require('email-validator');
 

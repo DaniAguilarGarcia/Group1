@@ -15,57 +15,52 @@ const card_validator = require('card-validator');
  */
 
 const schema = new mongoose.Schema({
-    alias: String,
-    pan: {
-        type: String,
-        validator: {
-            validate: (value) => {
-                const result = card_validator.number(value);
-                return result.isValid;
-            },
-            message: 'Please enter a valid credit card number',
-        },
-        required: true,
+  alias: String,
+  pan: {
+    type: String,
+    validate: {
+      validator: (value) => {
+        return card_validator.number(value).isValid;
+      },
+      message: 'Please enter a valid credit card number',
     },
-    payer_name: String,
-    brand: String,
-    last_four: String,
-    exp: {
-        type: String,
-        validator: {
-            validate: (value) => {
-                const result = card_validator.expirationDate(value);
-                return result.isValid;
-            },
-            message: 'The expiration is invalid',
-        },
-        required: true,
+  },
+  token: String,
+  payer_name: String,
+  brand: String,
+  last_four: String,
+  exp: {
+    type: String,
+    validate: {
+      validator: (value) => {
+        const result = card_validator.expirationDate(value);
+        return result.isPotentiallyValid;
+      },
+      message: 'The expiration is invalid',
     },
-    address: Address,
+    required: true,
+  },
+  address: Address,
 }, {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
 });
 
-function tokenMiddleware(doc) {
-  if (doc.pan && doc.isModified('pan')) {
-    doc.last_four = doc.pan.substr(-4);
-    const result = card_validator.number(doc.pan);
-    doc.brand = result.card.type;
-    doc.pan = uuid(); // simulate tokenization
+schema.pre('save', function (next) {
+  if (this.pan) {
+    this.last_four = this.pan.substr(-4);
+    this.brand = card_validator.number(this.pan).card.type;
+    this.token = uuid(); // simulate tokenization
+    this.pan = undefined;
   }
-}
-
-schema.pre('updateOne', function(next) {
-    tokenMiddleware(this);
-    next();
+  next();
 });
 
-schema.pre('save', function(next) {
-    tokenMiddleware(this);
-    next();
-});
+const model = new mongoose.model('Method', schema);
 
-module.exports = schema;
+module.exports = {
+  schema,
+  model
+};
