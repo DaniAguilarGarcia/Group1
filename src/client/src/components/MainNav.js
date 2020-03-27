@@ -3,18 +3,26 @@ import { Link } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
-
+import Search from './Search';
 
 class MainNav extends Component {
     constructor(props) {
         super(props);
-        this.state = Object.assign({
+
+        this.state = {
+            filterText :'',
             search: 'Search'
-        }, props);
+        };
     }
 
-    updateSeach(event){
-        this.setState({search: event.target.value.substr(0,20)});
+    updateSearch(event){
+        this.setState({search: event.target.value.substring(0,20)});
+    }
+
+    filterUpdate(value){
+        this.setState({
+            filterText: value
+        })
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -57,7 +65,6 @@ class MainNav extends Component {
     render() {
         return (
             <container>
-            
             <nav className="navbar navbar-expand-lg navbar-light bg-light row">
                 <Link to={'/'} className="navbar-brand">
                     Book Geeks
@@ -69,8 +76,15 @@ class MainNav extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline my-2 flex-grow-1">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={this.state.search} onChange = {this.updateSeach.bind(this)}/>
-                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>   
+                    <Search 
+                    filterText= {this.state.filterText}
+                    filterUpdate = {this.filterUpdate.bind(this)}
+                    />
+                    
+                    <input type ="text" 
+                        value={this.state.search}
+                        onChange={this.updateSearch.bind(this)}/>
+                        
                         
                        
   <Nav className="justify-content-center" activeKey="/home">
@@ -91,7 +105,7 @@ class MainNav extends Component {
         <Dropdown.Item>Four Star</Dropdown.Item>
         <Dropdown.Item>Three Star</Dropdown.Item>
         <Dropdown.Item>Two Star</Dropdown.Item>
-        <Dropdown.Item>One Star</Dropdown.Item>
+        <Dropdown.Item><i class="fa fa-star" size="2x" color='yellow'/></Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
     </Nav.Item>

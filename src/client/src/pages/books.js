@@ -5,28 +5,37 @@ import Navbar from 'react-bootstrap/Navbar';
 import {bookData} from '../data';
 import {BookConsumer} from './booksapi';
 import BookProduct from './../components/BookProduct';
+import Search from './../components/Search';
 
 class Books extends Component {
 
+  
+
   render() {
-    
+
+    let filteredBooks = this.props.books.filter(
+        
+      );
+
     return (
+    
     <div className="row">
       <div className="col">
-        <h1>Books</h1>
+        <h3>Books</h3>
        
        <React.Fragment>
        <div className="py-5">
         <div className = "container">
-          <div className = "row">    
-            <BookConsumer>
+          <div className = "row"> 
+          
+          <BookConsumer>
             {value => {
-              return value.books.map(book => {
-                return <BookProduct key={book.id} book={book} />;
+              return value.filteredBooks.map(book => {
+                return <BookProduct key={book.id} filterText={book.title} book={book} />;
               })         
             }}
             </BookConsumer>
-            
+
             </div>
             </div> </div>
             </React.Fragment>
@@ -37,13 +46,6 @@ class Books extends Component {
           <Pagination.Prev />
           <Pagination.Item active>{1}</Pagination.Item>
           <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item >{12}</Pagination.Item>
-          <Pagination.Item>{13}</Pagination.Item>
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
           <Pagination.Next />
           <Pagination.Last />
           </Pagination>

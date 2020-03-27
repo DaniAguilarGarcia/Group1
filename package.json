@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/DaniAguilarGarcia/Group1#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
     "card-validator": "^6.2.0",

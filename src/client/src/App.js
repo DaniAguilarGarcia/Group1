@@ -11,11 +11,11 @@ import Ratings from './pages/Ratings';
 import Books from './pages/Books';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      searchBooks: '',
       logged_in: false,
       user: {},
     }
