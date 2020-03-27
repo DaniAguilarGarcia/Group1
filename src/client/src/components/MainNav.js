@@ -16,7 +16,7 @@ class MainNav extends Component {
         if (this.props.logged_in) {
             return (
                 <li className="nav-item">
-                    <Link to={'/profile'} className="nav-link">
+                    <Link to={'./login'} className="nav-link">
                         {this.props.user.name}
                     </Link>
                 </li>
@@ -25,7 +25,7 @@ class MainNav extends Component {
 
         return (
             <li className="nav-item">
-                <Link to={'/login'} className="nav-link">
+                <Link to={'./login'} className="nav-link">
                     Login
                 </Link>
             </li>
@@ -62,6 +62,10 @@ class MainNav extends Component {
                     </form>
                     {this.navRight()}
                 </div>
+                <div > <Link to={'/Product'} >
+                <button className="btn btn-outline-success my-2 my-sm-0" type="Book">Books</button>
+                
+                </Link> </div>
             </nav>
         );
     }
