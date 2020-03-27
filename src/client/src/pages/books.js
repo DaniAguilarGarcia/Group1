@@ -2,35 +2,36 @@ import React, { Component } from 'react';
 import {render} from 'react-dom';
 import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
-import BookProduct from './../components/BookProduct';
 import {bookData} from '../data';
 import {BookConsumer} from './booksapi';
+import BookProduct from './../components/BookProduct';
 
 class Books extends Component {
 
-  state = {
-    books : bookData
-  };
-
   render() {
-    console.log(this.state.books);
+    
     return (
     <div className="row">
       <div className="col">
         <h1>Books</h1>
-
+       
+       <React.Fragment>
+       <div className="py-5">
         <div className = "container">
-          <div className = "row">
+          <div className = "row">    
             <BookConsumer>
             {value => {
-              return value.books.map(books => {
-                return <BookProduct key={books.id} books={books} />;
+              return value.books.map(book => {
+                return <BookProduct key={book.id} book={book} />;
               })         
             }}
             </BookConsumer>
+            
             </div>
-            </div>
-        <React.Fragment>
+            </div> </div>
+            </React.Fragment>
+           
+          <React.Fragment>
           <Pagination>
           <Pagination.First />
           <Pagination.Prev />
@@ -46,7 +47,7 @@ class Books extends Component {
           <Pagination.Next />
           <Pagination.Last />
           </Pagination>
-            </React.Fragment>
+          </React.Fragment>
           </div>
         </div>
 );

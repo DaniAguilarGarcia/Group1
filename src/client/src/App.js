@@ -8,13 +8,14 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
-/*import Ratings from './Ratings/Stars'; /*review*/
 import Books from './pages/Books';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      searchBooks: '',
       logged_in: false,
       user: {},
     }
@@ -50,6 +51,7 @@ class App extends Component {
 
   render() {
     return (
+
       <div className="container-fluid">
         <MainNav logged_in={this.state.logged_in} user={this.state.user} />
         <div className="container main-view">
