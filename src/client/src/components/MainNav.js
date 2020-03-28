@@ -112,10 +112,35 @@ class MainNav extends Component {
               editing={false} 
         />
         </Dropdown.Item>
-        <Dropdown.Item>Four Star</Dropdown.Item>
-        <Dropdown.Item>Three Star</Dropdown.Item>
-        <Dropdown.Item>Two Star</Dropdown.Item>
-        <Dropdown.Item><i class="fa fa-star" size="2x"/></Dropdown.Item>
+        <Dropdown.Item>
+        <StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={4} 
+              editing={false} 
+        />
+        </Dropdown.Item>
+        <Dropdown.Item>
+        <StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={3} 
+              editing={false} 
+        /></Dropdown.Item>
+        <Dropdown.Item>
+        <StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={2} 
+              editing={false} 
+        />
+        </Dropdown.Item>
+        <Dropdown.Item><StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={1} 
+              editing={false} 
+        /></Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
     </Nav.Item>
@@ -124,7 +149,9 @@ class MainNav extends Component {
     </Nav.Item>
   </Nav>
         </form>
-                    
+        <Link to={'./books'} className="nav-link">
+            All Books
+          </Link>
                     {this.navRight()}
                 </div>
             </nav>

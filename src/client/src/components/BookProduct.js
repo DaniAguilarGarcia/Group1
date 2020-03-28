@@ -42,7 +42,13 @@ class BookProduct extends PureComponent {
                 <div className="card-title"><h5>{title}</h5></div>
                 <div className="card-text">{authors}</div>
                 <div className="card-text">{price}</div>
-                <div className="card-text"> Rating: {average_rating}</div>
+                <div className="card-text"> Rating: 
+                    <StarRatingComponent
+                        name="rating"
+                        starCount={5}
+                        value={JSON.stringify(average_rating)} 
+                        editing={false} 
+                     /></div>
                 </div>
                 </div>
             </ProductWrapper>
