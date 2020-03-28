@@ -4,26 +4,17 @@ import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import Search from './Search';
+import { BookConsumer } from '../pages/booksapi';
 
 class MainNav extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            filterText :'',
-            search: 'Search'
+        
         };
     }
 
-    updateSearch(event){
-        this.setState({search: event.target.value.substring(0,20)});
-    }
-
-    filterUpdate(value){
-        this.setState({
-            filterText: value
-        })
-    }
 
     static getDerivedStateFromProps(props, state) {
       return props;
@@ -63,6 +54,7 @@ class MainNav extends Component {
     }
 
     render() {
+
         return (
             <container>
             <nav className="navbar navbar-expand-lg navbar-light bg-light row">
@@ -83,9 +75,8 @@ class MainNav extends Component {
                     
                     <input type ="text" 
                         value={this.state.search}
-                        onChange={this.updateSearch.bind(this)}/>
-                        
-                        
+                        onChange={(e) => this.searchCallBack(e.target.value)}/>
+                    
                        
   <Nav className="justify-content-center" activeKey="/home">
     <Nav.Item>

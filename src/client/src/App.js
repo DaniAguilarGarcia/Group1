@@ -1,5 +1,5 @@
  import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import './App.scss';
 import MainNav from './components/MainNav';
 import Home from './pages/Home';
@@ -13,12 +13,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends Component {
+
   constructor() {
     super();
     this.state = {
       logged_in: false,
       user: {},
+      search: ""
     }
+  }
+
+  updateSearch(search){
+    this.setState({search});
   }
 
   checkLoginStatus() {
@@ -53,7 +59,7 @@ class App extends Component {
     return (
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} />
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
         <div className="container main-view">
           <Switch>
             <Route exact path='/' component={Home} />

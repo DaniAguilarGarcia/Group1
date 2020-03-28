@@ -6,8 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const DB = require('./database');
 const cors = require('cors');
-
-const bookService = require('./services/books');
+const books = require('./services/books');
 
 app.use(cors());
 
@@ -49,6 +48,44 @@ if (process.env.NODE_ENV === 'local') {
         }
     })();
 }
+
+/*pagination
+app.get('/books',paginatedResults(books), (req,res) => {
+    res.json(res.paginatedResults)
+})
+
+function paginatedResults(model){
+    return async(req, res, next) => {
+    
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const results = {}
+
+    if(endIndex < model.length){
+    results.next = {
+        page: page + 1,
+        limit: limit
+    }
+    }
+    if(startIndex > 0){
+    results.previous = {
+        page: page - 1,
+        limit: limit
+    }
+}
+try{
+    results.results = model.find().limit(limit).skip(startIndex)
+    res.paginatedResults = results
+    next()
+} catch (e) {
+    res.status(500).json( message: e.message })
+    }
+   }
+}*/
 
 module.exports = app.listen(port, () => console.log(`App listening on port ${port}!`));
 

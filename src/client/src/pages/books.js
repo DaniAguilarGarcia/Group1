@@ -9,13 +9,12 @@ import Search from './../components/Search';
 
 class Books extends Component {
 
-  
+  constructor(props) {
+    super(props);
+}
+
 
   render() {
-
-    let filteredBooks = this.props.books.filter(
-        
-      );
 
     return (
     
@@ -27,15 +26,14 @@ class Books extends Component {
        <div className="py-5">
         <div className = "container">
           <div className = "row"> 
-          
           <BookConsumer>
             {value => {
-              return value.filteredBooks.map(book => {
-                return <BookProduct key={book.id} filterText={book.title} book={book} />;
+              return value.books.map(book => {
+                return <BookProduct key={book.id} book={book}  />;
               })         
             }}
             </BookConsumer>
-
+          
             </div>
             </div> </div>
             </React.Fragment>
