@@ -3,7 +3,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { useHistory } from "react-router-dom";
 
 const Ratings = props => {
-  const [customerId, setCustomerId] = useState(parseInt("0001"));
+  const [nickname, setNickname] = useState("Current User");
   const [rating, setRating] = useState(5);
   const [userTitle, setUserTitle] = useState("");
   const [userComment, setUserComment] = useState("");
@@ -12,10 +12,11 @@ const Ratings = props => {
       title: "Great Book!",
       rating: 5,
       comment: "I love this book, it's one of my favorites.",
-      customer_id: 12345
+      nickname: "John Smith"
     }
   ]);
   const [showModal, setShowModal] = useState(false);
+  const [hideUser, setHideUser] = useState(false);
   let history = useHistory();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Ratings = props => {
           rating,
           title: userTitle,
           comment: userComment,
-          customer_id: customerId
+          nickname: hideUser ? 'Anonymous' : nickname
         })
       );
     } else {
@@ -54,7 +55,7 @@ const Ratings = props => {
             {comments.map(obj => (
               <li class="list-group-item">
                 <h4>{obj.title}</h4>
-                <h6>Review by {obj.customer_id}</h6>
+                <h6>Review by {obj.nickname}</h6>
                 <StarRatingComponent
                   name="rating"
                   starCount={5}
@@ -93,6 +94,17 @@ const Ratings = props => {
                 onChange={e => setUserComment(e.target.value)}
               ></textarea>
             </div>
+            <div class="form-group form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                value={hideUser}
+                onChange={() => setHideUser(prev => !prev)}
+              />
+              <label class="form-check-label">
+                Hide Username
+              </label>
+            </div>
             <button className="btn btn-primary" type="submit">
               Submit Review
             </button>
@@ -103,7 +115,7 @@ const Ratings = props => {
       {showModal && (
         <div
           class="modal"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           style={{ display: "block" }}
         >
