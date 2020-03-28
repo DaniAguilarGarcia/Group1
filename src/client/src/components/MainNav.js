@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import Search from './Search';
 import { BookConsumer } from '../pages/booksapi';
+import StarRatingComponent from "react-star-rating-component";
 
 class MainNav extends Component {
 
@@ -82,6 +83,7 @@ class MainNav extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline my-2 flex-grow-1">
+
                     
                     <input type ="text" 
                         value={this.state.search}
@@ -102,11 +104,18 @@ class MainNav extends Component {
     <Dropdown as={NavItem}>
         <Dropdown.Toggle as={NavLink}>Ratings</Dropdown.Toggle>
         <Dropdown.Menu>
-        <Dropdown.Item>Five Star</Dropdown.Item>
+        <Dropdown.Item>
+        <StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={5} 
+              editing={false} 
+        />
+        </Dropdown.Item>
         <Dropdown.Item>Four Star</Dropdown.Item>
         <Dropdown.Item>Three Star</Dropdown.Item>
         <Dropdown.Item>Two Star</Dropdown.Item>
-        <Dropdown.Item><i class="fa fa-star" size="2x" color='yellow'/></Dropdown.Item>
+        <Dropdown.Item><i class="fa fa-star" size="2x"/></Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
     </Nav.Item>
