@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
@@ -7,51 +7,65 @@ import Search from './Search';
 import { BookConsumer } from '../pages/booksapi';
 
 class MainNav extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-        
-        };
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({}, props);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return props;
+  }
+
+  logout = () => {
+    fetch('/api/user/logout', {
+      method: 'post',
+      credentials: 'include',
+    }).then(() => {
+      this.props.onLogout();
+      this.props.history.push('/');
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+  loginItem() {
+    if (this.props.logged_in) {
+      return (
+        <li className="nav-item">
+          <Link to={'/profile'} className="nav-link">
+            {this.props.user.name}
+          </Link>
+        </li>
+      );
     }
 
-
-    static getDerivedStateFromProps(props, state) {
-      return props;
-    }
-
-    loginItem() {
-        if (this.props.logged_in) {
-            return (
-                <li className="nav-item">
-                    <Link to={'/profile'} className="nav-link">
-                        {this.props.user.name}
-                    </Link>
-                </li>
-            );
-        }
-
-        return (
-            <li className="nav-item">
-                <Link to={'/login'} className="nav-link">
-                    Login
+    return (
+      <li className="nav-item">
+        <Link to={'/login'} className="nav-link">
+          Login
                 </Link>
-            </li>
-        );
-    }
+      </li>
+    );
+  }
 
-    navRight() {
-        return (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link to={'./cart'} className="nav-link">
-                        Cart
-                    </Link>
-                </li>
-                {this.loginItem()}
-            </ul>
-        );
-    }
+  navRight() {
+    return (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to={'./cart'} className="nav-link">
+            Cart
+          </Link>
+        </li>
+        {this.loginItem()}
+        {this.props.logged_in &&
+          <li className="nav-item">
+            <button className="nav-link btn btn-link" onClick={this.logout}>Logout</button>
+          </li>
+        }
+      </ul>
+    );
+  }
 
     render() {
 
@@ -111,7 +125,7 @@ class MainNav extends Component {
             </nav>
             </container>
         );
-    }
+
 }
 
-export default MainNav;
+export default withRouter(MainNav);
