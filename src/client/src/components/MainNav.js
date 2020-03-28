@@ -52,6 +52,9 @@ class MainNav extends Component {
             Cart
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/ratings" className="nav-link">Ratings</Link>
+        </li>
         {this.loginItem()}
         {this.props.logged_in &&
           <li className="nav-item">
