@@ -33,7 +33,7 @@ class PaymentMethods extends Component {
       methods: this.state.methods,
     });
   }
-
+  
   render() {
     return (
     <div className="row">
