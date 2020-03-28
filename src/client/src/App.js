@@ -47,16 +47,25 @@ class App extends Component {
     });
   }
 
+  handleLogout = () => {
+    this.setState({
+      logged_in: false,
+      user: {},
+    });
+  }
 
   render() {
     return (
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} />
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} onLogout={this.handleLogout}/>
         <div className="container main-view">
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
+            />
+            <Route path='/profile'
+                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
             <Route path='/profile'
                 render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
