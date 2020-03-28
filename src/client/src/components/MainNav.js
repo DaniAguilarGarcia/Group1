@@ -82,10 +82,6 @@ class MainNav extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline my-2 flex-grow-1">
-                    <Search 
-                    filterText= {this.state.filterText}
-                    filterUpdate = {this.filterUpdate.bind(this)}
-                    />
                     
                     <input type ="text" 
                         value={this.state.search}
@@ -126,6 +122,6 @@ class MainNav extends Component {
             </container>
         );
 
-}
+}}
 
 export default withRouter(MainNav);
