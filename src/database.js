@@ -17,6 +17,7 @@ if (user && password) {
     }
 }
 
+//mongoose.connect('mongodb://localhost/pagination',
 mongoose.connect(server, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,5 +29,11 @@ const DB = mongoose.connection;
 
 DB.on('error', console.error.bind(console, 'connection error:'));
 DB.once('open', () => console.log('DB connected'));
+/*DB.once('open', async () => {
+    if (await Book.countDocuments().exec() > 0) return
 
+    Promise.all ([
+
+    ]).then(() => console.log('Added Books'))
+})*/
 module.exports = DB;
