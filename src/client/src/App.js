@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom';
 import './App.scss';
 import MainNav from './components/MainNav';
@@ -9,8 +9,10 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
 import Books from './pages/Books';
+import TopSellers from './pages/TopSellers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const data = require('../src/data');
 
 class App extends Component {
 
@@ -19,13 +21,11 @@ class App extends Component {
     this.state = {
       logged_in: false,
       user: {},
-      search: ""
+      search: ''
     }
   }
 
-  updateSearch(search){
-    this.setState({search});
-  }
+  
 
   checkLoginStatus() {
     fetch('/api/user/me', {
@@ -87,6 +87,9 @@ class App extends Component {
             />
             <Route path='/ratings' component={Ratings} />
             <Route path='/books' component={Books} />    
+            <Route path='/home' component={Home} /> 
+            <Route path='/topsellers' component={TopSellers } /> 
+            
           </Switch>
         </div>
       </div>

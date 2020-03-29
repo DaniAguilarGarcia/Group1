@@ -20,6 +20,12 @@ class Search extends PureComponent {
                />
            <button className="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
            
+           <input type ="text" 
+                        value={this.state.search}
+                        onChange={(e) => this.searchChangeHandler(e.target.value)}
+                        onSubmit={(e) => this.searchChangeHandler(e.target.value)}
+                       />
+                       <button className="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
            </React.Fragment> 
         )
     }

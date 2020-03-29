@@ -15,6 +15,7 @@ class Books extends Component {
 
   render() {
 
+     
     return (
     
     <div className="row">
@@ -25,6 +26,7 @@ class Books extends Component {
        <div className="py-5">
         <div className = "container">
           <div className = "row"> 
+          
           <BookConsumer>
             {value => {
               return value.books.map(book => {

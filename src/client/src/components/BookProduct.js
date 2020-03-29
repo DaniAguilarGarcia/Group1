@@ -42,7 +42,7 @@ class BookProduct extends PureComponent {
                 <div className="card-title"><h5>{title}</h5></div>
                 <div className="card-text">{authors}</div>
                 <div className="card-text">{price}</div>
-                <div className="card-text"> Rating: 
+                <div className="card-text">
                     <StarRatingComponent
                         name="rating"
                         starCount={5}

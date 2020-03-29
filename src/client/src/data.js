@@ -136,7 +136,7 @@ export const bookData =[
       "id": 13,
       "authors": "George Orwell, Erich Fromm, Cel√¢l √úster",
       "original_publication_year": 1949,
-      "title": 1984,
+      "title": "1984",
       "average_rating": 4.14,
       "price": "$20.00",
       "image_url": "https://images.gr-assets.com/books/1348990566m/5470.jpg",
@@ -152,7 +152,7 @@ export const bookData =[
       "price": "$10.00",
       "image_url": "https://images.gr-assets.com/books/1424037542m/7613.jpg",
       "small_image_url": "https://images.gr-assets.com/books/1424037542s/7613.jpg",
-      "inCart": "FALSE"
+      "inCart": false
     },
     {
       "id": 15,

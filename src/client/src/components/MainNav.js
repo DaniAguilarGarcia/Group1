@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter , Redirect} from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
@@ -11,12 +11,34 @@ class MainNav extends Component {
 
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props);
+    this.state = Object.assign(
+      {search: '',
+      submit : false,
+      bookData : {}
+  }, props
+      
+      );
   }
 
   static getDerivedStateFromProps(props, state) {
     return props;
   }
+
+  searchChangeHandler(search){
+    this.setState({search: search});
+  }
+
+  /*searchSubmitHandler(event){
+    var n;
+    var book;
+    for (n in data.books){
+      if (event === data.books[n].title){
+        this.setState({bookData: data.books[n].id})
+        break;
+      }
+    }
+    <Redirect></Redirect to= "">
+  }*/
 
   logout = () => {
     fetch('/api/user/logout', {
@@ -85,9 +107,8 @@ class MainNav extends Component {
                     <form className="form-inline my-2 flex-grow-1">
 
                     
-                    <input type ="text" 
-                        value={this.state.search}
-                        onChange={(e) => this.searchCallBack(e.target.value)}/>
+                    
+                   
                     
                        
   <Nav className="justify-content-center" activeKey="/home">
@@ -102,7 +123,7 @@ class MainNav extends Component {
     </Nav.Item>
     <Nav.Item>
     <Dropdown as={NavItem}>
-        <Dropdown.Toggle as={NavLink}>Ratings</Dropdown.Toggle>
+        <Dropdown.Toggle as={NavLink}>Browse By Ratings</Dropdown.Toggle>
         <Dropdown.Menu>
         <Dropdown.Item>
         <StarRatingComponent
@@ -145,13 +166,21 @@ class MainNav extends Component {
         </Dropdown>
     </Nav.Item>
     <Nav.Item>
-      <Nav.Link eventKey="link-3">Top Sellers</Nav.Link>
-    </Nav.Item>
-  </Nav>
-        </form>
-        <Link to={'./books'} className="nav-link">
+    <Link to={'./topsellers'} className="nav-link">
+            Topsellers
+          </Link>
+    <Link to={'./books'} className="nav-link">
             All Books
           </Link>
+    </Nav.Item>
+    <Link to={'./ratings'} className="nav-link">
+            Ratings
+          </Link>
+    
+
+  </Nav>
+        </form>
+        
                     {this.navRight()}
                 </div>
             </nav>
