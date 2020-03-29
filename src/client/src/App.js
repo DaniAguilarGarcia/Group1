@@ -85,11 +85,18 @@ class App extends Component {
             />
             <Route path='/cart' component={Cart} />
             />
+
             <Route path='/ratings' component={Ratings} />
             <Route path='/books' component={Books} />    
             <Route path='/home' component={Home} /> 
             <Route path='/topsellers' component={TopSellers } /> 
             
+
+            <Route path='/ratings'  
+              render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>} 
+            />
+            <Route path='/books' component={Books} />
+
           </Switch>
         </div>
       </div>
