@@ -56,13 +56,12 @@ class App extends Component {
 
 
   render() {
-    return (
+    return <React.Fragment>
 
       <div className="container-fluid">
         <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
         <div className="container main-view">
           <Switch>
-            <Route exact path='/' component={Home} />
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
             />
@@ -80,8 +79,10 @@ class App extends Component {
         </div>
       </div>
 
-       
-    )
+      <h3>hello from app</h3>
+
+      </React.Fragment> 
+    
   };
 }
 

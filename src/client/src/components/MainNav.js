@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import Search from './Search';
 import { BookConsumer } from '../pages/booksapi';
+import { ButtonContainer } from "./Button";
 
 class MainNav extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class MainNav extends Component {
         return (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <Link to={'./cart'} className="nav-link">
+                    <Link to={'./books'} className="nav-link">
                         Cart
                     </Link>
                 </li>
@@ -53,6 +54,45 @@ class MainNav extends Component {
         );
     }
 
+    navRight() {
+        return (
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                    <Link to={'./cart'} className="nav-link">
+                        Car
+                    </Link>
+                </li>
+                {this.loginItem()}
+            </ul>
+        );
+    }
+
+    navBook() {
+        return (
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                    <Link to={'./books'} className="nav-link">
+                        My Books
+                    </Link>
+                </li>
+                {this.navRight()}
+            </ul>
+        );
+    }
+
+    /*
+    navBook() {
+        return (
+            <Link to='/books' className="ml-auto">
+                    <button>
+                        <i className="fas fa-cart-plus" />
+                        MY BOOKS
+                    </buttton>
+            </Link>
+        );
+    }
+    */
+
     render() {
 
         return (
@@ -60,7 +100,7 @@ class MainNav extends Component {
             <nav className="navbar navbar-expand-lg navbar-light bg-light row">
                 <Link to={'/'} className="navbar-brand">
                     Book Geeks
-                </Link>
+                </Link>    
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -71,7 +111,17 @@ class MainNav extends Component {
                     <input type ="text" 
                         value={this.state.search}
                         onChange={(e) => this.searchCallBack(e.target.value)}/>
-                    
+
+        <Nav className="navbar navbar-expand-sm  navbar-dark px-sm-5">   
+            <Link to="/books" className="ml-auto">
+                <ButtonContainer>
+                    <span className="mr-2">
+                        <i className="fas fa-cart-plus " />
+                    </span>
+                    Our Books
+                </ButtonContainer>
+            </Link>
+        </Nav>        
                        
   <Nav className="justify-content-center" activeKey="/home">
     <Nav.Item>
