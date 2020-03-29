@@ -4,8 +4,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
 import {bookData} from '../data';
 import {BookConsumer} from './booksapi';
-import BookProduct from './../components/BookProduct';
-import Search from './../components/Search';
+import BookProduct from '../components/BookProduct';
+import Search from '../components/Search';
 
 class Books extends Component {
 
