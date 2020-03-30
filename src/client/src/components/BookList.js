@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
 import Book from "./Book";
-import Title from "./Title";
+import Title from './Title';
 import { storeBooks } from "../data";
 import styled from "styled-components";
 import { BookConsumer } from "../context";

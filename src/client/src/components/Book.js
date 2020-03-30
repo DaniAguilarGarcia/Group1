@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BookConsumer } from "../context";
+
 export default class Book extends Component {
   render() {
-    const { id, title, img, price, inCart } = this.props.book;
+    const { id, author, year, title, img, average_rating, price, inCart } = this.props.book;
     return (
       <BookWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
           <BookConsumer>
             {value => {
               return (
-                <div
+                 <div
                   className="img-container p-5"
                   onClick={() => value.handleDetail(id)}
                 >
