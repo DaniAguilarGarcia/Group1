@@ -47,9 +47,14 @@ class MainNav extends Component {
         return (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <Link to={'./books'} className="nav-link">
-                        Cart
-                    </Link>
+                <Link to="/cart" className="ml-auto">
+                    <ButtonContainer>
+                        <span className="mr-2">
+                        <i className="fas fa-cart-plus " />
+                        </span>
+                        my cart
+                    </ButtonContainer>
+                </Link>
                 </li>
                 {this.loginItem()}
             </ul>
@@ -76,13 +81,14 @@ class MainNav extends Component {
                         onChange={(e) => this.searchCallBack(e.target.value)}/>
 
           
-            <Link to="/" className="ml-auto">
-                <ButtonContainer>
-                    <img src={book_Icon} alt="store" className="navbar-brand"/>                   
-                    Our Books
-                </ButtonContainer>
-            </Link>
-                
+                <Link to="/" className="ml-auto">
+                    <ButtonContainer>
+                        <span className="mr-2">
+                        <i className="fas fa-book" />
+                        </span>
+                        Our Books
+                    </ButtonContainer>
+                </Link>             
                        
         <Nav className="justify-content-center" activeKey="/home">
         <Nav.Item>
