@@ -56,29 +56,11 @@ class MainNav extends Component {
         );
     }
 
-    navRight() {
-        return (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link to={'./cart'} className="nav-link">
-                        Car
-                    </Link>
-                </li>
-                {this.loginItem()}
-            </ul>
-        );
-    }
-
     render() {
-
-        {/* 
-        https://www.iconfinder.com/icons/1243689/call_phone_icon
-        Creative Commons (Attribution 3.0 Unported);
-        https://www.iconfinder.com/Makoto_msk */}
 
         return (
             <container>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light row">
+            <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5">
                 <Link to={'/'} className="navbar-brand">
                     Book Geeks
                 </Link>    
@@ -132,10 +114,19 @@ class MainNav extends Component {
                     
                     {this.navRight()}
                 </div>
-            </nav>
+            </NavWrapper>
             </container>
         );
     }
 }
+
+const NavWrapper = styled.nav`
+    background: var(--mainBlue);
+    .nav-link{
+        color:var(--mainWhite)!important;
+        font-ize:1.3rem;
+        text-transform:capitalize;    
+    }
+`
 
 export default MainNav;
