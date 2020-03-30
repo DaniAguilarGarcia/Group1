@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BookConsumer } from "../context";
+import PropTypes from "prop-types";
 
 export default class Book extends Component {
+  
+
   render() {
-    const { id, author, year, title, img, average_rating, price, inCart } = this.props.book;
+    const { id, author, genre, publication_date, title, img, average_rating, price, inCart } = this.props.book;
     return (
       <BookWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
@@ -39,12 +42,30 @@ export default class Book extends Component {
               );
             }}
           </BookConsumer>
-          <div className="card-footer d-flex justify-content-between">
-            <p className="align-self-center mb-0">{title}</p>
+          
+          
+          
+          <div className="card-footer d-flex justify-content-between mb-0">
+            <h5 className="text-blue font-italic mb-0 align-self-center mb-0">{title}</h5> 
             <h5 className="text-blue font-italic mb-0">
               <span className="mr-1">$</span>
               {price}
             </h5>
+          </div>
+
+          <div className="card-footer d-flex pb-0 pt-0">
+            <span className="mr-1">Author:</span>
+            <p className="align-self-center mb-0">{author}</p>
+          </div>
+
+          <div className="card-footer d-flex pb-0 pt-0">
+            <span className="mr-1">Genre:</span>
+            <p className="align-self-center mb-0">{genre}</p>
+          </div>
+
+          <div className="card-footer d-flex pb-0 pt-0">
+            <span className="mr-1">Average Rating:</span>
+            <p className="align-self-center mb-0">{average_rating}</p>
           </div>
         </div>
       </BookWrapper>

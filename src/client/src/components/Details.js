@@ -14,11 +14,15 @@ export default class Details extends Component {
             edition,
             author,
             publisher,
+            genre,
             img,
             info,
             quantity,
+            average_rating,
             price,
-            inCart
+            inCart,
+            count,
+            total
           } = value.detailBook;
 
           return (
