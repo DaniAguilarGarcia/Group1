@@ -1,6 +1,7 @@
  import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom';
 import './App.scss';
+import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -8,8 +9,11 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
-import Books from './pages/Books';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import BookList from "./components/BookList";
+import Details from "./components/Details";
+import Modal from "./components/Modal";
+
+
 
 
 class App extends Component {
@@ -74,12 +78,13 @@ class App extends Component {
             <Route path='/cart' component={Cart} />
             />
             <Route path='/ratings' component={Ratings} />
-            <Route path='/books' component={Books} />    
+            <Route exact path="/" component={BookList} />
+            <Route path="/details" component={Details} />
+              
           </Switch>
+          <Modal />
         </div>
       </div>
-
-      <h3>hello from app</h3>
 
       </React.Fragment> 
     

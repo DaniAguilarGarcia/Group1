@@ -1,4 +1,109 @@
+export const storeBooks = [
+  {
+    id: "978-62-82077-46-4",
+    title: "The Hobbit, or There Back Again",
+    publication_date: "1991-01-01",
+    edition: 1,
+    author: "J.R.R.", 
+    publisher: "HarperCollins",
+    img: "img/product-1.png",
+    info: "Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure. They have launched a plot to raid the treasure hoard guarded by Smaug the Magnificent, a large and very dangerous dragon. Bilbo reluctantly joins their quest, unaware that on his journey to the Lonely Mountain he will encounter both a magic ring and a frightening creature known as Gollum.",
+    quantity: 88,
+    price: 13.00, 
+    inCart: false,
+    count: 0,
+    total: 0
+  },
 
+  {
+    id: "978-66-52710-99-7",
+    title: "The Three Musketeers",
+    publication_date : "2014-12-05",
+    edition: 1,
+    author: "Alexandre Dumas", 
+    publisher: "CreateSpace Independent Publishing Platform",
+    img: "img/product-2.png",
+    info: "17th century France: Young DArtagnan leaves his home and travels to Paris with dreams of joining The Musketeers of Guardthe glamourous and gallant group of men who guard Louis XIII, the King of France. There he meets Athos, Porthos, and Aramis, the three best musketeers and inseparable friends who believe with all their heart in the words all for one, one for all. DArtagnan rents an apartment above the shop of one Monsieur Bonacieux, hoping to settle into Parisian life and become a proper musketeer quickly. What the young and gallant DArtagnan does not realise is that he has, inadvertently, landed himself in the very centre of one of the foulest conspiracies in monarchist France. There are love affairs and intrigues, ambushes and wild rides, duels and murders. And as the famous American author and editor Clifton Fadiman says, it is all impossible and it is all magnificient",
+    quantity: 150,
+    price: 14.99, 
+    inCart: false,
+    count: 0,
+    total: 0
+  },
+
+  {
+    id: "978-93-09965-40-9",
+    title: "Steve Jobs",
+    publication_date : "2015-09-15",
+    edition: 2,
+    author: "Walter Isaacson", 
+    publisher: "Simon & Schuster",
+    img: "img/product-3.png",
+    info: "Walter Isaacson’s “enthralling” (The New Yorker) worldwide bestselling biography of Apple co-founder Steve Jobs—the inspiration for the movie Steve Jobs starring Michael Fassbender, Kate Winslet, Seth Rogen, and Jeff Daniels, directed by Danny Boyle with a screenplay by Aaron Sorkin.",
+    quantity: 20,
+    price: 12.99, 
+    inCart: false,
+    count: 0,
+    total: 0
+  },
+
+  {
+    id: "978-79-47426-94-0",
+    title: "Edison",
+    publication_date : "2019-08-22",
+    edition: 1,
+    author: "Edmund Morris", 
+    publisher: "Random House",
+    img: "img/product-4.png",
+    info:"NEW YORK TIMES BESTSELLER • From Pulitzer Prize-winning author Edmund Morris comes a revelatory new biography of Thomas Alva Edison, the most prolific genius in American history.",
+    quantity: 23,
+    price: 34.20, 
+    inCart: false,
+    count: 0,
+    total: 0
+  },
+
+  {
+
+    id: "978-58-79768-35-0",
+    title: "V for Vendetta",
+    publication_date : "2008-10-24",
+    edition: 1,
+    author: "Alan Moore", 
+    publisher: "Vertigo",
+    img: "img/product-5.png",
+    info:"Set in a futurist totalitarian England, a country without freedom or faith, a mysterious man in a white porcelain mask strikes back against the oppressive overlords on behalf of the voiceless. Armed with only knives and his wits, V, as he’s called, aims to bring about change in this horrific new world",
+    quantity: 41,
+    price: 12.89, 
+    inCart: false,
+    count: 0,
+    total: 0
+  },
+];
+
+export const detailBook = {
+  id: "978-62-82077-46-4",
+  title: "The Hobbit, or There Back Again",
+  publication_date: "1991-01-01",
+  edition: 1,
+  author: "J.R.R.", 
+  publisher: "HarperCollins",
+  img: "img/product-1.png",
+  info: "test",
+  quantity: 88,
+  price: 13.00, 
+  inCart: false,
+  count: 0,
+  total: 0
+};
+
+
+
+
+
+
+
+/*
 export const bookData =[
     {
       "id": 1,
@@ -342,3 +447,5 @@ export const detailBook=[{
   return 0;
   )
 });*/
+
+

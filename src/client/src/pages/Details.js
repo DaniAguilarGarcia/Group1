@@ -1,3 +1,5 @@
+
+/* este es my details que   no se edito en el proyecto aun
 import React, { PureComponent } from 'react'
 
 class Details extends PureComponent {
@@ -19,3 +21,5 @@ class Details extends PureComponent {
 }
 
 export default Details
+
+*/

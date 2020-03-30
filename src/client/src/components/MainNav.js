@@ -6,6 +6,8 @@ import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import Search from './Search';
 import { BookConsumer } from '../pages/booksapi';
 import { ButtonContainer } from "./Button";
+import book_Icon from '../book_Icon.svg'
+import styled from "styled-components"
 
 class MainNav extends Component {
     constructor(props) {
@@ -67,33 +69,12 @@ class MainNav extends Component {
         );
     }
 
-    navBook() {
-        return (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link to={'./books'} className="nav-link">
-                        My Books
-                    </Link>
-                </li>
-                {this.navRight()}
-            </ul>
-        );
-    }
-
-    /*
-    navBook() {
-        return (
-            <Link to='/books' className="ml-auto">
-                    <button>
-                        <i className="fas fa-cart-plus" />
-                        MY BOOKS
-                    </buttton>
-            </Link>
-        );
-    }
-    */
-
     render() {
+
+        {/* 
+        https://www.iconfinder.com/icons/1243689/call_phone_icon
+        Creative Commons (Attribution 3.0 Unported);
+        https://www.iconfinder.com/Makoto_msk */}
 
         return (
             <container>
@@ -112,29 +93,27 @@ class MainNav extends Component {
                         value={this.state.search}
                         onChange={(e) => this.searchCallBack(e.target.value)}/>
 
-        <Nav className="navbar navbar-expand-sm  navbar-dark px-sm-5">   
-            <Link to="/books" className="ml-auto">
+          
+            <Link to="/" className="ml-auto">
                 <ButtonContainer>
-                    <span className="mr-2">
-                        <i className="fas fa-cart-plus " />
-                    </span>
+                    <img src={book_Icon} alt="store" className="navbar-brand"/>                   
                     Our Books
                 </ButtonContainer>
             </Link>
-        </Nav>        
+                
                        
-  <Nav className="justify-content-center" activeKey="/home">
-    <Nav.Item>
-      <Dropdown as={NavItem}>
+        <Nav className="justify-content-center" activeKey="/home">
+        <Nav.Item>
+        <Dropdown as={NavItem}>
         <Dropdown.Toggle as={NavLink}>Genres</Dropdown.Toggle>
         <Dropdown.Menu>
         <Dropdown.Item>Fiction</Dropdown.Item>
         <Dropdown.Item>Non-Fiction</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
-    </Nav.Item>
-    <Nav.Item>
-    <Dropdown as={NavItem}>
+        </Nav.Item>
+        <Nav.Item>
+        <Dropdown as={NavItem}>
         <Dropdown.Toggle as={NavLink}>Ratings</Dropdown.Toggle>
         <Dropdown.Menu>
         <Dropdown.Item>Five Star</Dropdown.Item>
@@ -144,11 +123,11 @@ class MainNav extends Component {
         <Dropdown.Item><i class="fa fa-star" size="2x" color='yellow'/></Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link eventKey="link-3">Top Sellers</Nav.Link>
-    </Nav.Item>
-  </Nav>
+        </Nav.Item>
+        <Nav.Item>
+        <Nav.Link eventKey="link-3">Top Sellers</Nav.Link>
+        </Nav.Item>
+        </Nav>
         </form>
                     
                     {this.navRight()}

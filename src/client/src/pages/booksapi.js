@@ -1,3 +1,5 @@
+/* est viene siendo my context.js
+
 import React, { PureComponent } from 'react'
 import { bookData, detailBook } from '../data';
 
@@ -37,3 +39,5 @@ class BookProvider extends PureComponent {
 const BookConsumer = BookContext.Consumer;
 
 export {BookProvider, BookConsumer};
+
+*/
