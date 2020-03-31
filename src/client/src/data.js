@@ -1,9 +1,8 @@
 export const storeBooks = [
   {
-    id: "978-62-82077-46-4",
+    id: "978-6282077464",
     title: "The Hobbit, or There Back Again",
     publication_date: "1991-01-01",
-    edition: 1,
     author: "J.R.R.", 
     publisher: "HarperCollins",
     genre: "Novel",
@@ -18,10 +17,9 @@ export const storeBooks = [
   },
 
   {
-    id: "978-66-52710-99-7",
+    id: "978-6652710997",
     title: "The Three Musketeers",
     publication_date : "2014-12-05",
-    edition: 1,
     author: "Alexandre Dumas", 
     publisher: "CreateSpace Independent Publishing Platform",
     img: "img/product-2.png",
@@ -36,10 +34,9 @@ export const storeBooks = [
   },
 
   {
-    id: "978-93-09965-40-9",
+    id: "978-930996540-9",
     title: "Steve Jobs",
     publication_date : "2015-09-15",
-    edition: 2,
     author: "Walter Isaacson", 
     publisher: "Simon & Schuster",
     img: "img/product-3.png",
@@ -54,10 +51,9 @@ export const storeBooks = [
   },
 
   {
-    id: "978-79-47426-94-0",
+    id: "978-7947426940",
     title: "Edison",
     publication_date : "2019-08-22",
-    edition: 1,
     author: "Edmund Morris", 
     publisher: "Random House",
     img: "img/product-4.png",
@@ -73,10 +69,9 @@ export const storeBooks = [
 
   {
 
-    id: "978-58-79768-35-0",
+    id: "978-5879768350",
     title: "V for Vendetta",
     publication_date : "2008-10-24",
-    edition: 1,
     author: "Alan Moore", 
     publisher: "Vertigo",
     img: "img/product-5.png",
@@ -89,61 +84,60 @@ export const storeBooks = [
     count: 0,
     total: 0
   },
-];
 
-export const detailBook = {
-  id: "978-62-82077-46-4",
-  title: "The Hobbit, or There Back Again",
-  publication_date: "1991-01-01",
-  edition: 1,
-  author: "J.R.R.", 
-  publisher: "HarperCollins",
-  img: "img/product-1.png",
-  info: "Chronicles the adventures of the inhabitants of Middle-earth and of Bilbo Baggins, the hobbit who brought home to The Shire the One Ring of Power",
-  genre: "Novel",
-  quantity: 88,
-  average_rating: 4.34,
-  price: 13.00, 
-  inCart: false,
-  count: 0,
-  total: 0
-};
+  {
+    id: "978-0439023481",
+    title: "The Hunger Games (The Hunger Games, #1)",
+    publication_date: "September 14, 2008",
+    author: "Suzanne Collins",
+    publisher: "Scholastic Press",
+    img: "https://images.gr-assets.com/books/1447303603m/2767052.jpg",  
+    info:"In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV. Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she is forced to represent her district in the Games. But Katniss has been close to dead before - and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weigh survival against humanity and life against love.",
+    genre: "Novel",
+    quantity:15,
+    average_rating: 4.34,
+    price: 20.00,    
+    inCart: false,
+    count: 0,
+    total: 0
+  },
 
-/*
-export const bookData =[
+    
     {
-      "id": 1,
-      "authors": "Suzanne Collins",
-      "original_publication_year": 2008,
-      "title": "The Hunger Games (The Hunger Games, #1)",
-      "average_rating": 4.34,
-      "price": "$20.00",
-      "image_url": "https://images.gr-assets.com/books/1447303603m/2767052.jpg",
-      "small_image_url": "https://images.gr-assets.com/books/1447303603s/2767052.jpg",
-      "inCart": false
+      id: "978-0590353403",
+      title: "Harry Potter and the Sorcerer's Stone (Harry Potter, #1)",
+      publication_date: "October 14, 1998",
+      author: "J.K. Rowling, Mary GrandPr",
+      publisher: "Scholastic Press",
+      img: "https://images.gr-assets.com/books/1474154022m/3.jpg",
+      info: "Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry. Harry makes close friends and a few enemies during his first year at the school, and with the help of his friends, Harry faces an attempted comeback by the dark wizard Lord Voldemort, who killed Harry's parents, but failed to kill Harry when he was just 15 months old.",
+      genre: "Fantasy",
+      quantity:"25",
+      average_rating: 4.44,
+      price: 10.00,
+      inCart: false,
+      count: 0,
+      total: 0
     },
+
     {
-      "id": 2,
-      "authors": "J.K. Rowling, Mary GrandPr",
-      "original_publication_year": 1997,
-      "title": "Harry Potter and the Sorcerer's Stone (Harry Potter, #1)",
-      "average_rating": 4.44,
-      "price": "$10.00",
-      "image_url": "https://images.gr-assets.com/books/1474154022m/3.jpg",
-      "small_image_url": "https://images.gr-assets.com/books/1474154022s/3.jpg",
-      "inCart": true
+      id: "978-0316015844",
+      title: "Twilight (Twilight, #1)",
+      publication_date: "September 6, 2006",
+      author: "Stephenie Meyer",
+      publisher: "Little, Brown Books for Young Readers",
+      img: "https://images.gr-assets.com/books/1361039443m/41865.jpg",
+      info:"Isabella Swan's move to Forks, a small, perpetually rainy town in Washington, could have been the most boring move she ever made. But once she meets the mysterious and alluring Edward Cullen, Isabella's life takes a thrilling and terrifying turn. Up until now, Edward has managed to keep his vampire identity a secret in the small community he lives in, but now nobody is safe, especially Isabella, the person Edward holds most dear. The lovers find themselves balanced precariously on the point of a knife-between desire and danger. Deeply romantic and extraordinarily suspenseful, Twilightcaptures the struggle between defying our instincts and satisfying our desires. This is a love story with bite.",
+      genre: "Novel",
+      quantity:"30",
+      average_rating: 4.57,
+      price: 15.00,
+      inCart: false,
+      count: 0,
+      total: 0
     },
-    {
-      "id": 3,
-      "authors": "Stephenie Meyer",
-      "original_publication_year": 2005,
-      "title": "Twilight (Twilight, #1)",
-      "average_rating": 3.57,
-      "price": "$15.00",
-      "image_url": "https://images.gr-assets.com/books/1361039443m/41865.jpg",
-      "small_image_url": "https://images.gr-assets.com/books/1361039443s/41865.jpg",
-      "inCart": false
-    },
+
+    /*
     {
       "id": 4,
       "authors": "Harper Lee",
@@ -453,5 +447,33 @@ export const detailBook=[{
   return 0;
   )
 });*/
+
+
+
+
+
+
+
+];
+
+export const detailBook = {
+  id: "978-62-82077-46-4",
+  title: "The Hobbit, or There Back Again",
+  publication_date: "1991-01-01",
+  edition: 1,
+  author: "J.R.R.", 
+  publisher: "HarperCollins",
+  img: "img/product-1.png",
+  info: "Chronicles the adventures of the inhabitants of Middle-earth and of Bilbo Baggins, the hobbit who brought home to The Shire the One Ring of Power",
+  genre: "Novel",
+  quantity: 88,
+  average_rating: 4.34,
+  price: 13.00, 
+  inCart: false,
+  count: 0,
+  total: 0
+};
+
+
 
 

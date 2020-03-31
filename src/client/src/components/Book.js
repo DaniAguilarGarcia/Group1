@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BookConsumer } from "../context";
 import PropTypes from "prop-types";
+import Typography from '@material-ui/core/Typography';
+import Rating from 'material-ui-rating';
+const { AddCircle, AddCircleOutline, Remove } = require('@material-ui/icons');
+const yellow = require('@material-ui/core/colors/yellow').default;
+const red = require('@material-ui/core/colors/red').default;
 
 export default class Book extends Component {
   
@@ -63,9 +68,15 @@ export default class Book extends Component {
             <p className="align-self-center mb-0">{genre}</p>
           </div>
 
+          
+          
           <div className="card-footer d-flex pb-0 pt-0">
-            <span className="mr-1">Average Rating:</span>
-            <p className="align-self-center mb-0">{average_rating}</p>
+          <Rating
+          value={average_rating}
+          max={5}
+          onChange={(i) => console.log('onChange ' + i)}
+          readOnly
+          />
           </div>
         </div>
       </BookWrapper>

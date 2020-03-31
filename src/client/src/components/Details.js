@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { BookConsumer } from "../context";
 import { ButtonContainer } from "./Button";
 import { Link } from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
+import Rating from 'material-ui-rating'
 export default class Details extends Component {
   render() {
     return (
@@ -11,7 +13,6 @@ export default class Details extends Component {
             id,
             title,
             publication_date,
-            edition,
             author,
             publisher,
             genre,
@@ -54,6 +55,16 @@ export default class Details extends Component {
                     Book Description:
                   </p>
                   <p className="text-muted lead">{info}</p>
+                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
+                    Rating:
+                    <Rating
+                    value={average_rating}
+                    max={5}
+                    onChange={(i) => console.log('onChange ' + i)}
+                    readOnly
+                    />
+                  </p>
+                  
                   {/* buttons */}
                   <div>
                     <Link to="/">
