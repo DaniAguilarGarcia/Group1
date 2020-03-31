@@ -12,6 +12,7 @@ export const storeBooks = [
     average_rating: 4.34,
     price: 13.00, 
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -29,6 +30,7 @@ export const storeBooks = [
     average_rating: 4.84,
     price: 14.99, 
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -46,6 +48,7 @@ export const storeBooks = [
     average_rating: 3.98,
     price: 12.99, 
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -63,6 +66,7 @@ export const storeBooks = [
     average_rating: 3.50,
     price: 34.20, 
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -81,6 +85,7 @@ export const storeBooks = [
     average_rating: 4.14,
     price: 12.89, 
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -98,6 +103,7 @@ export const storeBooks = [
     average_rating: 4.34,
     price: 20.00,    
     inCart: false,
+    inWishList: false,
     count: 0,
     total: 0
   },
@@ -116,6 +122,7 @@ export const storeBooks = [
       average_rating: 4.44,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -133,6 +140,7 @@ export const storeBooks = [
       average_rating: 4.57,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -151,6 +159,7 @@ export const storeBooks = [
       average_rating: 4.25,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -168,6 +177,7 @@ export const storeBooks = [
       average_rating: 3.89,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -185,6 +195,7 @@ export const storeBooks = [
       average_rating: 4.26,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -202,6 +213,7 @@ export const storeBooks = [
       average_rating: 3.79,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -219,6 +231,7 @@ export const storeBooks = [
       average_rating: 3.85,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -237,6 +250,7 @@ export const storeBooks = [
       average_rating: 4.24,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -254,6 +268,7 @@ export const storeBooks = [
       average_rating: 4.26,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -271,6 +286,7 @@ export const storeBooks = [
       average_rating: 4.24,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -288,6 +304,7 @@ export const storeBooks = [
       average_rating: 4.14,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -305,6 +322,7 @@ export const storeBooks = [
       average_rating: 3.87,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -322,6 +340,7 @@ export const storeBooks = [
       average_rating: 4.1,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -339,6 +358,7 @@ export const storeBooks = [
       average_rating: 4.11,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -356,6 +376,7 @@ export const storeBooks = [
       average_rating: 4.3,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -373,6 +394,7 @@ export const storeBooks = [
       average_rating: 4.53,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -390,6 +412,7 @@ export const storeBooks = [
       average_rating: 4.34,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -407,6 +430,7 @@ export const storeBooks = [
       average_rating: 4.03,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -423,6 +447,7 @@ export const storeBooks = [
       genre:"Fantasy",
       quantity: 25,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -440,10 +465,12 @@ export const storeBooks = [
       average_rating: 3.77,
       price: 20.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
 
     },
+
     {
       id: "978-0439064866",
       author: "J.K. Rowling",
@@ -457,10 +484,12 @@ export const storeBooks = [
       average_rating: 4.37,
       price: 10.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
 
     },
+
     {
       id: "978-0439139601",
       author: "J.K. Rowling",
@@ -474,6 +503,7 @@ export const storeBooks = [
       quantity: 25,
       price: 15.00,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -491,6 +521,7 @@ export const storeBooks = [
       average_rating: 3.79,
       quantity: 25,
       inCart: false,
+      inWishList: false,
       count: 0,
       total: 0
     },
@@ -506,6 +537,7 @@ export const storeBooks = [
       img: "https://images.gr-assets.com/books/1327869409m/7624.jpg",
       info:"When Lord of the Flies appeared in 1954 it received unprecedented reviews for a first novel. Critics used such phrases as beautifully writeen, tragic and provocative... vivid and enthralling... this beautiful and desperate book... completely convincing and often very frightening... its progress is magnificient... like a fragment of nightmare... a dizzy climax of terror... the terrible spell of this book...E.M. Forster chose it as the Outstanding Novel of the Year. Time and Tide touched upon perhaps the most important facet of this book when it said, It is not only a first-rate adventure but a parable of our times, and articles on this and subsequent Golding novels have stressed these twin aspects of Golding: a consummate control of the novel form, and a superb all-encompassing vision of reality which communicates itself with a power reminiscent of Conrad.",
       inCart: false,
+      inWishList: false,
       price: 20.00,
       quantity: 25,
       count: 0,
@@ -527,6 +559,7 @@ export const storeBooks = [
       count: 0,
       total: 0,
       inCart: false,
+      inWishList: false,
     }
 ];
 
@@ -546,6 +579,7 @@ export const detailBook = {
   average_rating: 4.34,
   price: 13.00, 
   inCart: false,
+  inWishList: false,
   count: 0,
   total: 0
 };
