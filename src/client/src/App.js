@@ -1,14 +1,16 @@
  import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom';
 import './App.scss';
+import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
-import Books from './pages/Books';
+import BookList from "./components/BookList";
+import Details from "./components/Details";
+import Modal from "./components/Modal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -62,15 +64,12 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return <React.Fragment>
 
       <div className="container-fluid">
-
         <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
-
         <div className="container main-view">
           <Switch>
-            <Route exact path='/' component={Home} />
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
             />
@@ -85,16 +84,21 @@ class App extends Component {
             />
             <Route path='/cart' component={Cart} />
             />
-            <Route path='/ratings'  
-              render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>} 
+
+            <Route path='/ratings' component={Ratings} 
+            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
-            <Route path='/books' component={Books} />
+            <Route exact path="/" component={BookList} />
+            <Route path="/details" component={Details} />
+              
+
           </Switch>
+          <Modal />
         </div>
       </div>
 
-       
-    )
+      </React.Fragment> 
+    
   };
 }
 
