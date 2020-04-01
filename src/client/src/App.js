@@ -84,10 +84,14 @@ class App extends Component {
             />
             <Route path='/cart' component={Cart} />
             />
-            <Route path='/ratings' component={Ratings} />
+
+            <Route path='/ratings' component={Ratings} 
+            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+            />
             <Route exact path="/" component={BookList} />
             <Route path="/details" component={Details} />
               
+
           </Switch>
           <Modal />
         </div>
