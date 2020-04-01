@@ -17,7 +17,6 @@ if (user && password) {
     }
 }
 
-//mongoose.connect('mongodb://localhost/pagination',
 mongoose.connect(server, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
