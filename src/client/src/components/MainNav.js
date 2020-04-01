@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
-import Search from './Search';
-import { BookConsumer } from '../pages/booksapi';
-import book_Icon from '../book_Icon.svg'
+
+
+
 import styled from "styled-components"
 
 class MainNav extends Component {
@@ -22,25 +22,21 @@ class MainNav extends Component {
       return props;
     }
 
-    loginItem() {
-        if (this.props.logged_in) {
-            return (
-                <li className="nav-item">
-                    <Link to={'/profile'} className="nav-link">
-                        {this.props.user.name}
-                    </Link>
-                </li>
-            );
-        }
+  static getDerivedStateFromProps(props, state) {
+    return props;
+  }
 
-        return (
-            <li className="nav-item">
-                <Link to={'/login'} className="nav-link">
-                    Login
-                </Link>
-            </li>
-        );
-    }
+  logout = () => {
+    fetch('/api/user/logout', {
+      method: 'post',
+      credentials: 'include',
+    }).then(() => {
+      this.props.onLogout();
+      this.props.history.push('/');
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 
     navRight() {
         return (
@@ -56,9 +52,34 @@ class MainNav extends Component {
                 </Link>
                 </li>
                 {this.loginItem()}
+                {this.props.logged_in &&
+                <li className="nav-item">
+                <button className="nav-link btn btn-link" onClick={this.logout}>Logout</button>
+                </li>
+            }
             </ul>
         );
     }
+
+    loginItem() {
+    if (this.props.logged_in) {
+      return (
+        <li className="nav-item">
+          <Link to={'/profile'} className="nav-link">
+            {this.props.user.name}
+          </Link>
+        </li>
+      );
+    }
+
+    return (
+      <li className="nav-item">
+        <Link to={'/login'} className="nav-link">
+          Login
+                </Link>
+      </li>
+    );
+  }
 
     render() {
 
@@ -122,9 +143,8 @@ class MainNav extends Component {
             </NavWrapper>
             </container>
         );
-    }
-}
-
+    }}
+    
 const NavWrapper = styled.nav`
     background: var(--mainBlue);
     .nav-link{

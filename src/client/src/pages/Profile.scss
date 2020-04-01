@@ -1,8 +1,8 @@
 .card.profile {
-  z-index: -1;
+  z-index: 1;
 }
 .nav-tabs.profile {
   margin: 0 0.75rem;
   margin-bottom: -1px;
-  z-index: 1;
+  z-index: 2;
 }
