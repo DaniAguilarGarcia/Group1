@@ -22,35 +22,52 @@ export default class Details extends Component {
             average_rating,
             price,
             inCart,
-            count,
-            total
+            inWishList,
           } = value.detailBook;
 
           return (
             <div className="container py-5">
+
               {/* title */}
               <div className="row">
-                <div className="col-10 mx-auto text-center text-slanted text-blue my-5">
-                  <h1>{title}</h1>
+                <div className="text-title col-10 mx-auto text-center text-slanted text-blue my-5">
+                  <h1>Title: {title}</h1>
                 </div>
-              </div>
+              </div> 
               {/* end of title */}
+
+              
               <div className="row">
+
+                {/* image column */}
                 <div className="col-10 mx-auto col-md-6 my-3">
                   <img src={img} className="img-fluid" alt="" />
+                  
                 </div>
-                {/* prdoduct info */}
-                <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-                  <h1>Title : {title}</h1>
-                  <h4 className="text-title text-uppercase text-muted mt-3 mb-2">
-                    Written by: : <span className="text-uppercase">{author}</span>
+                {/* image column */}
+
+                {/* prdoduct info colum */}
+                <div className="col-10 mx-auto col-md-6 my-3">
+                  <h4 className="text-blue mt-3 mb-2">
+                    <strong>
+                    Written by: {author}
+                    </strong>
                   </h4>
                   <h4 className="text-blue">
                     <strong>
-                      price : <span>$</span>
+                      Price : <span>$</span>
                       {price}
                     </strong>
                   </h4>
+                  
+                  <h8 className="text-blue">
+                      Genre: {genre}
+                  </h8>
+
+                  <p className="text-blue">
+                      Published by {publisher} on {publication_date} 
+                  </p>
+
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
                     Book Description:
                   </p>
@@ -70,6 +87,7 @@ export default class Details extends Component {
                     <Link to="/">
                       <ButtonContainer>Back to Books</ButtonContainer>
                     </Link>
+
                     <ButtonContainer
                       cart
                       disabled={inCart ? true : false}

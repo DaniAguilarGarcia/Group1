@@ -5,7 +5,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import Search from './Search';
 import { BookConsumer } from '../pages/booksapi';
-import { ButtonContainer } from "./Button";
 import book_Icon from '../book_Icon.svg'
 import styled from "styled-components"
 
@@ -134,5 +133,31 @@ const NavWrapper = styled.nav`
         text-transform:capitalize;    
     }
 `
+const ButtonContainer = styled.button`
+  text-transform: capitalize;
+  font-size: 1.4rem;
+  background: transparent;
+  border: 0.05rem solid var(--white);
+  border-color: ${props =>
+    props.cart ? "var(--mainBlue)" : "var(--mainBlue)"};
+  color: var(--white);
+  color: ${props => (props.cart ? "var(--mainBlue)" : "var(--white)")};
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  outline-color: red;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0.2rem 0.5rem 0.2rem 0;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    background: var(--lightBlue);
+    background: ${props =>
+      props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
+    color: var(--mainYellow);
+  }
+  &:focus {
+    outline: none;
+  }
+`;
 
 export default MainNav;
