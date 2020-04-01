@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+/*  context.js
+
+>>>>>>> remotes/origin/bookDetails/Brayan
 import React, { PureComponent } from 'react'
 import { bookData, detailBook } from '../data';
 
@@ -36,4 +41,10 @@ class BookProvider extends PureComponent {
 
 const BookConsumer = BookContext.Consumer;
 
+<<<<<<< HEAD
 export {BookProvider, BookConsumer};
+=======
+export {BookProvider, BookConsumer};
+
+*/
+>>>>>>> remotes/origin/bookDetails/Brayan
