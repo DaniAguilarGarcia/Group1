@@ -24,4 +24,4 @@ const mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps)(Calculate);
+export default connect(mapStateToProps)(Calculate)
