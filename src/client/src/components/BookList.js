@@ -7,8 +7,6 @@ import Title from './Title';
 import { storeBooks } from "../data";
 import styled from "styled-components";
 import { BookConsumer } from "../context";
-import Search from '../components/Search';
-
 
 
 export default class BookList extends Component {
