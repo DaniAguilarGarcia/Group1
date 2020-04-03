@@ -65,10 +65,10 @@ class Profile extends Component {
                   render={(props) => <Orders {...props} user={this.state.user} />}
                 />
                 <Route exact path='/profile/payment_methods'
-                  render={(props) => <PaymentMethods {...props} user={this.state.user} />}
+                  render={(props) => <PaymentMethods {...props} />}
                 />
                 <Route exact path='/profile/shipping'
-                  render={(props) => <ShippingAddresses {...props} user={this.state.user} />}
+                  render={(props) => <ShippingAddresses {...props} addresses={this.state.user.shipping_addresses} />}
                 />
               </Switch>
             </div>

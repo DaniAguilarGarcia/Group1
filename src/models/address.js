@@ -10,11 +10,26 @@ const mongoose = require('mongoose');
  */
 
 const schema = new mongoose.Schema({
-    street: String,
-    city: String,
-    state: String,
-    postal: String,
-    country: String,
+    street: {
+      type: String,
+      required: [true, 'You must provide a street address'],
+    },
+    city: {
+      type: String,
+      required: [true, 'You must provide a city'],
+    },
+    state: {
+      type: String,
+      required: [true, 'You must provide a state'],
+    },
+    postal: {
+      type: String,
+      required: [true, 'You must provide a postal number'],
+    },
+    country: {
+      type: String,
+      required: [true, 'You must provide a country'],
+    },
 });
 
 module.exports = schema;

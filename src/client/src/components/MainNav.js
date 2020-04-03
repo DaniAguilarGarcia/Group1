@@ -9,18 +9,10 @@ import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import styled from "styled-components"
 
 class MainNav extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        
-        };
-    }
-
-
-    static getDerivedStateFromProps(props, state) {
-      return props;
-    }
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({}, props);
+  }
 
   static getDerivedStateFromProps(props, state) {
     return props;
@@ -180,4 +172,4 @@ const ButtonContainer = styled.button`
   }
 `;
 
-export default MainNav;
+export default withRouter(MainNav);
