@@ -566,22 +566,21 @@ export const storeBooks = [
 
 
 export const detailBook = {
-  id: "978-62-82077-46-4",
-  title: "The Hobbit, or There Back Again",
-  publication_date: "1991-01-01",
-  edition: 1,
-  author: "J.R.R.", 
-  publisher: "HarperCollins",
-  img: "img/product-1.png",
-  info: "Chronicles the adventures of the inhabitants of Middle-earth and of Bilbo Baggins, the hobbit who brought home to The Shire the One Ring of Power",
-  genre: "Novel",
-  quantity: 88,
-  average_rating: 4.34,
-  price: 13.00, 
-  inCart: false,
-  inWishList: false,
-  count: 0,
-  total: 0
+    id: "978-6282077464",
+    title: "The Hobbit, or There Back Again",
+    publication_date: "1991-01-01",
+    author: "J.R.R.", 
+    publisher: "HarperCollins",
+    genre: "Novel",
+    img: "https://images.gr-assets.com/books/1372847500m/5907.jpg",
+    info: "Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure. They have launched a plot to raid the treasure hoard guarded by Smaug the Magnificent, a large and very dangerous dragon. Bilbo reluctantly joins their quest, unaware that on his journey to the Lonely Mountain he will encounter both a magic ring and a frightening creature known as Gollum.",
+    quantity: 88,
+    average_rating: 4.34,
+    price: 13.00, 
+    inCart: false,
+    inWishList: false,
+    count: 0,
+    total: 0
 };
 
 
