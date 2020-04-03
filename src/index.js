@@ -25,28 +25,50 @@ const port = process.env.PORT;
 
 // Create testing user
 if (process.env.NODE_ENV === 'local') {
-    const test_username = 'test_user';
-    const test_password = 'AbsoluteUnit1134!';
-    (async () => {
-        const Users = require('./services/users');
-        let user = await Users.findByUsername(test_username);
-        if (!user) {
-            user = await Users.create({
-                username: test_username,
-                password: test_password,
-                email: 'test@example.com',
-                name: 'Test User',
-                nickname: 'Test User',
-                address: {
-                    street: '1234 test street',
-                    city: 'test town',
-                    state: 'fl',
-                    postal: '33012',
-                    country: 'usa',
-                },
-            });
-        }
-    })();
+  const test_username = 'test_user';
+  const test_password = 'AbsoluteUnit1134!';
+  (async () => {
+    const Users = require('./services/users');
+    let user = await Users.findByUsername(test_username);
+    if (!user) {
+      user = await Users.create({
+        username: test_username,
+        password: test_password,
+        email: 'test@example.com',
+        name: 'Test User',
+        nickname: 'Test User',
+        address: {
+          street: '1234 test street',
+          city: 'test town',
+          state: 'fl',
+          postal: '33012',
+          country: 'usa',
+        },
+        shipping_addresses: [{
+          street: '1234 test street',
+          city: 'test town',
+          state: 'fl',
+          postal: '33012',
+          country: 'usa',
+        }],
+        payment_methods: [],
+      });
+
+      const Method = require('./models/payment_method');
+      
+      const method = new Method({
+        alias: 'Test Card',
+        payer_name: 'Test Cardholder',
+        pan: '4242424242424242',
+        exp: '01/2024',
+        user_id: user._id,
+      });
+      method.save();
+
+      user.payment_methods.push(method);
+      user.save();
+    }
+  })();
 }
 
 /*pagination
