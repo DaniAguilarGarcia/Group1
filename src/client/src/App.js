@@ -1,24 +1,33 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.scss';
+import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import ProductList from './components/shoppingCart/ProductList'
 import Ratings from './pages/Ratings';
-/*import Ratings from './Ratings/Stars'; /*review*/
-import Books from './pages/books';
+import BookList from "./components/BookList";
+import Details from "./components/Details";
+import Modal from "./components/Modal";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends Component {
+
   constructor() {
     super();
     this.state = {
       logged_in: false,
       user: {},
+      search: ""
     }
+  }
+
+  updateSearch(search){
+    this.setState({search});
   }
 
   checkLoginStatus() {
@@ -49,15 +58,26 @@ class App extends Component {
   }
 
 
+  handleLogout = () => {
+    this.setState({
+      logged_in: false,
+      user: {},
+    });
+  }
+
+
   render() {
-    return (
+    return <React.Fragment>
+
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} />
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} onLogout={this.handleLogout} search={this.state.search} searchCallBack={this.updateSearch}/> 
         <div className="container main-view">
           <Switch>
-            <Route exact path='/' component={Home} />
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
+            />
+            <Route path='/profile'
+                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
             <Route path='/profile'
                 render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
@@ -71,14 +91,25 @@ class App extends Component {
         <Route path='/Product'
                 render={(props) => <ProductList {...props} logged_in={this.state.logged_in}/>}
             />
-            <Route path='/ratings' component={Ratings} />
-            <Route path='/books' component={Books} />
+
+            <Route path='/ratings'
+            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+            />
+            <Route exact path="/" component={BookList} />
+            <Route path="/details" component={Details} />
+              
+
           </Switch>
+          <Modal />
         </div>
       </div>
-    )
+
+      </React.Fragment> 
+    
   };
 }
 
+
 export default App;
+
 
