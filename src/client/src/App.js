@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom';
 import './App.scss';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,8 +11,10 @@ import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import TopSellers from "./pages/TopSellers";
+import axios from 'axios';
+//import { BookConsumer } from "../context";
+import Book from "./components/Book";
 
 class App extends Component {
 
@@ -21,7 +23,18 @@ class App extends Component {
     this.state = {
       logged_in: false,
       user: {},
-      search: ""
+      search: "",
+      isbn: '',
+    title:  '',
+    publication_date:  '',
+    edition:  0, 
+    quantity: 0,
+    price:  '', 
+    author:  '',
+    publisher:  '', 
+    genre:  '',
+    book_description:  '',
+    books: []
     }
   }
 
@@ -47,7 +60,60 @@ class App extends Component {
 
   componentDidMount() {
     this.checkLoginStatus();
+    this.getBook();
   }
+
+  getBook = () => {
+    axios.get('/api')
+    .then((response)=>{
+      const data = response.data;
+      this.setState({ books: data});
+      console.log('Data has been received')
+    })
+    .catch(()=> {
+      alert('error retrieving data');
+    });
+  }
+  
+
+  handleChange = (target) =>{
+    const {title,value} = target;
+    this.setState({[title]:value });
+  };
+
+  submit = (event) => {
+    event.preventDefault(); //stop browser from refreshing 
+
+    const payload = {
+      title: this.state.title
+    };
+
+    axios({
+      url: '/api/save',
+      method: 'POST',
+      data: payload
+    })
+
+    .then(()=> {
+      console.log('Data has been sent to server');
+    })
+    .catch(()=>{
+      console.log('Internal Server error')
+    });;
+  };
+
+  displayBook = (books) => {
+    if(!books.length) return null;
+
+    return books.map((book, index) => (
+      <div key = {index}>
+        <h3>{book.title}</h3>
+        <p>{book.author}</p>
+
+      </div>
+    )
+    );
+  };
 
   handleLogin = (user) => {
     this.setState({
@@ -67,7 +133,7 @@ class App extends Component {
     return <React.Fragment>
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} onLogout={this.handleLogout} search={this.state.search} searchCallBack={this.updateSearch}/> 
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
         <div className="container main-view">
           <Switch>
             <Route path='/login'
@@ -85,13 +151,25 @@ class App extends Component {
             <Route path='/cart' component={Cart} />
             />
 
-            <Route path='/ratings' component={Ratings} 
-            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
-            />
-            <Route exact path="/" component={BookList} />
+            <Route path='/ratings' component={Ratings} />
+          
             <Route path="/details" component={Details} />
-              
+            <Route path="/topsellers" component={TopSellers} />
+            <Route path="/" exact component={BookList} />
 
+            <form onSubmit={this.submit}>
+            <div className= "form-input">
+            <input
+            type = "text"
+            title="title"
+            placeholder="Enter your title..."
+            value ={this.state.title}
+            onChange ={this.handleChange}
+            />
+
+          <button>Submit</button></div>
+          </form>
+              
           </Switch>
           <Modal />
         </div>

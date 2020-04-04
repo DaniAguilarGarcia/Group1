@@ -1,25 +1,43 @@
 import React, { Component } from "react";
-import { storeBooks, detailBook } from "./data";
+import BookList from "./components/BookList";
+import axios from 'axios';
+
 const BookContext = React.createContext();
 
 class BookProvider extends Component {
   state = {
     books: [],
-    detailBook: detailBook,
     cart: [],
     modalOpen: false,
-    modalBook: detailBook,
+    modalBook: [],
     cartSubTotal: 0,
     cartTax: 0,
-    cartTotal: 0
+    cartTotal: 0,
+    detailsBooks: []
   };
+
+
+  getBook = () => {
+    axios.get('http://localhost:5000/books/')
+    .then((response)=>{
+      const data = response.data;
+      this.setState({ books: data});
+      this.setState({ modalBook: data});
+      this.setState({detailsBooks: data});
+      console.log('Data has been received')
+    })
+    .catch(()=> {
+      alert('error retrieving data for context');
+    });
+  }
+  
   componentDidMount() {
     this.setBooks();
   }
 
   setBooks = () => {
     let books = [];
-    storeBooks.forEach(item => {
+      books.forEach(item => {
       const singleItem = { ...item };
       books = [...books, singleItem];
     });
@@ -164,6 +182,9 @@ class BookProvider extends Component {
     );
   };
   render() {
+    
+    this.getBook();
+
     return (
       <BookContext.Provider
         value={{
