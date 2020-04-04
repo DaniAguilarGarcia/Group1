@@ -29,8 +29,6 @@ export default class BookList extends Component {
 
   render() {
 
-    this.getBook();
-
     return (
 
       <div className="row">
