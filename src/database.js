@@ -17,22 +17,25 @@ if (user && password) {
     }
 }
 
+<<<<<<< HEAD
 mongoose.connect(server, {
+=======
+const MONGODB_URI = 'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
+const DB = mongoose.connect(MONGODB_URI, {
+>>>>>>> a71a230f
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
+mongoose.connection.on('connected',() => {
+    console.log('Mongoose is connected!');
+});
+
 mongoose.set('useCreateIndex', true);
 
-const DB = mongoose.connection;
+/*const DB = mongoose.connection;
 
 DB.on('error', console.error.bind(console, 'connection error:'));
 DB.once('open', () => console.log('DB connected'));
-/*DB.once('open', async () => {
-    if (await Book.countDocuments().exec() > 0) return
-
-    Promise.all ([
-
-    ]).then(() => console.log('Added Books'))
-})*/
+*/
 module.exports = DB;

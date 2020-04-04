@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.scss';
 import App from './App';
-import {BookProvider} from './pages/booksapi';
+import { BookProvider } from "./context";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render((

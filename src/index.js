@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const DB = require('./database');
 const cors = require('cors');
-const books = require('./services/books');
+const books = require('./routes/api/books/api.js');
 
 app.use(cors());
 
@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Register Routes
+app.use('/books', books);
 require('./routes')(app);
 
 // Listen

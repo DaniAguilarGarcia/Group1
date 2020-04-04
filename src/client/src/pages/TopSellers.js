@@ -1,16 +1,19 @@
-import React, { PureComponent } from 'react'
+/*import React, { PureComponent } from "react";
 import {render} from 'react-dom';
 import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
-import {bookData} from '../data';
-import {BookConsumer} from './booksapi';
-import BookProduct from './../components/BookProduct';
-import Search from './../components/Search';
+import Book from '../components/Book';
+import Title from '../components/Title';
+//import { storeBooks } from "../data";
+import styled from "styled-components";
+import { BookSharp } from "@material-ui/icons";
+//import { BookConsumer } from "../context";
+//import BookList from "../components/BookList";
 
 class TopSellers extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {search:'', data:bookData};
+        this.state = {search:'', books: []};
     }
 
     searchChangeHandler(search){
@@ -47,7 +50,7 @@ class TopSellers extends PureComponent {
               <BookConsumer>
               { value => {
                 return this.state.data.map(book => {
-                 return <BookProduct key={book.id} book={book}/>;
+                 return <Book key={book.id} book={book}/>;
               })         
               }}
                 </BookConsumer>
@@ -66,4 +69,4 @@ class TopSellers extends PureComponent {
     );
     }}
     
-export default TopSellers
+export default TopSellers*/

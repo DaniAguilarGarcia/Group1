@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom';
 import './App.scss';
+import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Ratings from './pages/Ratings';
-import Books from './pages/Books';
-import TopSellers from './pages/TopSellers';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const data = require('../src/data');
+import BookList from "./components/BookList";
+import Details from "./components/Details";
+import Modal from "./components/Modal";
+import TopSellers from "./pages/TopSellers";
+import axios from 'axios';
+//import { BookConsumer } from "../context";
+import Book from "./components/Book";
 
 class App extends Component {
 
@@ -21,11 +23,24 @@ class App extends Component {
     this.state = {
       logged_in: false,
       user: {},
-      search: ''
+      search: "",
+      isbn: '',
+    title:  '',
+    publication_date:  '',
+    edition:  0, 
+    quantity: 0,
+    price:  '', 
+    author:  '',
+    publisher:  '', 
+    genre:  '',
+    book_description:  '',
+    books: []
     }
   }
 
-  
+  updateSearch(search){
+    this.setState({search});
+  }
 
   checkLoginStatus() {
     fetch('/api/user/me', {
@@ -45,7 +60,60 @@ class App extends Component {
 
   componentDidMount() {
     this.checkLoginStatus();
+    this.getBook();
   }
+
+  getBook = () => {
+    axios.get('/api')
+    .then((response)=>{
+      const data = response.data;
+      this.setState({ books: data});
+      console.log('Data has been received')
+    })
+    .catch(()=> {
+      alert('error retrieving data');
+    });
+  }
+  
+
+  handleChange = (target) =>{
+    const {title,value} = target;
+    this.setState({[title]:value });
+  };
+
+  submit = (event) => {
+    event.preventDefault(); //stop browser from refreshing 
+
+    const payload = {
+      title: this.state.title
+    };
+
+    axios({
+      url: '/api/save',
+      method: 'POST',
+      data: payload
+    })
+
+    .then(()=> {
+      console.log('Data has been sent to server');
+    })
+    .catch(()=>{
+      console.log('Internal Server error')
+    });;
+  };
+
+  displayBook = (books) => {
+    if(!books.length) return null;
+
+    return books.map((book, index) => (
+      <div key = {index}>
+        <h3>{book.title}</h3>
+        <p>{book.author}</p>
+
+      </div>
+    )
+    );
+  };
 
   handleLogin = (user) => {
     this.setState({
@@ -62,15 +130,12 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return <React.Fragment>
 
       <div className="container-fluid">
-
         <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
-
         <div className="container main-view">
           <Switch>
-            <Route exact path='/' component={Home} />
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
             />
@@ -87,22 +152,31 @@ class App extends Component {
             />
 
             <Route path='/ratings' component={Ratings} />
-            <Route path='/books' component={Books} />    
-            <Route path='/home' component={Home} /> 
-            <Route path='/topsellers' component={TopSellers } /> 
-            
+          
+            <Route path="/details" component={Details} />
+            <Route path="/topsellers" component={TopSellers} />
+            <Route path="/" exact component={BookList} />
 
-            <Route path='/ratings'  
-              render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>} 
+            <form onSubmit={this.submit}>
+            <div className= "form-input">
+            <input
+            type = "text"
+            title="title"
+            placeholder="Enter your title..."
+            value ={this.state.title}
+            onChange ={this.handleChange}
             />
-            <Route path='/books' component={Books} />
 
+          <button>Submit</button></div>
+          </form>
+              
           </Switch>
+          <Modal />
         </div>
       </div>
 
-       
-    )
+      </React.Fragment> 
+    
   };
 }
 
