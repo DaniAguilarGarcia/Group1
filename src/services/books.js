@@ -9,7 +9,6 @@ module.exports = {
 const api = express();
 const router = express.Router();
 
-var BooksDB = require('../models/books');
 
 router.route('/').get(function (req, res) {
 
