@@ -4,19 +4,33 @@ import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
 import Book from "./Book";
 import Title from './Title';
-import { storeBooks } from "../data";
 import styled from "styled-components";
 import { BookConsumer } from "../context";
-import Search from '../components/Search';
-
-
+import axios from 'axios';
+//import Search from '../components/Search';
 
 export default class BookList extends Component {
   state = {
-    books: storeBooks
+    books: []
   };
 
+  getBook = () => {
+    axios.get('http://localhost:5000/books/')
+    .then((response)=>{
+      const data = response.data;
+      this.setState({ books: data});
+      console.log('Data has been received')
+    })
+    .catch(()=> {
+      alert('error retrieving data for booklist');
+    });
+  }
+  
+
   render() {
+
+    this.getBook();
+
     return (
 
       <div className="row">

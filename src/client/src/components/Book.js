@@ -11,7 +11,6 @@ const red = require('@material-ui/core/colors/red').default;
 
 export default class Book extends Component {
   
-
   render() {
     const { id, author, genre, publication_date, title, img, average_rating, price, inCart } = this.props.book;
     return (

@@ -1,22 +1,36 @@
 const mongoose = require('mongoose');
 
-const bookSchema = new mongoose.Schema({
+/**
+ * @typedef {Object} Books
+ * @property {string} authors
+ * @property {number} year
+ * @property {string} title
+ * @property {number} average_rating
+ * @property {number} price
+ * @property {string} image_url
+ * @property {string} small_image_url
+ * @property {Boolean} inCart
+ * @property {Boolean} inWishList
+ */
 
-    id: {type: String},
-    title: {type: String},
-    publication_date: {type: String},
-    author: {type: String},
-    publisher: {type: String},
-    genre: {type: String},
-    img: {type: String},
-    info: {type: String},
-    quantity: {type: Number},
-    average_rating: {type: Number},
-    price: {type: Number},
-    inCart: {type: Boolean},
-    inWishList: {type: Boolean},
-    count: {type: Number},
-    total: {type: Number},
+ //Schema
+const bookSchema = new mongoose.Schema({
+    id: String,
+    title: String,
+    publication_date: Number,
+    author: String,
+    publisher: String,
+    img: String,
+    info : String, 
+    genre : String,
+    quantity : Number,
+    average_rating : Number,
+    price: Number, 
+    inCart: Boolean,
+    inWishList : Boolean,
+    count: Number, 
+    total: Number
 });
 
-module.exports = new mongoose.model('books', bookSchema);
+//Model
+module.exports = mongoose.model('Books', bookSchema);
