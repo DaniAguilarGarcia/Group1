@@ -3,10 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
-
-
-
 import styled from "styled-components"
+
 
 class MainNav extends Component {
     constructor(props) {
@@ -25,6 +23,7 @@ class MainNav extends Component {
   static getDerivedStateFromProps(props, state) {
     return props;
   }
+  
 
   logout = () => {
     fetch('/api/user/logout', {
@@ -37,6 +36,7 @@ class MainNav extends Component {
       console.error(err);
     });
   }
+//style
 
     navRight() {
         return (
@@ -139,8 +139,13 @@ class MainNav extends Component {
                     
                     {this.navRight()}
                 </div>
-            </NavWrapper>
-            </container>
+
+                <div > <Link to={'/Product'} >
+                <button className="btn btn-outline-success my-2 my-sm-0" type="Book">Books</button>
+                
+                </Link> </div>
+            </nav>
+
         );
     }}
     

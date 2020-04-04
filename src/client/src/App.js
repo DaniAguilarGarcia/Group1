@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
+import ProductList from './components/shoppingCart/ProductList'
 import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
@@ -122,12 +123,14 @@ class App extends Component {
     });
   }
 
+
   handleLogout = () => {
     this.setState({
       logged_in: false,
       user: {},
     });
   }
+
 
   render() {
     return <React.Fragment>
@@ -149,6 +152,10 @@ class App extends Component {
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
             <Route path='/cart' component={Cart} />
+                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
+            />
+        <Route path='/Product'
+                render={(props) => <ProductList {...props} logged_in={this.state.logged_in}/>}
             />
 
             <Route path='/ratings'
@@ -182,4 +189,7 @@ class App extends Component {
   };
 }
 
+
 export default App;
+
+

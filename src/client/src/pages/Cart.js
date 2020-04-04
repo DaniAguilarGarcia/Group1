@@ -1,86 +1,60 @@
-import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { removeFromCart, addQ, subtractQ } from '../components/shoppingCart/cartActions'
-import Calculate from '../components/shoppingCart/Calculate';
 
-
-class Cart extends Component {
-    //remove book from cart
-    constructor(props) {
-        super(props) 
-        console.log(props)
-
-        this.books = [
-            {id:1,title: "book1", desc: "Placeholder desc", price: 10.23},
-            {id:2,title: "book2", desc: "Placeholder desc", price: 9.17},
-            {id:3,title: "book3", desc: "Placeholder desc", price: 10.99},
-            {id:3,title: "book4", desc: "Placeholder desc", price: 1.99},
-            {id:3,title: "book5", desc: "Placeholder desc", price: 18.99},
-            {id:3,title: "book6", desc: "Placeholder desc", price: 20.99},
-            {id:3,title: "book7", desc: "Placeholder desc", price: 89.99},
-            {id:3,title: "book8", desc: "Placeholder desc", price: 54.99},
-            {id:3,title: "book9", desc: "Placeholder desc", price: 34.99},
-        ]
-
-    }
-
-   
-    // handleRemove = (id)=> {
-    //     removeFromCart(id);
-    // }
-   
-    // //add book quantity
-    // handleAddQ = (id)=>{
-    //     addQ(id);
-    // }
-
-    // //subtract book quantity
-    // handleSubtractQ = (id)=>{
-    //     subtractQ(id);
-    // }
-   
-    renderBooksInCart = () => {
-      return this.books.map((book) => { 
-          return (
-            <div style={{display: 'flex'}}> 
-              <h3>{book.title}</h3>
-              <p>{book.desc}</p>
-              <p>${book.price}</p>
-            </div>
-           )
-      })
-    }
-    
-
-    render() {
-        const books = ["charlotess web", "lala"];
+  import React from 'react';
+    import { Link } from 'react-router-dom';
+    import { getCartProducts } from '../components/shoppingCart/repository';
+    import CartItem from '../components/shoppingCart/CartItem';
+    export default class Cart extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { products: [], total: 0 }
+      }
+      componentDidMount() {
+        let cart = localStorage.getItem('cart');
+        if (!cart) return; 
+        getCartProducts(cart).then((products) => {
+          let total = 0;
+          for (var i = 0; i < products.length; i++) {
+            total += products[i].price * products[i].qty;
+          }
+          this.setState({ products, total });
+          });
+      }
+      removeFromCart = (product) => {
+        let products = this.state.products.filter((item) => item.id !== product.id);
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        delete cart[product.id.toString()];
+        localStorage.setItem('cart', JSON.stringify(cart));
+        let total = this.state.total - (product.qty * product.price) 
+        this.setState({products, total});
+      }
+      clearCart = () => {
+        localStorage.removeItem('cart');
+        this.setState({products: []});
+      }
+      render() {
+        const { products, total } =  this.state;
         return (
-            <div className="row">
-                <div className="col">
-                    { this.props.logged_in ? 
-                         this.renderBooksInCart() :
-                         <div>Please Login To Populate Your Cart</div>
-                    }
-                    
-                </div>
-            </div>
+          <div className=" container">
+            <h3 className="card-title">Shopping Cart</h3>
+            {
+              products.map((product, index) => 
+                <CartItem product={product} remove={this.removeFromCart} key={index}/>)
+            } 
+            { products.length ? 
+              <div><h4>
+                <small>Total Amount: </small>
+                <span className="float-right text-sucess">${total}</span>
+              </h4><hr/></div>: ''}
+            { !products.length ?<h3 className="text-info">No item on the cart</h3>: ''}
+            <Link to="/checkout">
+                <button className="btn btn-success float-right">Checkout</button></Link>
+            <button className="btn btn-secondary float-right" onClick={this.clearCart} 
+                style={{ marginRight: "10px" }}>Clear Cart</button><br/><br/><br/>
+          </div>
         );
+      }
     }
-}
 
-// const mapStateToProps = (state)=>{
-//     return {
-//         // items: state.addedItems
-//     }
-// }
-// const mapDispatchToProps = (dispatch)=>{
-//     return{
-//         removeFromCart: (id)=>{dispatch(removeFromCart(id))},
-//         addQ: (id)=>{dispatch(addQ(id))},
-//         subtractQ: (id)=>{dispatch(subtractQ(id))}
-//     }
-// }
-export default Cart;
 
-// export default connect(mapStateToProps,mapDispatchToProps)(Cart);
+   
+
