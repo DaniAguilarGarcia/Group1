@@ -17,12 +17,8 @@ if (user && password) {
     }
 }
 
-<<<<<<< HEAD
-mongoose.connect(server, {
-=======
 const MONGODB_URI = 'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
 const DB = mongoose.connect(MONGODB_URI, {
->>>>>>> a71a230f
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
