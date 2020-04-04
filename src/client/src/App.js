@@ -157,18 +157,6 @@ class App extends Component {
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/" exact component={BookList} />
 
-            <form onSubmit={this.submit}>
-            <div className= "form-input">
-            <input
-            type = "text"
-            title="title"
-            placeholder="Enter your title..."
-            value ={this.state.title}
-            onChange ={this.handleChange}
-            />
-
-          <button>Submit</button></div>
-          </form>
               
           </Switch>
           <Modal />

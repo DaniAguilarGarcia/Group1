@@ -32,6 +32,7 @@ class BookProvider extends Component {
   }
   
   componentDidMount() {
+    this.getBook();
     this.setBooks();
   }
 
@@ -183,7 +184,7 @@ class BookProvider extends Component {
   };
   render() {
     
-    this.getBook();
+  
 
     return (
       <BookContext.Provider

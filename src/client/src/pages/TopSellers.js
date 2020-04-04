@@ -40,8 +40,7 @@ class TopSellers extends PureComponent {
     
   
       render() {
-    
-        this.getBook();
+  
     
         return (
         
