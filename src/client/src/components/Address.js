@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import './PaymentMethod.scss';
 
-class PaymentMethod extends Component {
+class Address extends Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({
       editing: false,
-      cvv: '',
-      pan: 'X'.repeat(12) + props.method.last_four,
-      submitting: false,
       error_msg: null,
       errors: {},
-    }, props.method);
+    }, props.address);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -25,7 +21,7 @@ class PaymentMethod extends Component {
   }
 
   sendDelete = (event) => {
-    return fetch(`/api/user/methods/${this.state._id}`, {
+    return fetch(`/api/user/addresses/${this.state._id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -48,16 +44,15 @@ class PaymentMethod extends Component {
       errors: {},
     });
 
-
     const body = {
-      alias: this.state.alias,
-      payer_name: this.state.payer_name,
-      pan: this.state.pan,
-      exp: this.state.exp,
-      cvv: this.state.cvv,
+      street: this.state.street,
+      city: this.state.city,
+      state: this.state.state,
+      postal: this.state.postal,
+      country: this.state.country,
     };
 
-    return fetch(`/api/user/methods/${this.state._id}`, {
+    return fetch(`/api/user/addresses/${this.state._id}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -75,8 +70,6 @@ class PaymentMethod extends Component {
         error_msg: null,
         errors: {},
         editing: false,
-        cvv: '',
-        pan: 'X'.repeat(12) + body.last_four,
         ...body,
       });
 
@@ -97,14 +90,12 @@ class PaymentMethod extends Component {
   }
 
   listItem() {
+    const {street, city, state, postal, country} = this.state;
     return (
       <li className="list-group-item">
         <div className="row">
           <div className="col-12 col-md-9">
-            <span className="alias mr-2 font-weight-bold">{this.state.alias}</span>
-            <span className="name mr-2">{this.state.payer_name}</span>
-            <span className="brand mr-2">{this.state.brand}</span>
-            <span className="last_four">{this.state.last_four}</span>
+            {`${street} ${city} ${state}, ${postal} ${country}`}
           </div>
           <div className="col-12 col-md-3 d-flex">
             <button className="btn btn-sm btn-outline-primary ml-auto" onClick={() => this.setEdit(true)}>
@@ -135,30 +126,30 @@ class PaymentMethod extends Component {
     const form = (
       <form onSubmit={this.sendUpdate}>
         <div className="form-row">
-          <div className="col-12 mb-2">
-            <input type="text" className="form-control" placeholder="Name on Card" required disabled={this.state.submitting}
-              value={this.state.payer_name} onChange={(e) => this.onChange('payer_name', e)} />
+          <div className="col-12 col-md-6 mb-2">
+            <input type="text" className="form-control" placeholder="Street" required disabled={this.state.submitting}
+              value={this.state.street} onChange={(e) => this.onChange('street', e)} />
           </div>
-          <div className="col-12 mb-2">
-            <input type="text" className="form-control" placeholder="Card Number" required disabled={this.state.submitting}
-              value={this.state.pan} onChange={(e) => this.onChange('pan', e)} />
+          <div className="col-12 col-md-6 mb-2">
+            <input type="text" className="form-control" placeholder="City" required disabled={this.state.submitting}
+              value={this.state.city} onChange={(e) => this.onChange('city', e)} />
           </div>
-          <div className="col-6 mb-2">
-            <input type="text" className="form-control" placeholder="Card Exp" required disabled={this.state.submitting}
-              value={this.state.exp} onChange={(e) => this.onChange('exp', e)} />
+          <div className="col-12 col-md-4 mb-2">
+            <input type="text" className="form-control" placeholder="State" required disabled={this.state.submitting}
+              value={this.state.state} onChange={(e) => this.onChange('state', e)} />
           </div>
-          <div className="col-6 mb-2">
-            <input type="text" className="form-control" placeholder="Card CVV" required disabled={this.state.submitting}
-              value={this.state.cvv} onChange={(e) => this.onChange('cvv', e)} />
+          <div className="col-12 col-md-4 mb-2">
+            <input type="text" className="form-control" placeholder="Postal Code" required disabled={this.state.submitting}
+              value={this.state.postal} onChange={(e) => this.onChange('postal', e)} />
           </div>
-          <div className="col-12 mb-2">
-            <input type="text" className="form-control" placeholder="Card Alias" disabled={this.state.submitting}
-              value={this.state.alias} onChange={(e) => this.onChange('alias', e)} />
+          <div className="col-12 col-md-4 mb-2">
+            <input type="text" className="form-control" placeholder="Country" required disabled={this.state.submitting}
+              value={this.state.country} onChange={(e) => this.onChange('country', e)} />
           </div>
         </div>
         <div className="form-row">
           <div className="col-12 col-md-8 mb-2 mb-md-0">
-            <button type="submit" className="btn btn-block btn-primary" disabled={this.state.submitting}>Update Card</button>
+            <button type="submit" className="btn btn-block btn-primary" disabled={this.state.submitting}>Update Address</button>
           </div>
           <div className="col-12 col-md-4">
             <button className="btn btn-block btn-outline-secondary" disabled={this.state.submitting} onClick={(e) => {e.preventDefault(); this.setEdit(false)}}>Cancel</button>
@@ -184,4 +175,4 @@ class PaymentMethod extends Component {
   }
 }
 
-export default PaymentMethod;
+export default Address;
