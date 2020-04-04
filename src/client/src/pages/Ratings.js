@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import StarRatingComponent from "react-star-rating-component";
 import { useHistory } from "react-router-dom";
 
-const Ratings = props => {
+const Ratings = (props) => {
   const [nickname, setNickname] = useState("Current User");
   const [rating, setRating] = useState(5);
   const [userTitle, setUserTitle] = useState("");
@@ -12,26 +12,27 @@ const Ratings = props => {
       title: "Great Book!",
       rating: 5,
       comment: "I love this book, it's one of my favorites.",
-      nickname: "John Smith"
-    }
+      nickname: "John Smith",
+    },
   ]);
   const [showModal, setShowModal] = useState(false);
   const [hideUser, setHideUser] = useState(false);
+  const [book, setBook] = useState(props.location?.state?.book);
   let history = useHistory();
 
   useEffect(() => {
     console.log(props);
   }, []);
 
-  const submitReview = e => {
+  const submitReview = (e) => {
     e.preventDefault();
     if (props.logged_in) {
-      setComments(prevState =>
+      setComments((prevState) =>
         prevState.concat({
           rating,
           title: userTitle,
           comment: userComment,
-          nickname: hideUser ? 'Anonymous' : nickname
+          nickname: hideUser ? "Anonymous" : nickname,
         })
       );
     } else {
@@ -50,9 +51,18 @@ const Ratings = props => {
     <>
       <div className="row" style={{ marginBottom: "20px" }}>
         <div className="col">
-          <h2>Reviews for: </h2>
+          <h2>Reviews for: {book.title}</h2>
+          <h3>Average rating:</h3>
+          <StarRatingComponent
+            name="average_rating"
+            starCount={5}
+            value={book?.average_rating}
+          />
+          <div className="col-10 mx-auto text-center col-md-6 my-3">
+            <img src={book?.img} className="img-fluid" alt="" />
+          </div>
           <ul class="list-group">
-            {comments.map(obj => (
+            {comments.map((obj) => (
               <li class="list-group-item">
                 <h4>{obj.title}</h4>
                 <h6>Review by {obj.nickname}</h6>
@@ -75,7 +85,7 @@ const Ratings = props => {
             name="rating"
             starCount={5}
             value={rating}
-            onStarClick={val => setRating(val)}
+            onStarClick={(val) => setRating(val)}
           />
           <form onSubmit={submitReview}>
             <div className="form-group">
@@ -83,7 +93,7 @@ const Ratings = props => {
               <input
                 className="form-control"
                 value={userTitle}
-                onChange={e => setUserTitle(e.target.value)}
+                onChange={(e) => setUserTitle(e.target.value)}
               ></input>
             </div>
             <div className="form-group">
@@ -91,7 +101,7 @@ const Ratings = props => {
               <textarea
                 className="form-control"
                 value={userComment}
-                onChange={e => setUserComment(e.target.value)}
+                onChange={(e) => setUserComment(e.target.value)}
               ></textarea>
             </div>
             <div class="form-group form-check">
@@ -99,11 +109,9 @@ const Ratings = props => {
                 type="checkbox"
                 class="form-check-input"
                 value={hideUser}
-                onChange={() => setHideUser(prev => !prev)}
+                onChange={() => setHideUser((prev) => !prev)}
               />
-              <label class="form-check-label">
-                Hide Username
-              </label>
+              <label class="form-check-label">Hide Username</label>
             </div>
             <button className="btn btn-primary" type="submit">
               Submit Review

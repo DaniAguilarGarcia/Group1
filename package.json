@@ -9,7 +9,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "local": "nodemon ./src/index.js",
+    "local": "concurrently \"cd src/client && npm run start\" \"nodemon ./src/index.js\"",
     "test": "mocha",
     "heroku-postbuild": "bash build-client.sh"
   },
