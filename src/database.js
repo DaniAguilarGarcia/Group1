@@ -17,16 +17,21 @@ if (user && password) {
     }
 }
 
-mongoose.connect(server, {
+const MONGODB_URI = 'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
+const DB = mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
+mongoose.connection.on('connected',() => {
+    console.log('Mongoose is connected!');
+});
+
 mongoose.set('useCreateIndex', true);
 
-const DB = mongoose.connection;
+/*const DB = mongoose.connection;
 
 DB.on('error', console.error.bind(console, 'connection error:'));
 DB.once('open', () => console.log('DB connected'));
-
+*/
 module.exports = DB;
