@@ -96,9 +96,7 @@ class MainNav extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline my-2 flex-grow-1">
-                    <input type ="text" 
-                        value={this.state.search}
-                        onChange={(e) => this.searchCallBack(e.target.value)}/>
+                   
 
           
                 <Link to="/" className="ml-auto">
@@ -123,6 +121,7 @@ class MainNav extends Component {
         <Nav.Item>
         <Dropdown as={NavItem}>
         <Dropdown.Toggle as={NavLink}>Ratings</Dropdown.Toggle>
+        
         <Dropdown.Menu>
         <Dropdown.Item>Five Star</Dropdown.Item>
         <Dropdown.Item>Four Star</Dropdown.Item>
@@ -133,7 +132,7 @@ class MainNav extends Component {
         </Dropdown>
         </Nav.Item>
         <Nav.Item>
-        <Nav.Link eventKey="link-3">Top Sellers</Nav.Link>
+        <Link to={'/topsellers'} className="nav-link">Top Sellers</Link>
         </Nav.Item>
         </Nav>
         </form>

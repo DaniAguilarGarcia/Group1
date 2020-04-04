@@ -88,6 +88,10 @@ export default class Details extends Component {
                       <ButtonContainer>Back to Books</ButtonContainer>
                     </Link>
 
+                    <Link to={{pathname: '/ratings', state: {book: value.detailBook}}}>
+                      <ButtonContainer>Rate Book</ButtonContainer>
+                    </Link>
+
                     <ButtonContainer
                       cart
                       disabled={inCart ? true : false}

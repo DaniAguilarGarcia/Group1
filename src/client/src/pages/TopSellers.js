@@ -1,14 +1,14 @@
-/*import React, { PureComponent } from "react";
+import React, { PureComponent } from "react";
 import {render} from 'react-dom';
 import Pagination from 'react-bootstrap/Pagination';
 import Navbar from 'react-bootstrap/Navbar';
 import Book from '../components/Book';
 import Title from '../components/Title';
-//import { storeBooks } from "../data";
 import styled from "styled-components";
 import { BookSharp } from "@material-ui/icons";
-//import { BookConsumer } from "../context";
-//import BookList from "../components/BookList";
+import { BookConsumer } from "../context";
+import BookList from "../components/BookList";
+import axios from 'axios';
 
 class TopSellers extends PureComponent {
     constructor(props) {
@@ -25,8 +25,23 @@ class TopSellers extends PureComponent {
       console.log(this.state.data)
     }
 
+  
+    getBook = () => {
+      axios.get('http://localhost:5000/books/')
+      .then((response)=>{
+        const data = response.data;
+        this.setState({ books: data});
+        console.log('Data has been received')
+      })
+      .catch(()=> {
+        alert('error retrieving data for booklist');
+      });
+    }
+    
+  
       render() {
     
+        this.getBook();
     
         return (
         
@@ -48,11 +63,11 @@ class TopSellers extends PureComponent {
               <div className = "row"> 
               
               <BookConsumer>
-              { value => {
-                return this.state.data.map(book => {
-                 return <Book key={book.id} book={book}/>;
-              })         
-              }}
+              {value => {
+                  return value.books.map(book => {
+                    return <Book key={book.id} book={book} />;
+                  });
+                }}
                 </BookConsumer>
               
                 </div>
@@ -69,4 +84,4 @@ class TopSellers extends PureComponent {
     );
     }}
     
-export default TopSellers*/
+export default TopSellers
