@@ -19,10 +19,12 @@ export default class BookList extends Component {
     .then((response)=>{
       const data = response.data;
       this.setState({ books: data});
+      this.setState({ modalBook: data});
+      this.setState({detailsBooks: data});
       console.log('Data has been received')
     })
     .catch(()=> {
-      alert('error retrieving data for booklist');
+      alert('error retrieving data for context');
     });
   }
   
@@ -51,16 +53,6 @@ export default class BookList extends Component {
         </BookWrapper>
       </React.Fragment>
 
-      <React.Fragment>
-      <Pagination>
-      <Pagination.First />
-      <Pagination.Prev />
-      <Pagination.Item active>{1}</Pagination.Item>
-      <Pagination.Ellipsis />
-      <Pagination.Next />
-      <Pagination.Last />
-      </Pagination>
-      </React.Fragment>
       </div>
       </div>
 
