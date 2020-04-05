@@ -28,16 +28,16 @@ class App extends Component {
       user: {},
       search: "",
       isbn: '',
-    title:  '',
-    publication_date:  '',
-    edition:  0, 
-    quantity: 0,
-    price:  '', 
-    author:  '',
-    publisher:  '', 
-    genre:  '',
-    book_description:  '',
-    books: []
+      title:  '',
+      publication_date:  '',
+      edition:  0, 
+      quantity: 0,
+      price:  '', 
+      author_name:  '',
+      publisher:  '', 
+      genre:  '',
+      book_description:  '',
+      books: []
     }
   }
 
@@ -64,6 +64,9 @@ class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
     this.getBook();
+    
+    axios.get('');
+    
   }
 
   getBook = () => {
@@ -111,7 +114,7 @@ class App extends Component {
     return books.map((book, index) => (
       <div key = {index}>
         <h3>{book.title}</h3>
-        <p>{book.author}</p>
+        <p>{book.author_name}</p>
 
       </div>
     )
@@ -151,13 +154,12 @@ class App extends Component {
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-            <Route path='/cart' component={Cart} />
+            <Route path='/cart' component={Cart} 
                 render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
             />
-        <Route path='/Product'
+            <Route path='/Product'
                 render={(props) => <ProductList {...props} logged_in={this.state.logged_in}/>}
             />
-
             <Route path='/ratings'
             render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
@@ -176,8 +178,8 @@ class App extends Component {
             onChange ={this.handleChange}
             />
 
-          <button>Submit</button></div>
-          </form>
+            <button>Submit</button></div>
+           </form>
               
           </Switch>
           <Modal />

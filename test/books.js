@@ -14,7 +14,7 @@ router.route('/add').post((req, res) => {
   const edition = req.body.edition;
   const quantity = req.body.quantity;
   const price = req.body.price;
-  const author = req.body.author;
+  const author_name = req.body.author_name;
   const publisher = req.body.publisher;
   const genre = req.body.genre;
   const book_description = req.body.book_description;
@@ -33,7 +33,7 @@ router.route('/add').post((req, res) => {
     edition,
     quantity,
     price, 
-    author, 
+    author_name, 
     publisher,
     genre,
     book_description,
@@ -65,7 +65,7 @@ router.route('/update/:id').post((req, res) => {
       book.edition = req.body.edition;
       book.quantity = req.body.quantity;
       book.price = req.body.price;
-      book.author = req.body.author;
+      book.author_name = req.body.author_name;
       book.publisher = req.body.publisher;
       book.genre = req.body.genre;
       book.book_description = req.body.book_description;

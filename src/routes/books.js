@@ -11,7 +11,7 @@ router.route('/add').post((req, res) => {
   const id = req.body.id;
   const title = req.body.title;
   const publication_date = req.body.publication_date;
-  const author = req.body.author;
+  const author_name = req.body.author_name;
   const publisher = req.body.publisher;
   const genre = req.body.genre;
   const img = req.body.img;
@@ -28,7 +28,7 @@ router.route('/add').post((req, res) => {
     id,
     title,
     publication_date,
-    author,
+    author_name,
     publisher,
     genre,
     img,
@@ -41,7 +41,7 @@ router.route('/add').post((req, res) => {
     count,
     total,
   });
-
+ 
   newBook.save()
   .then(() => res.json('Book added!'))
   .catch(err => res.status(400).json('Error: ' + err));
@@ -65,7 +65,7 @@ router.route('/update/:id').post((req, res) => {
         id = req.body.id;
         title = req.body.title;
         publication_date = req.body.publication_date;
-        author = req.body.author;
+        author_name = req.body.author_name;
         publisher = req.body.publisher;
         genre = req.body.genre;
         img = req.body.img;
