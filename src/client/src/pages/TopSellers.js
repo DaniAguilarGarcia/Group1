@@ -36,15 +36,18 @@ class TopSellers extends PureComponent {
       .then((response)=>{
         const data = response.data;
         this.setState({ books: data});
+        this.setState({ modalBook: data});
+        this.setState({detailsBooks: data});
         console.log('Data has been received')
       })
       .catch(()=> {
-        alert('error retrieving data for booklist');
+        alert('error retrieving data for context');
       });
     }
     
-  
+    
       render() {   
+        
         return (
         
         <div className="row">
