@@ -37,6 +37,25 @@ class MainNav extends Component {
       console.error(err);
     });
   }
+    loginItem() {
+        if (this.props.logged_in) {
+            return (
+                <li className="nav-item">
+                    <Link to={'./login'} className="nav-link">
+                        {this.props.user.name}
+                    </Link>
+                </li>
+            );
+        }
+
+        return (
+            <li className="nav-item">
+                <Link to={'./login'} className="nav-link">
+                    Login
+                </Link>
+            </li>
+        );
+    }
 
     navRight() {
         return (
