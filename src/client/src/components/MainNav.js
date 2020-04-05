@@ -3,10 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
-
-
-
 import styled from "styled-components"
+
 
 class MainNav extends Component {
     constructor(props) {
@@ -25,7 +23,7 @@ class MainNav extends Component {
   static getDerivedStateFromProps(props, state) {
     return props;
   }
-
+  
   logout = () => {
     fetch('/api/user/logout', {
       method: 'post',
@@ -37,25 +35,7 @@ class MainNav extends Component {
       console.error(err);
     });
   }
-    loginItem() {
-        if (this.props.logged_in) {
-            return (
-                <li className="nav-item">
-                    <Link to={'./login'} className="nav-link">
-                        {this.props.user.name}
-                    </Link>
-                </li>
-            );
-        }
-
-        return (
-            <li className="nav-item">
-                <Link to={'./login'} className="nav-link">
-                    Login
-                </Link>
-            </li>
-        );
-    }
+//style
 
     navRight() {
         return (
