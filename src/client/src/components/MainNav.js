@@ -6,6 +6,7 @@ import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import styled from "styled-components"
 import StarRatingComponent from "react-star-rating-component";
 
+
 class MainNav extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +24,7 @@ class MainNav extends Component {
   static getDerivedStateFromProps(props, state) {
     return props;
   }
-
+  
   logout = () => {
     fetch('/api/user/logout', {
       method: 'post',
@@ -35,6 +36,7 @@ class MainNav extends Component {
       console.error(err);
     });
   }
+//style
 
     navRight() {
         return (

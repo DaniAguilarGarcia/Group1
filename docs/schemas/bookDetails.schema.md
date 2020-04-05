@@ -2,7 +2,7 @@
 ```json
 {
     "title": "String",
-    "author": "String", 
+    "author_name": "String", 
     "date": "String",
     "rating": "Number",
     "price": "Number", 

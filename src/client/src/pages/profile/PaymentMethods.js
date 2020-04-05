@@ -6,12 +6,29 @@ class PaymentMethods extends Component {
   constructor(props) {
     super();
     this.state = {
-      methods: props.user.payment_methods || [],
+      methods: [],
     };
+    this.getAll();
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  getAll = () => {
+    return fetch(`/api/user/methods`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    }).then(async (res) => {
+      const methods = await res.json();
+      if (!res.ok) {
+        return;
+      }
+
+      this.setState({
+        methods,
+      });
+
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   handleCreated = (method) => {

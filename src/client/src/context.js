@@ -31,11 +31,14 @@ class BookProvider extends Component {
     });
   }
   
+
   componentDidMount() {
     this.getBook();
     this.setBooks();
+    this.getBook();
   }
 
+ 
   setBooks = () => {
     let books = [];
       books.forEach(item => {
@@ -183,10 +186,9 @@ class BookProvider extends Component {
     );
   };
   render() {
-    
-  
 
-    return (
+      return (
+
       <BookContext.Provider
         value={{
           ...this.state,

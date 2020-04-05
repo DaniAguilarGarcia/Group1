@@ -18,4 +18,6 @@ Router.route('/profile')
 
 Router.use("/methods", require('./methods'));
 
+Router.use("/addresses", require('./addresses'));
+
 module.exports = Router;
