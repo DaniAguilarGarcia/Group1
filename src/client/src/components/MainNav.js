@@ -145,6 +145,8 @@ class MainNav extends Component {
                 
                 </Link> </div>
             </nav>
+            </NavWrapper>
+            </container>
 
         );
     }}
