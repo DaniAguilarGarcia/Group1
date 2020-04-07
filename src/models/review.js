@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, { model as _model } from 'mongoose';
 
 /**
  * @typedef {Object} Review
@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
  * @property {string} comment
  * @property {integer} book_id
  * @property {string} customer_id
- * @property {string} password hashed
- * @property {string} nickname  may be deleted
  */
 
 const schema = new.mongoose.Schema({
@@ -19,23 +17,22 @@ const schema = new.mongoose.Schema({
     book_id: int,
     customer_id: int,
 });
-/* Will need modification
 
 ObjectId = require('mongodb').ObjectID, review = {
-    addBookReview: (data, cb) => {
+    addBookReview: (data, callBack) => {
         let bookID = new ObjectId(data._id);
         const collection = mongodbConnection.db().collection("Books");
         collection.updateOne({ _id: bookID }, { $addToSet: { review: data.review } }, (addError, addResult) => {
             if (!addError) {
-                cb(200, addResult);
+                callBack(200, addResult);
             } else {
                 console.log(addError);
-                cb(500, addError);
+                callBack(500, addError);
             }
         });
 
     },
-    updateBookAverageRating: (id, cb) => {
+    updateBookAverageRating: (id, callBack) => {
         const purchaseCollection = mongodbConnection.db().collection("Purchase");
         const avgRating = purchaseCollection.find({ _id: new ObjectId(id) }).toArray((err, result) => {
             if (!err) {
@@ -50,17 +47,17 @@ ObjectId = require('mongodb').ObjectID, review = {
                 const bookCollection = mongodbConnection.db().collection("Books");
                 bookCollection.updateOne({ _id: new ObjectId(id) },
                     { $set: { "avg_rating": avgRating } }, function (err, result) {
-                        !err ? cb(200, result) : cb(500, err);
+                        !err ? callBack(200, result) : callBack(500, err);
                     });
             }
             else {
                 console.log(err);
-                cb(500, err);
+                callBack(500, err);
             }
         });
     },
 };
 
 const model = new mongoose.model('Review', schema);
-*/
+
 module.exports = schema;
