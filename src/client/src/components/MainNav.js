@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import './MainNav.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import styled from "styled-components"
 import StarRatingComponent from "react-star-rating-component";
+import {Container, Col, Row, Nav, NavDropdown, Image, InputGroup, Form, Button, NavItem, NavLink } from 'react-bootstrap';
+import { Search} from 'react-bootstrap-icons';
 
 class MainNav extends Component {
     constructor(props) {
@@ -15,6 +16,15 @@ class MainNav extends Component {
         };
     }
 
+    searchChangeHandler(event){
+      this.setState({data: event});
+    }
+  
+    searchSubmitHandler(event){
+      this.setState({submit: true});
+      this.setState({books: event});
+      console.log(this.state.books)
+    }
 
     static getDerivedStateFromProps(props, state) {
       return props;
@@ -103,6 +113,24 @@ class MainNav extends Component {
                         Our Books
                       </ButtonContainer>
                   </Link>             
+
+                  <Col xs={4}>
+            <Form onSubmit={(e) => this.searchSubmitHandler(e.target.value)}>
+              <Form.Group>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search By Name"
+                    onChange={(e) => this.searchChangeHandler(e.target.value)}
+                  />
+                  <InputGroup.Append>
+                    <Button variant="outline-secondary" type="submit" href={`/search/${this.state.books}`} ><Search /></Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form.Group>
+            </Form>
+          </Col>
+
                        
                   <Nav className="justify-content-center" activeKey="/home">
                     <Nav.Item>

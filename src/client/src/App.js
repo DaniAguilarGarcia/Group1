@@ -12,6 +12,7 @@ import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
 import TopSellers from "./pages/TopSellers";
+import Search from "./components/Search"
 import axios from 'axios';
 //import { BookConsumer } from "../context";
 import Book from "./components/Book";
@@ -156,6 +157,7 @@ class App extends Component {
             <Route path="/details" component={Details} />
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/" exact component={BookList} />
+            <Route path="/search/:bookname" component={Search} />
 
               
           </Switch>

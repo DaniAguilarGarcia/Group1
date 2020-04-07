@@ -18,6 +18,13 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:bookname', (req, res) => {
+
+    Books.find({title : req.params.bookname},function(error, book){
+        res.json(book);
+    });
+});
+
 router.post('/save', (req, res) => {
     console.log('title:', req.title);
     const data = req.title;

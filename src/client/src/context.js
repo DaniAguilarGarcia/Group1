@@ -13,7 +13,15 @@ class BookProvider extends Component {
     cartSubTotal: 0,
     cartTax: 0,
     cartTotal: 0,
-    detailsBooks: []
+    detailsBooks: [],
+    sortedByAuthor : [],
+    sortedByTitle: [],
+    sortedByPrice: [],
+    sortedByRating: [],
+    sortedByDate:[],
+    topSellers: [],
+    isTopSeller: false,
+    loading: true
   };
 
 
@@ -34,7 +42,21 @@ class BookProvider extends Component {
   componentDidMount() {
     this.getBook();
     this.setBooks();
+
+   // let books = this.formatData()
   }
+
+ /* formatData(books){
+    let tempBooks = books.map(book =>{
+      let id = book.sys.id
+      let images = book.Books.img.map(image =>
+        image.Books.url);
+
+      book = {...book,images,id}
+      return book;
+    } );
+    return tempBooks
+  }*/
 
   setBooks = () => {
     let books = [];
