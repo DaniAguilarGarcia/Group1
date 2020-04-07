@@ -16,7 +16,7 @@ class ByRating extends Component {
           <div className="col">
 
             <h1>Browse By Rating</h1>
-
+            <h4>Books with ratings of at least {this.state} stars</h4>
             <React.Fragment>
               <div className="py-5">
                 <div className = "container">
