@@ -13,12 +13,11 @@ import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import TopSellers from "./pages/TopSellers";
 import Search from "./components/Search"
 import axios from 'axios';
-//import { BookConsumer } from "../context";
-import Book from "./components/Book";
+import ByRating from '../src/pages/Browsing/byRating';
+import ByGenre from '../src/pages/Browsing/byGenre';
 
 class App extends Component {
 
@@ -169,6 +168,8 @@ class App extends Component {
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/" exact component={BookList} />
             <Route path="/search/:bookname" component={Search} />
+            <Route path="/browsing/byrating/:rating" component={ByRating} />
+            <Route path="/browsing/bygenre/:genre" component={ByGenre} />
 
           </Switch>
           <Modal />

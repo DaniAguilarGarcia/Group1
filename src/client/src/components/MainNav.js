@@ -135,59 +135,45 @@ class MainNav extends Component {
 
                        
                   <Nav className="justify-content-center" activeKey="/home">
-                    <Nav.Item>
-                      <Dropdown as={NavItem}>
-                        <Dropdown.Toggle as={NavLink}>Genres</Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item>Fiction</Dropdown.Item>
-                            <Dropdown.Item>Non-Fiction</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                  </Nav.Item>
-        
-                  <Nav.Item>
-                    <Dropdown as={NavItem}>
-                      <Dropdown.Toggle as={NavLink}>Browse By Ratings</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item><StarRatingComponent 
+                  <NavDropdown title="Browse By Genre">
+                    <NavDropdown.Item href = '/browsing/bygenre/Novel'>Novel</NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/bygenre/Biography'>Biography</NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/bygenre/Fantasy'>Fantasy</NavDropdown.Item>
+                  </NavDropdown>
+
+                  <NavDropdown title="Browse By Ratings">
+                    <NavDropdown.Item href = '/browsing/byrating/5'><StarRatingComponent 
                               name= "rating" 
                               starCount = {5}
                               value = {5}
                               editing = {false}
-                            /></Dropdown.Item>
-
-                          <Dropdown.Item><StarRatingComponent 
+                            /></NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/byrating/4'><StarRatingComponent 
                               name= "rating" 
                               starCount = {5}
                               value = {4}
                               editing = {false}
-                            /></Dropdown.Item>  
-                         
-                         <Dropdown.Item><StarRatingComponent 
+                            /></NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/byrating/3'><StarRatingComponent 
                               name= "rating" 
                               starCount = {5}
                               value = {3}
                               editing = {false}
-                            /></Dropdown.Item> 
-
-                          <Dropdown.Item><StarRatingComponent 
+                            /></NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/byrating/2'><StarRatingComponent 
                               name= "rating" 
                               starCount = {5}
                               value = {2}
                               editing = {false}
-                            /></Dropdown.Item>
-
-                          <Dropdown.Item><StarRatingComponent 
+                            /></NavDropdown.Item>
+                    <NavDropdown.Item href = '/browsing/byrating/1'><StarRatingComponent 
                               name= "rating" 
                               starCount = {5}
                               value = {1}
                               editing = {false}
-                            /></Dropdown.Item>     
-
-                        </Dropdown.Menu>
-                    </Dropdown>
-                  </Nav.Item>
-        
+                            /></NavDropdown.Item>
+                  </NavDropdown>
+              
                   <Nav.Item>
                     <Link to={'/topsellers'} className="nav-link">Top Sellers</Link>
                   </Nav.Item>
