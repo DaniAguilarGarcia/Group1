@@ -4,6 +4,7 @@ import EditProfile from './profile/EditProfile';
 import Orders from './profile/Orders';
 import PaymentMethods from './profile/PaymentMethods';
 import ShippingAddresses from './profile/ShippingAddresses';
+import Wishlists from './profile/Wishlists';
 import './Profile.scss';
 
 class Profile extends Component {
@@ -54,6 +55,12 @@ class Profile extends Component {
                 Shipping
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink activeClassName="active" className="nav-link"
+                to={'/profile/wishlists'} exact>
+                Wishlists
+              </NavLink>
+            </li>
           </ul>
           <div className="card profile">
             <div className="card-body">
@@ -69,6 +76,9 @@ class Profile extends Component {
                 />
                 <Route exact path='/profile/shipping'
                   render={(props) => <ShippingAddresses {...props} addresses={this.state.user.shipping_addresses} />}
+                />
+                <Route exact path='/profile/wishlists'
+                  render={(props) => <Wishlists {...props} />}
                 />
               </Switch>
             </div>
