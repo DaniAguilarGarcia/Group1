@@ -60,4 +60,4 @@ ObjectId = require('mongodb').ObjectID, review = {
 
 const model = new mongoose.model('Review', schema);
 
-module.exports = schema;
+module.exports = review;
