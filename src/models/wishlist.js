@@ -6,7 +6,17 @@ const mongoose = require('mongoose');
  */
 
 const schema = new mongoose.Schema({
-  title: String
+  title: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: mongoose.ObjectId,
+    required: true
+  },
+  bookIds: {
+    type: Array
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

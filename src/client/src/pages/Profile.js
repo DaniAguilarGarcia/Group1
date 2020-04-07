@@ -78,7 +78,7 @@ class Profile extends Component {
                   render={(props) => <ShippingAddresses {...props} addresses={this.state.user.shipping_addresses} />}
                 />
                 <Route exact path='/profile/wishlists'
-                  render={(props) => <Wishlists {...props} />}
+                  render={(props) => <Wishlists {...props} user={this.state.user} />}
                 />
               </Switch>
             </div>
