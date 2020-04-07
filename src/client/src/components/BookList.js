@@ -1,33 +1,36 @@
 import React, { Component } from "react";
 import {render} from 'react-dom';
-import Pagination from 'react-bootstrap/Pagination';
+import ListPagination from '../pages/pagination';
 import Navbar from 'react-bootstrap/Navbar';
 import Book from "./Book";
 import Title from './Title';
 import styled from "styled-components";
 import { BookConsumer } from "../context";
 import axios from 'axios';
-//import Search from '../components/Search';
 
 export default class BookList extends Component {
   state = {
-    books: []
+    books: [],
+    activePage : 1,
+    pageSize : 10,
+    length : 1
   };
 
-  getBook = () => {
-    axios.get('http://localhost:5000/books/')
-    .then((response)=>{
-      const data = response.data;
-      this.setState({ books: data});
-      this.setState({ modalBook: data});
-      this.setState({detailsBooks: data});
-      console.log('Data has been received')
-    })
-    .catch(()=> {
-      alert('error retrieving data for context');
+  handleSelectPage(newPage) {
+    this.setState({
+      activePage: newPage
     });
   }
-  
+
+  pageDisplay(){
+   return <div className = 'col'>
+                  <ListPagination
+                    activePage={this.state.activePage}
+                    items={Math.ceil(this.state.length / this.state.pageSize)}
+                    onSelect={this.handleSelectPage}
+                  />
+                </div>
+  }
 
   render() {
 
@@ -43,11 +46,15 @@ export default class BookList extends Component {
             <div className="row">
               <BookConsumer>
                 {value => {
+                   
                   return value.books.map(book => {
-                    return <Book key={book.id} book={book} />;
+                  
+                    return <Book key={book.id} book={book}/> ;
+                   
                   });
                 }}
               </BookConsumer>
+              {this.pageDisplay()}
             </div>
           </div>
         </BookWrapper>

@@ -45,7 +45,10 @@ class BookProvider extends Component {
     this.setBooks();
   }
 
- 
+  componentDidUpdate(){
+    
+  }
+
   setBooks = () => {
     let books = [];
       books.forEach(item => {

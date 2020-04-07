@@ -12,7 +12,6 @@ import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import TopSellers from "./pages/TopSellers";
 import Search from "./components/Search"
 import axios from 'axios';
@@ -108,18 +107,6 @@ class App extends Component {
     });;
   };
 
-  displayBook = (books) => {
-    if(!books.length) return null;
-
-    return books.map((book, index) => (
-      <div key = {index}>
-        <h3>{book.title}</h3>
-        <p>{book.author_name}</p>
-
-      </div>
-    )
-    );
-  };
 
   handleLogin = (user) => {
     this.setState({
@@ -166,7 +153,6 @@ class App extends Component {
             <Route exact path="/" component={BookList} />
             <Route path="/details" component={Details} />
             <Route path="/topsellers" component={TopSellers} />
-            <Route path="/" exact component={BookList} />
             <Route path="/search/:bookname" component={Search} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />
             <Route path="/browsing/bygenre/:genre" component={ByGenre} />
