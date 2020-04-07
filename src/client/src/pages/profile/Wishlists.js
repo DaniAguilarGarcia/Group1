@@ -119,23 +119,58 @@ const Wishlists = ({ user }) => {
                         {wishlist.title}
                     </button>
 
+                    {wishlist._id === shownListId && !wishlistContents.length && <p>No books in wishlist</p>}
+
                     {wishlist._id === shownListId && !!wishlistContents.length && (
                         <ul className="list-group" style={{ marginBottom: 10 }}>
                             {wishlistContents.map(book => (
                                 <li key={book._id} className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <b>{book.title}</b> <button className="btn btn-danger" onClick={e => {
-                                        axios
-                                            .put(`http://localhost:5000/wishlists/${wishlist._id}`, {
-                                                bookId: book._id
-                                            })
-                                            .then(() => {
-                                                setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
-                                            })
-                                            .catch(e => {
-                                                console.error(e)
-                                                window.alert(`Sorry! Couldn't remove the book from that wishlist`)
-                                            })
-                                    }}>Remove</button>
+                                    <b style={{ marginRight: 'auto' }}>{book.title}</b>
+
+                                    <div style={{ display: 'flex' }}>
+                                        {/* Move to Wishlist Dropdown */}
+                                        <div className="dropdown" style={{ marginRight: 20 }}>
+                                            <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Move to Wishlist
+                                            </button>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                {wishlists.map(wishlist2 => (
+                                                    <button key={wishlist2._id} className="dropdown-item" style={{
+                                                        background: wishlist2.bookIds.includes(book._id) && '#eee'
+                                                    }} onClick={async () => {
+                                                        await axios
+                                                            .put(`http://localhost:5000/wishlists/${wishlist._id}`, {
+                                                                bookId: book._id
+                                                            })
+
+                                                        await axios
+                                                            .put(`http://localhost:5000/wishlists/${wishlist2._id}`, {
+                                                                bookId: book._id
+                                                            })
+
+                                                        setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
+                                                    }}
+                                                    disabled={wishlist2.bookIds.includes(book._id)}
+                                                    >{wishlist2.title}</button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Remove Button */}
+                                        <button className="btn btn-danger" onClick={e => {
+                                            axios
+                                                .put(`http://localhost:5000/wishlists/${wishlist._id}`, {
+                                                    bookId: book._id
+                                                })
+                                                .then(() => {
+                                                    setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
+                                                })
+                                                .catch(e => {
+                                                    console.error(e)
+                                                    window.alert(`Sorry! Couldn't remove the book from that wishlist`)
+                                                })
+                                        }}>Remove</button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
