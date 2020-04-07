@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MainNav from './components/MainNav';
@@ -7,10 +7,13 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
+import ProductList from './components/shoppingCart/ProductList'
 import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import TopSellers from "./pages/TopSellers";
 import Search from "./components/Search"
 import axios from 'axios';
@@ -26,16 +29,16 @@ class App extends Component {
       user: {},
       search: "",
       isbn: '',
-    title:  '',
-    publication_date:  '',
-    edition:  0, 
-    quantity: 0,
-    price:  '', 
-    author:  '',
-    publisher:  '', 
-    genre:  '',
-    book_description:  '',
-    books: []
+      title:  '',
+      publication_date:  '',
+      edition:  0, 
+      quantity: 0,
+      price:  '', 
+      author_name:  '',
+      publisher:  '', 
+      genre:  '',
+      book_description:  '',
+      books: []
     }
   }
 
@@ -62,6 +65,9 @@ class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
     this.getBook();
+    
+    axios.get('');
+    
   }
 
   getBook = () => {
@@ -109,7 +115,7 @@ class App extends Component {
     return books.map((book, index) => (
       <div key = {index}>
         <h3>{book.title}</h3>
-        <p>{book.author}</p>
+        <p>{book.author_name}</p>
 
       </div>
     )
@@ -149,17 +155,21 @@ class App extends Component {
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-            <Route path='/cart' component={Cart} />
+            <Route path='/cart' component={Cart} 
+                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
             />
-
-            <Route path='/ratings' component={Ratings} />
-          
+            <Route path='/Product'
+                render={(props) => <ProductList {...props} logged_in={this.state.logged_in}/>}
+            />
+            <Route path='/ratings'
+            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+            />
+            <Route exact path="/" component={BookList} />
             <Route path="/details" component={Details} />
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/" exact component={BookList} />
             <Route path="/search/:bookname" component={Search} />
 
-              
           </Switch>
           <Modal />
         </div>
@@ -171,3 +181,5 @@ class App extends Component {
 }
 
 export default App;
+
+

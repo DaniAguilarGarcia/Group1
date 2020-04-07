@@ -39,25 +39,13 @@ class BookProvider extends Component {
     });
   }
   
+
   componentDidMount() {
     this.getBook();
     this.setBooks();
-
-   // let books = this.formatData()
   }
 
- /* formatData(books){
-    let tempBooks = books.map(book =>{
-      let id = book.sys.id
-      let images = book.Books.img.map(image =>
-        image.Books.url);
-
-      book = {...book,images,id}
-      return book;
-    } );
-    return tempBooks
-  }*/
-
+ 
   setBooks = () => {
     let books = [];
       books.forEach(item => {
@@ -205,10 +193,9 @@ class BookProvider extends Component {
     );
   };
   render() {
-    
-  
 
-    return (
+      return (
+
       <BookContext.Provider
         value={{
           ...this.state,

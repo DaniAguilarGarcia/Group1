@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let book = require('../src/models/books');
+let Book = require('../src/models/books');
 
 router.route('/').get((req, res) => {
   book.find()
@@ -8,37 +8,40 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-  const isbn = req.body.isbn;
+  const id = req.body.id;
   const title = req.body.title;
   const publication_date = req.body.publication_date;
-  const edition = req.body.edition;
-  const quantity = req.body.quantity;
-  const price = req.body.price;
   const author_name = req.body.author_name;
   const publisher = req.body.publisher;
   const genre = req.body.genre;
-  const book_description = req.body.book_description;
+  const img = req.body.img;
+  const info = req.body.info;
+  const quantity = Number(req.body.quantity);
+  const average_rating = Number(req.body.average_rating);
+  const price = Number(req.body.price);
+  const inCart = Boolean(req.body.inCart);
+  const inWishList = Boolean(req.body.inWishList);
+  const count = Number(req.body.count);
+  const total = Number(req.body.total);
   
-  /*
-  const username = req.body.username;
-  const description = req.body.description;
-  const duration = Number(req.body.duration);
-  const date = Date.parse(req.body.date);
-  */
-
   const newBook = new book({
-    isbn,
+    id,
     title,
     publication_date,
-    edition,
-    quantity,
-    price, 
-    author_name, 
+    author_name,
     publisher,
     genre,
-    book_description,
+    img,
+    info,
+    quantity,
+    average_rating,
+    price,
+    inCart,
+    inWishList,
+    count,
+    total,
   });
-
+ 
   newBook.save()
   .then(() => res.json('Book added!'))
   .catch(err => res.status(400).json('Error: ' + err));
@@ -59,30 +62,27 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
   book.findById(req.params.id)
     .then(book => {
-      book.isbn = req.body.isbn;
-      boo.title = req.body.title;
-      book.publication_date = req.body.publication_date;
-      book.edition = req.body.edition;
-      book.quantity = req.body.quantity;
-      book.price = req.body.price;
-      book.author_name = req.body.author_name;
-      book.publisher = req.body.publisher;
-      book.genre = req.body.genre;
-      book.book_description = req.body.book_description;
-
-
-      /*
-      exercise.username = req.body.username;
-      exercise.description = req.body.description;
-      exercise.duration = Number(req.body.duration);
-      exercise.date = Date.parse(req.body.date);
-      */
+        id = req.body.id;
+        title = req.body.title;
+        publication_date = req.body.publication_date;
+        author_name = req.body.author_name;
+        publisher = req.body.publisher;
+        genre = req.body.genre;
+        img = req.body.img;
+        info = req.body.info;
+        quantity = req.body.quantity;
+        average_rating = req.body.average_rating;
+        price = req.body.price;
+        inCart = req.body.inCart;
+        inWishList = req.body.inWishList;
+        count = req.body.count;
+        total = req.body.total;
 
       book.save()
-        .then(() => res.json('Exercise updated!'))
+        .then(() => res.json('Book updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-module.exports = router;
+

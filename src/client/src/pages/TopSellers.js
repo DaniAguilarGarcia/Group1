@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Book from '../components/Book';
 import Title from '../components/Title';
 import styled from "styled-components";
-import { BookSharp } from "@material-ui/icons";
+
 import { BookConsumer } from "../context";
 import BookList from "../components/BookList";
 import axios from 'axios';
@@ -39,10 +39,9 @@ class TopSellers extends PureComponent {
       });
     }
     
-  
-      render() {
-  
     
+      render() {   
+        
         return (
         
         <div className="row">

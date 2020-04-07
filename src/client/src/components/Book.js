@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BookConsumer } from "../context";
 import PropTypes from "prop-types";
-import Typography from '@material-ui/core/Typography';
+
 import Rating from 'material-ui-rating';
 const { AddCircle, AddCircleOutline, Remove } = require('@material-ui/icons');
 const yellow = require('@material-ui/core/colors/yellow').default;
@@ -12,7 +12,7 @@ const red = require('@material-ui/core/colors/red').default;
 export default class Book extends Component {
   
   render() {
-    const { id, author, genre, publication_date, title, img, average_rating, price, inCart } = this.props.book;
+    const { id, author_name, genre, publication_date, title, img, average_rating, price, inCart } = this.props.book;
     return (
       <BookWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
@@ -59,7 +59,7 @@ export default class Book extends Component {
 
           <div className="card-footer d-flex pb-0 pt-0">
             <span className="mr-1">Author:</span>
-            <p className="align-self-center mb-0">{author}</p>
+            <p className="align-self-center mb-0">{author_name}</p>
           </div>
 
           <div className="card-footer d-flex pb-0 pt-0">
