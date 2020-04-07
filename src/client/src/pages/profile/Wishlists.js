@@ -15,7 +15,9 @@ const Wishlists = ({ user }) => {
         console.clear()
 
         axios
-            .get('http://localhost:5000/wishlists')
+            .post('http://localhost:5000/wishlists/list', {
+                userId: user._id
+            })
             .then(res => {
                 setWishlists(res.data)
             })
@@ -49,7 +51,9 @@ const Wishlists = ({ user }) => {
                             setIsSubmitting(false)
                             setNewWishlistTitle('')
                             await axios
-                                .get('http://localhost:5000/wishlists')
+                                .post('http://localhost:5000/wishlists/list', {
+                                    userId: user._id
+                                })
                                 .then(res => {
                                     setWishlists(res.data)
                                 })

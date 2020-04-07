@@ -1,8 +1,9 @@
 const Wishlist = require('../../../models/wishlist');
 
 module.exports = async (req, res) => {
-  let wishlists = await Wishlist.find({});
+  const wishlists = await Wishlist.find({
+    userId: req.body.userId
+  });
 
-  return res.status(200)
-    .send(wishlists);
+  res.status(200).send(wishlists);
 }
