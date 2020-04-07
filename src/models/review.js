@@ -37,18 +37,14 @@ ObjectId = require('mongodb').ObjectID, review = {
         const avgRating = purchaseCollection.find({ _id: new ObjectId(id) }).toArray((err, result) => {
             if (!err) {
                 const ratingSum = 0;
-
                 result.forEach((rating) => {
                     ratingSum += rating;
                 });
-
                 const avgRating = ratingSum / result.length;
-
                 const bookCollection = mongodbConnection.db().collection("Books");
-                bookCollection.updateOne({ _id: new ObjectId(id) },
-                    { $set: { "avg_rating": avgRating } }, function (err, result) {
-                        !err ? callBack(200, result) : callBack(500, err);
-                    });
+                bookCollection.updateOne({ _id: new ObjectId(id) }, { $set: { "average_rating": avgRating } }, function (err, result) {
+                    !err ? callBack(200, result) : callBack(500, err);
+                });
             }
             else {
                 console.log(err);
@@ -56,8 +52,14 @@ ObjectId = require('mongodb').ObjectID, review = {
             }
         });
     },
+    get updateBookAverageRating() {
+        return this._updateBookAverageRating;
+    },
+    set updateBookAverageRating(value) {
+        this._updateBookAverageRating = value;
+    },
 };
 
-const model = new mongoose.model('Review', schema);
+const model = new mongoose.model('Review', reviewschema);
 
 module.exports = review;
