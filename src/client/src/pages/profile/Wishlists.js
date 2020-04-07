@@ -31,52 +31,56 @@ const Wishlists = ({ user }) => {
                     {error}
                 </div>
             )}
-        
-            <button type="button" className="btn btn-primary" onClick={() => setShowCreateForm(true)}>
-                Create Wishlist
-            </button>
-            
-            {showCreateForm && (
-                <form onSubmit={async e => {
-                    e.preventDefault()
 
-                    setIsSubmitting(true)
+            {wishlists.length < 3 && (
+                <button type="button" className="btn btn-success" onClick={() => setShowCreateForm(true)} style={{ marginBottom: 5 }}>
+                    Create Wishlist
+                </button>
+            )}
 
-                    await axios
-                        .post('http://localhost:5000/wishlists', {
-                            title: newWishlistTitle,
-                            userId: user._id
-                        })
-                        .then(async () => {
-                            setIsSubmitting(false)
-                            setNewWishlistTitle('')
-                            await axios
-                                .post('http://localhost:5000/wishlists/list', {
-                                    userId: user._id
-                                })
-                                .then(res => {
-                                    setWishlists(res.data)
-                                })
-                                .catch(e => console.error(e))
-                        })
-                        .catch(e => {
-                            if (e.message === 'Request failed with status code 400') {
-                                setError(`Couldn't create wishlist. You can only have 3.`)
-                            } else {
-                                setError(`Couldn't create wishlist. Not sure what went wrong! Sorry!`)
-                            }
+            {showCreateForm && wishlists.length < 3 && (
+                <form
+                    style={{ marginBottom: 10 }}
+                    onSubmit={async e => {
+                        e.preventDefault()
 
-                            setIsSubmitting(false)
-                        })
-                }}>
-                    <label>
-                        <b>Title</b>
-                        <input value={newWishlistTitle} onChange={e => setNewWishlistTitle(e.target.value)} />
-                    </label>
-                    <button type="submit" disabled={isSubmitting || newWishlistTitle.trim() === ''}>Create!</button>
+                        setIsSubmitting(true)
+
+                        await axios
+                            .post('http://localhost:5000/wishlists', {
+                                title: newWishlistTitle,
+                                userId: user._id
+                            })
+                            .then(async () => {
+                                setIsSubmitting(false)
+                                setNewWishlistTitle('')
+                                await axios
+                                    .post('http://localhost:5000/wishlists/list', {
+                                        userId: user._id
+                                    })
+                                    .then(res => {
+                                        setWishlists(res.data)
+                                    })
+                                    .catch(e => console.error(e))
+                            })
+                            .catch(e => {
+                                if (e.message === 'Request failed with status code 400') {
+                                    setError(`Couldn't create wishlist. You can only have 3.`)
+                                } else {
+                                    setError(`Couldn't create wishlist. Not sure what went wrong! Sorry!`)
+                                }
+
+                                setIsSubmitting(false)
+                            })
+                    }}>
+                    <div className="form-group">
+                        <label for="wishlistTitle">Title</label>
+                        <input value={newWishlistTitle} onChange={e => setNewWishlistTitle(e.target.value)} type="text" className="form-control" id="wishlistTitle" />
+                    </div>
+                    <button className="btn btn-primary" type="submit" disabled={isSubmitting || newWishlistTitle.trim() === ''}>Create!</button>
                 </form>
             )}
-            
+
             {!!wishlists.length && <h1>Our Wishlists</h1>}
 
             {wishlists.map(wishlist => (
@@ -110,15 +114,28 @@ const Wishlists = ({ user }) => {
                                 })
                                 .catch(e => console.error(e))
                         }}
+                        style={{ width: '50%', marginBottom: 5 }}
                     >
                         {wishlist.title}
                     </button>
 
                     {wishlist._id === shownListId && !!wishlistContents.length && (
-                        <ul>
+                        <ul className="list-group" style={{ marginBottom: 10 }}>
                             {wishlistContents.map(book => (
-                                <li key={book._id}>
-                                    {book.title}
+                                <li key={book._id} className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <b>{book.title}</b> <button className="btn btn-danger" onClick={e => {
+                                        axios
+                                            .put(`http://localhost:5000/wishlists/${wishlist._id}`, {
+                                                bookId: book._id
+                                            })
+                                            .then(() => {
+                                                setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
+                                            })
+                                            .catch(e => {
+                                                console.error(e)
+                                                window.alert(`Sorry! Couldn't remove the book from that wishlist`)
+                                            })
+                                    }}>Remove</button>
                                 </li>
                             ))}
                         </ul>
