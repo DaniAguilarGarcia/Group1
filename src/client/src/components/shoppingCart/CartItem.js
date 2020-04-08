@@ -1,22 +1,60 @@
-    import React from 'react';
-    export default class CartItem extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {quantity: 1}
-      }
-      render(){
-        const { product } = this.props;
-        return (
-          <div className="card" style={{ marginBottom: "10px"}}>
-            <div className="card-body">
-              <h4 className="card-title">{product.name}</h4>
-              <h5 className="card-text text-dark"><small>price: </small>${product.price}</h5>
-              <span className="card-text text-primary">
-                  <small>Quantity: </small>{product.qty}</span>
-              <button className="btn btn-sm btn-danger float-right" 
-                  onClick={() => this.props.remove(product)}>Remove from cart</button>
+import React, { Component } from "react";
+export default class CartItem extends Component {
+  render() {
+    const { id, title, img, price, total, count } = this.props.item;
+    const { increment, decrement, removeItem } = this.props.value;
+
+    return (
+      <div className="row my-1 text-capitalize text-center">
+        <div className="col-10 mx-auto col-lg-2">
+          <img
+            src={img}
+            style={{ width: "5rem", heigth: "5rem" }}
+            className="img-fluid"
+            alt=""
+          />
+        </div>
+        <div className="col-10 mx-auto col-lg-2 ">
+          <span className="d-lg-none">product :</span> {title}
+        </div>
+        <div className="col-10 mx-auto col-lg-2 ">
+          <strong>
+            <span className="d-lg-none">price :</span> ${price}
+          </strong>
+        </div>
+        <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0 ">
+          <div className="d-flex justify-content-center">
+            <div>
+              <span
+                className="btn btn-black mx-1"
+                onClick={() => {
+                  return decrement(id);
+                }}
+              >
+                -
+              </span>
+              <span className="btn btn-black mx-1">{count}</span>
+              <span
+                className="btn btn-black mx-1"
+                onClick={() => {
+                  return increment(id);
+                }}
+              >
+                +
+              </span>
             </div>
           </div>
-         )
-      }
-    }
+        </div>
+        <div className="col-10 mx-auto col-lg-2 ">
+          <div className=" cart-icon" onClick={() => removeItem(id)}>
+            <i className="fas fa-trash" />
+          </div>
+        </div>
+
+        <div className="col-10 mx-auto col-lg-2 ">
+          <strong>item total : ${total} </strong>
+        </div>
+      </div>
+    );
+  }
+}
