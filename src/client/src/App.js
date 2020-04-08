@@ -164,7 +164,7 @@ class App extends Component {
             render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
             />
             <Route exact path="/" component={BookList} />
-            <Route path="/details" component={Details} />
+            <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/" exact component={BookList} />
 
