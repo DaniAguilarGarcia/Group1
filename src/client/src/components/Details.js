@@ -16,7 +16,7 @@ export default class Details extends Component {
 
   componentDidMount () {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/wishlists/list`, {
+      .post(`/wishlists/list`, {
         userId: this.props.user._id
       })
       .then(res => {
@@ -29,7 +29,7 @@ export default class Details extends Component {
 
   componentDidUpdate () {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/wishlists/list`, {
+      .post(`/wishlists/list`, {
         userId: this.props.user._id
       })
       .then(res => {
@@ -171,7 +171,7 @@ export default class Details extends Component {
                             background: wishlist.bookIds.includes(value.detailBook._id) && '#eee'
                           }} onClick={() => {
                             axios
-                              .put(`${process.env.REACT_APP_API_URL}/wishlists/${wishlist._id}`, {
+                              .put(`/wishlists/${wishlist._id}`, {
                                 bookId: value.detailBook._id
                               })
                             }}

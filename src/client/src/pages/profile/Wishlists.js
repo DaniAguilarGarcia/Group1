@@ -15,7 +15,7 @@ const Wishlists = ({ user }) => {
         console.clear()
 
         axios
-            .post(`${process.env.REACT_APP_API_URL}/wishlists/list`, {
+            .post(`/wishlists/list`, {
                 userId: user._id
             })
             .then(res => {
@@ -47,7 +47,7 @@ const Wishlists = ({ user }) => {
                         setIsSubmitting(true)
 
                         await axios
-                            .post(`${process.env.REACT_APP_API_URL}/wishlists`, {
+                            .post(`/wishlists`, {
                                 title: newWishlistTitle,
                                 userId: user._id
                             })
@@ -55,7 +55,7 @@ const Wishlists = ({ user }) => {
                                 setIsSubmitting(false)
                                 setNewWishlistTitle('')
                                 await axios
-                                    .post(`${process.env.REACT_APP_API_URL}/wishlists/list`, {
+                                    .post(`/wishlists/list`, {
                                         userId: user._id
                                     })
                                     .then(res => {
@@ -98,13 +98,13 @@ const Wishlists = ({ user }) => {
                             setWishlistContents([])
 
                             axios
-                                .get(`${process.env.REACT_APP_API_URL}/wishlists/${wishlist._id}`)
+                                .get(`/wishlists/${wishlist._id}`)
                                 .then(async res => {
                                     const { bookIds } = res.data
 
                                     const books = await bookIds.map(async bookId => {
                                         const bookData = await axios
-                                            .get(`${process.env.REACT_APP_API_URL}/books2/${bookId}`)
+                                            .get(`/books2/${bookId}`)
                                             .then(res => res.data)
                                             .catch(e => console.error(e))
                                         return bookData
@@ -139,12 +139,12 @@ const Wishlists = ({ user }) => {
                                                         background: wishlist2.bookIds.includes(book._id) && '#eee'
                                                     }} onClick={async () => {
                                                         await axios
-                                                            .put(`${process.env.REACT_APP_API_URL}/wishlists/${wishlist._id}`, {
+                                                            .put(`/wishlists/${wishlist._id}`, {
                                                                 bookId: book._id
                                                             })
 
                                                         await axios
-                                                            .put(`${process.env.REACT_APP_API_URL}/wishlists/${wishlist2._id}`, {
+                                                            .put(`/wishlists/${wishlist2._id}`, {
                                                                 bookId: book._id
                                                             })
 
@@ -159,7 +159,7 @@ const Wishlists = ({ user }) => {
                                         {/* Remove Button */}
                                         <button className="btn btn-danger" onClick={e => {
                                             axios
-                                                .put(`${process.env.REACT_APP_API_URL}/wishlists/${wishlist._id}`, {
+                                                .put(`/wishlists/${wishlist._id}`, {
                                                     bookId: book._id
                                                 })
                                                 .then(() => {
