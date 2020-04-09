@@ -26,6 +26,7 @@ export default class Details extends Component {
             average_rating,
             price,
             inCart,
+            author_bio,
             inWishList,
           } = value.detailBook;
 
@@ -53,38 +54,6 @@ export default class Details extends Component {
                   width="300"
                   />
                   </Zoom>
-                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    <strong>
-                    Written by: {author_name}
-                    </strong>
-                  </p>
-                  <p className="text-muted lead">Space for Athor Bio</p> 
-                </div>
-                {/* image column */}
-
-                {/* prdoduct info colum */}
-                <div className="col-10 mx-auto col-md-6 my-3">
-                  
-                  <h4 className="text-blue">
-                    <strong>
-                      Price : <span>$</span>
-                      {price}
-                    </strong>
-                  </h4>
-                  
-                  <h8 className="text-blue">
-                      Genre: {genre}
-                  </h8>
-
-                  <p className="text-blue">
-                      Published by {publisher} on {publication_date} 
-                  </p>
-
-                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    Book Description:
-                  </p>
-                  <p className="text-muted lead">{info}</p>
-                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
                   <div className="col">
                     <h3>Average rating: {average_rating}</h3>
                     <Rating
@@ -107,6 +76,41 @@ export default class Details extends Component {
                       </li>
                     </ul>
                   </div> 
+                </div>
+                {/* image column */}
+
+                {/* prdoduct info colum */}
+                <div className="col-10 mx-auto col-md-6 my-3">
+                  
+                  <h4 className="text-blue">
+                    <strong>
+                      Price : <span>$</span>
+                      {price}
+                    </strong>
+                  </h4>
+
+                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
+                    <strong>
+                    Written by: {author_name}
+                    </strong>
+                  </p>
+
+                  <p className="text-muted lead">{author_bio}</p> 
+                  
+                  <h8 className="text-blue">
+                      Genre: {genre}
+                  </h8>
+
+                  <p className="text-blue">
+                      Published by {publisher} on {publication_date} 
+                  </p>
+
+                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
+                    Book Description:
+                  </p>
+                  <p className="text-muted lead">{info}</p>
+                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
+                  
                   </p>
                   
                   {/* buttons */}
