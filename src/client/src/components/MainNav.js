@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './MainNav.scss';
-import Dropdown from 'react-bootstrap/Dropdown';
-import styled from "styled-components"
+import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
-import {Container, Col, Row, Nav, NavDropdown, Image, InputGroup, Form, Button, NavItem, NavLink } from 'react-bootstrap';
-import { Search} from 'react-bootstrap-icons';
-
+import {Col,Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
 
 class MainNav extends Component {
     constructor(props) {
@@ -30,10 +27,6 @@ class MainNav extends Component {
     static getDerivedStateFromProps(props, state) {
       return props;
     }
-
-  static getDerivedStateFromProps(props, state) {
-    return props;
-  }
   
   logout = () => {
     fetch('/api/user/logout', {
@@ -115,25 +108,7 @@ class MainNav extends Component {
                         Our Books
                       </ButtonContainer>
                   </Link>             
-
-                  <Col xs={4}>
-            <Form onSubmit={(e) => this.searchSubmitHandler(e.target.value)}>
-              <Form.Group>
-                <InputGroup>
-                  <Form.Control
-                    type="text"
-                    placeholder="Search By Name"
-                    onChange={(e) => this.searchChangeHandler(e.target.value)}
-                  />
-                  <InputGroup.Append>
-                    <Button variant="outline-secondary" type="submit" href={`/search/${this.state.books}`} ><Search /></Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              </Form.Group>
-            </Form>
-          </Col>
-
-                       
+   
                   <Nav className="justify-content-center" activeKey="/home">
                   <NavDropdown title="Browse By Genre">
                     <NavDropdown.Item href = '/browsing/bygenre/Novel'>Novel</NavDropdown.Item>

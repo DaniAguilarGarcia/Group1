@@ -1,36 +1,17 @@
-import React, { Component } from "react";
-import {render} from 'react-dom';
-import ListPagination from '../pages/pagination';
-import Navbar from 'react-bootstrap/Navbar';
+import React, { Component,useState } from "react";
 import Book from "./Book";
 import Title from './Title';
 import styled from "styled-components";
 import { BookConsumer } from "../context";
-import axios from 'axios';
 
 export default class BookList extends Component {
-  state = {
-    books: [],
-    activePage : 1,
-    pageSize : 10,
-    length : 1
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      books: []
   };
-
-  handleSelectPage(newPage) {
-    this.setState({
-      activePage: newPage
-    });
-  }
-
-  pageDisplay(){
-   return <div className = 'col'>
-                  <ListPagination
-                    activePage={this.state.activePage}
-                    items={Math.ceil(this.state.length / this.state.pageSize)}
-                    onSelect={this.handleSelectPage}
-                  />
-                </div>
-  }
+}
 
   render() {
 
@@ -43,23 +24,19 @@ export default class BookList extends Component {
         <BookWrapper className="py-5">
           <div className="container">
             <Title name="our" title="books" />
+            
             <div className="row">
               <BookConsumer>
-                {value => {
-                   
+              {value => {
                   return value.books.map(book => {
-                  
-                    return <Book key={book.id} book={book}/> ;
-                   
+                    return <Book key={book.id} book={book} />;
                   });
                 }}
               </BookConsumer>
-              {this.pageDisplay()}
             </div>
           </div>
         </BookWrapper>
       </React.Fragment>
-
       </div>
       </div>
 

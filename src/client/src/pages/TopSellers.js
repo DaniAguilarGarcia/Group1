@@ -1,15 +1,7 @@
 import React, { PureComponent } from "react";
-import {render} from 'react-dom';
-import Pagination from 'react-bootstrap/Pagination';
-import Navbar from 'react-bootstrap/Navbar';
 import Book from '../components/Book';
-import Title from '../components/Title';
-import styled from "styled-components";
 import { BookConsumer } from "../context";
-import BookList from "../components/BookList";
 import axios from 'axios';
-import {Container, Col, Row, Nav, NavDropdown, Image, InputGroup, Form, Button} from 'react-bootstrap';
-import { Search} from 'react-bootstrap-icons';
 
 class TopSellers extends PureComponent {
     constructor(props) {

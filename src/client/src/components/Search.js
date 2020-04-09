@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import Book from "./Book";
-import Title from './Title';
 import styled from "styled-components";
-import { BookConsumer } from "../context";
 import axios from 'axios';
 
 class Search extends Component {
