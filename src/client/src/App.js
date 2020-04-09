@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
-import ProductList from './components/shoppingCart/ProductList'
+/*import ProductList from './components/shoppingCart/ProductList' */
 import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
@@ -27,21 +27,21 @@ class App extends Component {
       user: {},
       search: "",
       isbn: '',
-      title:  '',
-      publication_date:  '',
-      edition:  0, 
+      title: '',
+      publication_date: '',
+      edition: 0,
       quantity: 0,
-      price:  '', 
-      author_name:  '',
-      publisher:  '', 
-      genre:  '',
-      book_description:  '',
+      price: '',
+      author_name: '',
+      publisher: '',
+      genre: '',
+      book_description: '',
       books: []
     }
   }
 
-  updateSearch(search){
-    this.setState({search});
+  updateSearch(search) {
+    this.setState({ search });
   }
 
   checkLoginStatus() {
@@ -63,27 +63,27 @@ class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
     this.getBook();
-    
+
     axios.get('');
-    
+
   }
 
   getBook = () => {
     axios.get('/api')
-    .then((response)=>{
-      const data = response.data;
-      this.setState({ books: data});
-      console.log('Data has been received')
-    })
-    .catch(()=> {
-      alert('error retrieving data');
-    });
+      .then((response) => {
+        const data = response.data;
+        this.setState({ books: data });
+        console.log('Data has been received')
+      })
+      .catch(() => {
+        alert('error retrieving data');
+      });
   }
-  
 
-  handleChange = (target) =>{
-    const {title,value} = target;
-    this.setState({[title]:value });
+
+  handleChange = (target) => {
+    const { title, value } = target;
+    this.setState({ [title]: value });
   };
 
   submit = (event) => {
@@ -99,14 +99,13 @@ class App extends Component {
       data: payload
     })
 
-    .then(()=> {
-      console.log('Data has been sent to server');
-    })
-    .catch(()=>{
-      console.log('Internal Server error')
-    });;
+      .then(() => {
+        console.log('Data has been sent to server');
+      })
+      .catch(() => {
+        console.log('Internal Server error')
+      });;
   };
-
 
   handleLogin = (user) => {
     this.setState({
@@ -126,32 +125,29 @@ class App extends Component {
     return <React.Fragment>
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} />
         <div className="container main-view">
           <Switch>
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
             />
             <Route path='/profile'
-                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route path='/profile'
-                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-            <Route path='/cart' component={Cart} 
-                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
-            />
-            <Route path='/Product'
-                render={(props) => <ProductList {...props} logged_in={this.state.logged_in}/>}
+            <Route path='/cart' component={Cart}
+              render={(props) => <Cart {...props} logged_in={this.state.logged_in} />}
             />
             <Route path='/ratings'
-            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route exact path="/" component={BookList} />
-            <Route path="/details" component={Details} />
+            <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/search/:bookname" component={Search} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />
@@ -162,8 +158,8 @@ class App extends Component {
         </div>
       </div>
 
-      </React.Fragment> 
-    
+    </React.Fragment>
+
   };
 }
 

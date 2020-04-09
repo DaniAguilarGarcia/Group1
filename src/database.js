@@ -17,7 +17,9 @@ if (user && password) {
     }
 }
 
-const MONGODB_URI = 'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
+const MONGODB_URI = process.env.NODE_ENV === 'local' ?
+    `mongodb://${address}:${port}/CEN4010` :
+    'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
 const DB = mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

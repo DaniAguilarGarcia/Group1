@@ -1,55 +1,33 @@
-  import React from 'react';
-    import { Link } from 'react-router-dom';
-    import { getCartProducts } from '../components/shoppingCart/repository';
-    import CartItem from '../components/shoppingCart/CartItem';
-    export default class Cart extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = { products: [], total: 0 }
-      }
-      componentDidMount() {
-        let cart = localStorage.getItem('cart');
-        if (!cart) return; 
-        getCartProducts(cart).then((products) => {
-          let total = 0;
-          for (var i = 0; i < products.length; i++) {
-            total += products[i].price * products[i].qty;
-          }
-          this.setState({ products, total });
-          });
-      }
-      removeFromCart = (product) => {
-        let products = this.state.products.filter((item) => item.id !== product.id);
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        delete cart[product.id.toString()];
-        localStorage.setItem('cart', JSON.stringify(cart));
-        let total = this.state.total - (product.qty * product.price) 
-        this.setState({products, total});
-      }
-      clearCart = () => {
-        localStorage.removeItem('cart');
-        this.setState({products: []});
-      }
-      render() {
-        const { products, total } =  this.state;
-        return (
-          <div className=" container">
-            <h3 className="card-title">Shopping Cart</h3>
-            {
-              products.map((product, index) => 
-                <CartItem product={product} remove={this.removeFromCart} key={index}/>)
-            } 
-            { products.length ? 
-              <div><h4>
-                <small>Total Amount: </small>
-                <span className="float-right text-sucess">${total}</span>
-              </h4><hr/></div>: ''}
-            { !products.length ?<h3 className="text-info">No item on the cart</h3>: ''}
-            <Link to="/checkout">
-                <button className="btn btn-success float-right">Checkout</button></Link>
-            <button className="btn btn-secondary float-right" onClick={this.clearCart} 
-                style={{ marginRight: "10px" }}>Clear Cart</button><br/><br/><br/>
-          </div>
-        );
-      }
-    }
+
+import React, { Component } from "react";
+import Title from "../components/Title";
+import CartColumns from "../components/shoppingCart/CartColumns";
+import CartList from "../components/shoppingCart/CartList";
+import CartTotals from "../components/shoppingCart/CartTotals";
+import {BookConsumer } from "../context";
+import EmptyCart from "../components/shoppingCart/EmptyCart";
+export default class Store extends Component {
+  render() {
+    return (
+      <section>
+        <BookConsumer>
+          {value => {
+            const { cart } = value;
+            if (cart.length > 0) {
+              return (
+                <React.Fragment>
+                  <Title name="your" title="cart" />
+                  <CartColumns />
+                  <CartList value={value} />
+                  <CartTotals value={value} history={this.props.history} />
+                </React.Fragment>
+              );
+            } else {
+              return <EmptyCart />;
+            }
+          }}
+        </BookConsumer>
+      </section>
+    );
+  }
+}

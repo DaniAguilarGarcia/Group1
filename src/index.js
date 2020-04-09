@@ -7,6 +7,8 @@ const app = express();
 const DB = require('./database');
 const cors = require('cors');
 const books = require('./routes/api/books/api.js');
+const books2 = require('./routes/api/books2');
+const wishlists = require('./routes/api/wishlists');
 
 app.use(cors());
 
@@ -19,6 +21,8 @@ app.use(bodyParser.json());
 
 // Register Routes
 app.use('/books', books);
+app.use('/books2', books2);
+app.use('/wishlists', wishlists);
 require('./routes')(app);
 
 // Listen
