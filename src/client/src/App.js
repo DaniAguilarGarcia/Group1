@@ -12,9 +12,10 @@ import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
 import TopSellers from "./pages/TopSellers";
+import Search from "./components/Search"
 import axios from 'axios';
-//import { BookConsumer } from "../context";
-import Book from "./components/Book";
+import ByRating from '../src/pages/Browsing/byRating';
+import ByGenre from '../src/pages/Browsing/byGenre';
 
 class App extends Component {
 
@@ -25,21 +26,21 @@ class App extends Component {
       user: {},
       search: "",
       isbn: '',
-    title:  '',
-    publication_date:  '',
-    edition:  0, 
-    quantity: 0,
-    price:  '', 
-    author:  '',
-    publisher:  '', 
-    genre:  '',
-    book_description:  '',
-    books: []
+      title: '',
+      publication_date: '',
+      edition: 0,
+      quantity: 0,
+      price: '',
+      author_name: '',
+      publisher: '',
+      genre: '',
+      book_description: '',
+      books: []
     }
   }
 
-  updateSearch(search){
-    this.setState({search});
+  updateSearch(search) {
+    this.setState({ search });
   }
 
   checkLoginStatus() {
@@ -61,24 +62,27 @@ class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
     this.getBook();
+
+    axios.get('');
+
   }
 
   getBook = () => {
     axios.get('/api')
-    .then((response)=>{
-      const data = response.data;
-      this.setState({ books: data});
-      console.log('Data has been received')
-    })
-    .catch(()=> {
-      alert('error retrieving data');
-    });
+      .then((response) => {
+        const data = response.data;
+        this.setState({ books: data });
+        console.log('Data has been received')
+      })
+      .catch(() => {
+        alert('error retrieving data');
+      });
   }
-  
 
-  handleChange = (target) =>{
-    const {title,value} = target;
-    this.setState({[title]:value });
+
+  handleChange = (target) => {
+    const { title, value } = target;
+    this.setState({ [title]: value });
   };
 
   submit = (event) => {
@@ -94,25 +98,12 @@ class App extends Component {
       data: payload
     })
 
-    .then(()=> {
-      console.log('Data has been sent to server');
-    })
-    .catch(()=>{
-      console.log('Internal Server error')
-    });;
-  };
-
-  displayBook = (books) => {
-    if(!books.length) return null;
-
-    return books.map((book, index) => (
-      <div key = {index}>
-        <h3>{book.title}</h3>
-        <p>{book.author}</p>
-
-      </div>
-    )
-    );
+      .then(() => {
+        console.log('Data has been sent to server');
+      })
+      .catch(() => {
+        console.log('Internal Server error')
+      });;
   };
 
   handleLogin = (user) => {
@@ -122,7 +113,6 @@ class App extends Component {
     });
   }
 
-
   handleLogout = () => {
     this.setState({
       logged_in: false,
@@ -130,62 +120,51 @@ class App extends Component {
     });
   }
 
-
   render() {
     return <React.Fragment>
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch}/> 
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} />
         <div className="container main-view">
           <Switch>
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
             />
             <Route path='/profile'
-                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route path='/profile'
-                render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Profile {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-            <Route path='/cart' component={Cart} />
-                render={(props) => <Cart {...props} logged_in={this.state.logged_in}/>}
+
+
+
+            <Route path='/cart' component={Cart}
+              render={(props) => <Cart {...props} logged_in={this.state.logged_in} />}
             />
-       
 
             <Route path='/ratings'
-            render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in}/>}
+              render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
             <Route exact path="/" component={BookList} />
-            <Route path="/details" component={Details} />
+            <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
-            <Route path="/" exact component={BookList} />
+            <Route path="/search/:bookname" component={Search} />
+            <Route path="/browsing/byrating/:rating" component={ByRating} />
+            <Route path="/browsing/bygenre/:genre" component={ByGenre} />
 
-            <form onSubmit={this.submit}>
-            <div className= "form-input">
-            <input
-            type = "text"
-            title="title"
-            placeholder="Enter your title..."
-            value ={this.state.title}
-            onChange ={this.handleChange}
-            />
-
-          <button>Submit</button></div>
-          </form>
-              
           </Switch>
           <Modal />
         </div>
       </div>
 
-      </React.Fragment> 
-    
+    </React.Fragment>
+
   };
 }
-
 
 export default App;
 

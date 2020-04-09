@@ -13,7 +13,15 @@ class BookProvider extends Component {
     cartSubTotal: 0,
     cartTax: 0,
     cartTotal: 0,
-    detailsBooks: []
+    detailsBooks: [],
+    sortedByAuthor : [],
+    sortedByTitle: [],
+    sortedByPrice: [],
+    sortedByRating: [],
+    sortedByDate:[],
+    topSellers: [],
+    isTopSeller: false,
+    loading: true
   };
 
 
@@ -31,8 +39,14 @@ class BookProvider extends Component {
     });
   }
   
+
   componentDidMount() {
+    this.getBook();
     this.setBooks();
+  }
+
+  componentDidUpdate(){
+    
   }
 
   setBooks = () => {
@@ -182,10 +196,9 @@ class BookProvider extends Component {
     );
   };
   render() {
-    
-    this.getBook();
 
-    return (
+      return (
+
       <BookContext.Provider
         value={{
           ...this.state,
