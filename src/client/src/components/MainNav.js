@@ -90,7 +90,7 @@ class MainNav extends Component {
             <container>
             <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5">
                 <Link to={'/'} className="navbar-brand">
-                    Book Geeks
+                    Geek Text
                 </Link>    
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
