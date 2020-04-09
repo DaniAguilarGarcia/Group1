@@ -13,7 +13,15 @@ class BookProvider extends Component {
     cartSubTotal: 0,
     cartTax: 0,
     cartTotal: 0,
-    detailsBooks: []
+    detailsBooks: [],
+    sortedByAuthor : [],
+    sortedByTitle: [],
+    sortedByPrice: [],
+    sortedByRating: [],
+    sortedByDate:[],
+    topSellers: [],
+    isTopSeller: false,
+    loading: true
   };
 
 
@@ -35,10 +43,12 @@ class BookProvider extends Component {
   componentDidMount() {
     this.getBook();
     this.setBooks();
-    this.getBook();
   }
 
- 
+  componentDidUpdate(){
+    
+  }
+
   setBooks = () => {
     let books = [];
       books.forEach(item => {

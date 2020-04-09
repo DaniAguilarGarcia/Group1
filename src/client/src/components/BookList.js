@@ -1,33 +1,17 @@
-import React, { Component } from "react";
-import {render} from 'react-dom';
-import Pagination from 'react-bootstrap/Pagination';
-import Navbar from 'react-bootstrap/Navbar';
+import React, { Component,useState } from "react";
 import Book from "./Book";
 import Title from './Title';
 import styled from "styled-components";
 import { BookConsumer } from "../context";
-import axios from 'axios';
-//import Search from '../components/Search';
 
 export default class BookList extends Component {
-  state = {
-    books: []
-  };
+  constructor(props) {
+    super(props)
 
-  getBook = () => {
-    axios.get('http://localhost:5000/books/')
-    .then((response)=>{
-      const data = response.data;
-      this.setState({ books: data});
-      this.setState({ modalBook: data});
-      this.setState({detailsBooks: data});
-      console.log('Data has been received')
-    })
-    .catch(()=> {
-      alert('error retrieving data for context');
-    });
-  }
-  
+    this.state = {
+      books: []
+  };
+}
 
   render() {
 
@@ -40,9 +24,10 @@ export default class BookList extends Component {
         <BookWrapper className="py-5">
           <div className="container">
             <Title name="our" title="books" />
+            
             <div className="row">
               <BookConsumer>
-                {value => {
+              {value => {
                   return value.books.map(book => {
                     return <Book key={book.id} book={book} />;
                   });
@@ -52,7 +37,6 @@ export default class BookList extends Component {
           </div>
         </BookWrapper>
       </React.Fragment>
-
       </div>
       </div>
 

@@ -12,12 +12,11 @@ import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import TopSellers from "./pages/TopSellers";
+import Search from "./components/Search"
 import axios from 'axios';
-//import { BookConsumer } from "../context";
-import Book from "./components/Book";
+import ByRating from '../src/pages/Browsing/byRating';
+import ByGenre from '../src/pages/Browsing/byGenre';
 
 class App extends Component {
 
@@ -108,19 +107,6 @@ class App extends Component {
       });;
   };
 
-  displayBook = (books) => {
-    if (!books.length) return null;
-
-    return books.map((book, index) => (
-      <div key={index}>
-        <h3>{book.title}</h3>
-        <p>{book.author_name}</p>
-
-      </div>
-    )
-    );
-  };
-
   handleLogin = (user) => {
     this.setState({
       logged_in: true,
@@ -163,7 +149,9 @@ class App extends Component {
             <Route exact path="/" component={BookList} />
             <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
-            <Route path="/" exact component={BookList} />
+            <Route path="/search/:bookname" component={Search} />
+            <Route path="/browsing/byrating/:rating" component={ByRating} />
+            <Route path="/browsing/bygenre/:genre" component={ByGenre} />
 
           </Switch>
           <Modal />
