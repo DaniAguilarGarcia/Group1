@@ -1,40 +1,51 @@
 import React, { useState, useEffect, useRef } from "react";
 import StarRatingComponent from "react-star-rating-component";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import Axios from "axios";
 
 const Ratings = (props) => {
   const [nickname, setNickname] = useState("Current User");
   const [rating, setRating] = useState(5);
   const [userTitle, setUserTitle] = useState("");
   const [userComment, setUserComment] = useState("");
-  const [comments, setComments] = useState([
-    {
-      title: "Great Book!",
-      rating: 5,
-      comment: "I love this book, it's one of my favorites.",
-      nickname: "John Smith",
-    },
-  ]);
+  const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [hideUser, setHideUser] = useState(false);
-  const [book, setBook] = useState(props.location?.state?.book);
+  const [book, setBook] = useState(undefined);
+  let {id} = useParams();
   let history = useHistory();
 
-  useEffect(() => {
-    console.log(props);
-  }, []);
+  async function getReviews(){
+    let reviews = await Axios.get(`/api/reviews/${id}`);
+    setComments(reviews.data);
+  }
 
-  const submitReview = (e) => {
+  useEffect(() => {
+    async function getBookDetails(){
+      let details = await Axios.get(`/books/id/${id}`);
+      setBook(details.data);
+    }
+    getBookDetails();
+    getReviews();
+  }, [id]);
+
+  useEffect(() =>{
+    if(props.user?.nickname){
+      setNickname(props.user.nickname);
+    }
+  }, [props.user]);
+
+  const submitReview = async (e) => {
     e.preventDefault();
     if (props.logged_in) {
-      setComments((prevState) =>
-        prevState.concat({
-          rating,
-          title: userTitle,
-          comment: userComment,
-          nickname: hideUser ? "Anonymous" : nickname,
-        })
-      );
+      await Axios.post('/api/reviews/create', {
+        title: userTitle,
+        rating,
+        comment: userComment,
+        id,
+        nickname: hideUser ? "Anonymous" : nickname
+      })
+      getReviews();
     } else {
       setShowModal(true);
     }
@@ -51,7 +62,7 @@ const Ratings = (props) => {
     <>
       <div className="row" style={{ marginBottom: "20px" }}>
         <div className="col">
-          <h2>Reviews for: {book.title}</h2>
+          <h2>Reviews for: {book?.title}</h2>
           <h3>Average rating:</h3>
           <StarRatingComponent
             name="average_rating"
@@ -63,7 +74,7 @@ const Ratings = (props) => {
           </div>
           <ul class="list-group">
             {comments.map((obj) => (
-              <li class="list-group-item">
+              <li class="list-group-item" key={obj.id}>
                 <h4>{obj.title}</h4>
                 <h6>Review by {obj.nickname}</h6>
                 <StarRatingComponent

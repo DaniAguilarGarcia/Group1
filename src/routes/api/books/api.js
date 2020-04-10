@@ -25,11 +25,17 @@ router.get('/:bookname', (req, res) => {
     });
 });
 
+router.get('/id/:id', (req, res) => {
+    Books.findOne({id : req.params.id},function(error, book){
+        res.json(book);
+    });
+});
+
 router.post('/save', (req, res) => {
     console.log('title:', req.title);
     const data = req.title;
 
-    const newBook = new Books(data);
+    const newBook = new Books(req.body);
 
     newBook.save((error) => {
         if(error){
