@@ -94,18 +94,18 @@ export default class Details extends Component {
                     readOnly
                     />
 
-                    <ul class="list-group">
+                    {/* <ul class="list-group">
                       <li class="list-group-item">
                       <h6>Review by {Ratings.nickname}</h6>
                       <Rating
-                      value={Ratings.rating}
+                      value={this.getRatings.rating}
                       max={5}
                       onChange={(i) => console.log('onChange ' + i)}
                       readOnly
                       />
                       <p>{Ratings.comment}</p>
                       </li>
-                    </ul>
+                    </ul> */}
                   </div> 
                 </div>
                 {/* image column */}
@@ -122,7 +122,7 @@ export default class Details extends Component {
 
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
                     <strong>
-                    Written by: {author_name}
+                  Written by: <Link to={{'pathname':'/author_books/' + author_name}} className="nav-link">{author_name}</Link>
                     </strong>
                   </p>
 

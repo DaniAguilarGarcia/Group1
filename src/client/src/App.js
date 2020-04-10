@@ -16,6 +16,7 @@ import Search from "./components/Search"
 import axios from 'axios';
 import ByRating from '../src/pages/Browsing/byRating';
 import ByGenre from '../src/pages/Browsing/byGenre';
+import Authors from './pages/Authors';
 
 class App extends Component {
 
@@ -155,6 +156,7 @@ class App extends Component {
             <Route path="/search/:bookname" component={Search} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />
             <Route path="/browsing/bygenre/:genre" component={ByGenre} />
+            <Route path="/author_books/:author_name" component={Authors} />
 
           </Switch>
           <Modal />
