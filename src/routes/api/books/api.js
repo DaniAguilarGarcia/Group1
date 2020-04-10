@@ -32,7 +32,6 @@ router.get('/id/:id', (req, res) => {
 });
 
 router.post('/save', (req, res) => {
-    console.log('title:', req.title);
     const data = req.title;
 
     const newBook = new Books(req.body);
