@@ -148,7 +148,16 @@ const Wishlists = ({ user }) => {
                                                                 bookId: book._id
                                                             })
 
+                                                        
                                                         setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
+                                                        
+                                                        const fetchedWishlists = await axios
+                                                            .post(`/wishlists/list`, {
+                                                                userId: user._id
+                                                            })
+                                                            .then(res => res.data)
+                                                                                                    
+                                                        setWishlists(fetchedWishlists)
                                                     }}
                                                     disabled={wishlist2.bookIds.includes(book._id)}
                                                     >{wishlist2.title}</button>
