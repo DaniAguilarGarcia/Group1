@@ -57,6 +57,7 @@ export default class Details extends Component {
             average_rating,
             price,
             inCart,
+            author_bio,
             inWishList,
           } = value.detailBook;
 
@@ -84,12 +85,28 @@ export default class Details extends Component {
                   width="300"
                   />
                   </Zoom>
-                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    <strong>
-                    Written by: {author_name}
-                    </strong>
-                  </p>
-                  <p className="text-muted lead">Space for Athor Bio</p> 
+                  <div className="col">
+                    <h3>Average rating: {average_rating}</h3>
+                    <Rating
+                    value={average_rating}
+                    max={5}
+                    onChange={(i) => console.log('onChange ' + i)}
+                    readOnly
+                    />
+
+                    {/* <ul class="list-group">
+                      <li class="list-group-item">
+                      <h6>Review by {Ratings.nickname}</h6>
+                      <Rating
+                      value={this.getRatings.rating}
+                      max={5}
+                      onChange={(i) => console.log('onChange ' + i)}
+                      readOnly
+                      />
+                      <p>{Ratings.comment}</p>
+                      </li>
+                    </ul> */}
+                  </div> 
                 </div>
                 {/* image column */}
 
@@ -102,6 +119,14 @@ export default class Details extends Component {
                       {price}
                     </strong>
                   </h4>
+
+                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
+                    <strong>
+                  Written by: <Link to={{'pathname':'/author_books/' + author_name}} className="nav-link">{author_name}</Link>
+                    </strong>
+                  </p>
+
+                  <p className="text-muted lead">{author_bio}</p> 
                   
                   <h8 className="text-blue">
                       Genre: {genre}
@@ -116,28 +141,7 @@ export default class Details extends Component {
                   </p>
                   <p className="text-muted lead">{info}</p>
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                  <div className="col">
-                    <h3>Average rating: {average_rating}</h3>
-                    <Rating
-                    value={average_rating}
-                    max={5}
-                    onChange={(i) => console.log('onChange ' + i)}
-                    readOnly
-                    />
-
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                      <h6>Review by {Ratings.nickname}</h6>
-                      <Rating
-                      value={Ratings.rating}
-                      max={5}
-                      onChange={(i) => console.log('onChange ' + i)}
-                      readOnly
-                      />
-                      <p>{Ratings.comment}</p>
-                      </li>
-                    </ul>
-                  </div> 
+                  
                   </p>
                   
                   {/* buttons */}

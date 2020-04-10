@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
-/*import ProductList from './components/shoppingCart/ProductList' */
 import Ratings from './pages/Ratings';
 import BookList from "./components/BookList";
 import Details from "./components/Details";
@@ -17,6 +16,7 @@ import Search from "./components/Search"
 import axios from 'axios';
 import ByRating from '../src/pages/Browsing/byRating';
 import ByGenre from '../src/pages/Browsing/byGenre';
+import Authors from './pages/Authors';
 
 class App extends Component {
 
@@ -140,9 +140,13 @@ class App extends Component {
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
+
+
+
             <Route path='/cart' component={Cart}
               render={(props) => <Cart {...props} logged_in={this.state.logged_in} />}
             />
+
             <Route path='/ratings'
               render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
@@ -152,6 +156,7 @@ class App extends Component {
             <Route path="/search/:bookname" component={Search} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />
             <Route path="/browsing/bygenre/:genre" component={ByGenre} />
+            <Route path="/author_books/:author_name" component={Authors} />
 
           </Switch>
           <Modal />

@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     id: String,
     title: String,
-    publication_date: Number,
+    publication_date: String,
     author: String,
     publisher: String,
     img: String,
@@ -29,7 +29,8 @@ const bookSchema = new mongoose.Schema({
     inCart: Boolean,
     inWishList : Boolean,
     count: Number, 
-    total: Number
+    total: Number,
+    author_bio: String
 });
 
 //Model
