@@ -125,7 +125,7 @@ class App extends Component {
     return <React.Fragment>
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} />
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} onLogout={this.handleLogout}/>
         <div className="container main-view">
           <Switch>
             <Route path='/login'
