@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { BookConsumer } from '../../context'
+
 const Wishlists = ({ user }) => {
     const [wishlists, setWishlists] = useState([])
     const [shownListId, setShownListId] = useState()
@@ -83,7 +85,7 @@ const Wishlists = ({ user }) => {
 
             {!!wishlists.length && <h1>Our Wishlists</h1>}
 
-            {wishlists.map(wishlist => (
+            {!!wishlists.length && wishlists.map(wishlist => (
                 <div key={wishlist._id}>
                     <button
                         type="button"
@@ -128,6 +130,43 @@ const Wishlists = ({ user }) => {
                                     <b style={{ marginRight: 'auto' }}>{book.title}</b>
 
                                     <div style={{ display: 'flex' }}>
+                                        {/* Move to Shopping Cart */}
+                                        <BookConsumer>
+                                            {ctx => (
+                                                <button className="btn btn-primary" type="button" style={{ marginRight: 20 }}
+                                                    onClick={async () => {
+                                                        ctx.addToCart(book.id)
+
+                                                        await axios.put(`/wishlists/${wishlist._id}`, {
+                                                            bookId: book._id,
+                                                        })
+
+                                                        const fetchedWishlists = await axios
+                                                            .post('/wishlists/list', {
+                                                                userId: user._id
+                                                            })
+                                                            .then(res => res.data)
+
+                                                        setWishlists(fetchedWishlists)
+
+                                                        const books = fetchedWishlists
+                                                            .find(fetchedWishlist => fetchedWishlist._id === wishlist._id).bookIds
+                                                            .map(async bookId => {
+                                                                const bookData = await axios
+                                                                    .get(`/books2/${bookId}`)
+                                                                    .then(res => res.data)
+                                                                    .catch(e => console.error(e))
+                                                                return bookData
+                                                            })
+
+                                                        Promise.all(books).then(values => setWishlistContents(values))
+                                                    }}
+                                                >
+                                                    Move to Cart
+                                                </button>
+                                            )}
+                                        </BookConsumer>
+
                                         {/* Move to Wishlist Dropdown */}
                                         <div className="dropdown" style={{ marginRight: 20 }}>
                                             <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,18 +187,18 @@ const Wishlists = ({ user }) => {
                                                                 bookId: book._id
                                                             })
 
-                                                        
+
                                                         setWishlistContents(wishlistContents.filter(item => item._id !== book._id))
-                                                        
+
                                                         const fetchedWishlists = await axios
                                                             .post(`/wishlists/list`, {
                                                                 userId: user._id
                                                             })
                                                             .then(res => res.data)
-                                                                                                    
+
                                                         setWishlists(fetchedWishlists)
                                                     }}
-                                                    disabled={wishlist2.bookIds.includes(book._id)}
+                                                        disabled={wishlist2.bookIds.includes(book._id)}
                                                     >{wishlist2.title}</button>
                                                 ))}
                                             </div>
