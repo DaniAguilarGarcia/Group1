@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './MainNav.scss';
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
-import {Col,Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
+import {Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
 
 class MainNav extends Component {
     constructor(props) {
@@ -110,6 +110,7 @@ class MainNav extends Component {
                   </Link>             
    
                   <Nav className="justify-content-center" activeKey="/home">
+                  
                   <NavDropdown title="Browse By Genre">
                     <NavDropdown.Item href = '/browsing/bygenre/Novel'>Novel</NavDropdown.Item>
                     <NavDropdown.Item href = '/browsing/bygenre/Biography'>Biography</NavDropdown.Item>

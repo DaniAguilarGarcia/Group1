@@ -12,7 +12,6 @@ import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
 import TopSellers from "./pages/TopSellers";
-import Search from "./components/Search"
 import axios from 'axios';
 import ByRating from '../src/pages/Browsing/byRating';
 import ByGenre from '../src/pages/Browsing/byGenre';
@@ -25,7 +24,6 @@ class App extends Component {
     this.state = {
       logged_in: false,
       user: {},
-      search: "",
       isbn: '',
       title: '',
       publication_date: '',
@@ -38,10 +36,6 @@ class App extends Component {
       book_description: '',
       books: []
     }
-  }
-
-  updateSearch(search) {
-    this.setState({ search });
   }
 
   checkLoginStatus() {
@@ -153,7 +147,6 @@ class App extends Component {
             <Route exact path="/" component={BookList} />
             <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
-            <Route path="/search/:bookname" component={Search} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />
             <Route path="/browsing/bygenre/:genre" component={ByGenre} />
             <Route path="/author_books/:author_name" component={Authors} />

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BookConsumer } from "../context";
 import PropTypes from "prop-types";
-
 import Rating from 'material-ui-rating';
+
 const { AddCircle, AddCircleOutline, Remove } = require('@material-ui/icons');
 const yellow = require('@material-ui/core/colors/yellow').default;
 const red = require('@material-ui/core/colors/red').default;
@@ -13,6 +13,7 @@ export default class Book extends Component {
   
   render() {
     const { id, author_name, genre, publication_date, title, img, average_rating, price, inCart } = this.props.book;
+
     return (
       <BookWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
