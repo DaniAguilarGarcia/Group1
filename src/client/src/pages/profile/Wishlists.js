@@ -195,6 +195,10 @@ const Wishlists = ({ user }) => {
                                                                 userId: user._id
                                                             })
                                                             .then(res => res.data)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41e7f21b521ac52065ff9a39bca396ff99073b10
                                                         setWishlists(fetchedWishlists)
                                                     }}
                                                         disabled={wishlist2.bookIds.includes(book._id)}
