@@ -83,7 +83,7 @@ const Wishlists = ({ user }) => {
                 </form>
             )}
 
-            {!!wishlists.length && <h1>Our Wishlists</h1>}
+            {!!wishlists.length && <h1>My Wishlists</h1>}
 
             {!!wishlists.length && wishlists.map(wishlist => (
                 <div key={wishlist._id}>
