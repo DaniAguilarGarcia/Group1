@@ -12,16 +12,22 @@ const Ratings = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [hideUser, setHideUser] = useState(false);
   const [book, setBook] = useState(undefined);
-  let {id} = useParams();
+  const [name, setName] = useState("John Doe");
+  const [selectedOption, setSelectedOption] = useState('NAME')
+  let { id } = useParams();
   let history = useHistory();
 
-  async function getReviews(){
-    let reviews = await Axios.get(`/api/reviews/${id}`);
-    setComments(reviews.data);
+  async function getReviews() {
+    try {
+      let reviews = await Axios.get(`/api/reviews/${id}`);
+      setComments(reviews.data);
+    } catch (e) {
+      setShowModal(true);
+    }
   }
 
   useEffect(() => {
-    async function getBookDetails(){
+    async function getBookDetails() {
       let details = await Axios.get(`/books/id/${id}`);
       setBook(details.data);
     }
@@ -29,22 +35,36 @@ const Ratings = (props) => {
     getReviews();
   }, [id]);
 
-  useEffect(() =>{
-    if(props.user?.nickname){
+  useEffect(() => {
+    if (props.user?.nickname) {
       setNickname(props.user.nickname);
+    }
+    if(props.user?.name){
+      setName(props.user.name);
     }
   }, [props.user]);
 
   const submitReview = async (e) => {
     e.preventDefault();
+    let show;
+    switch(selectedOption){
+      case 'NAME':
+        show = name;
+        break;
+      case 'NICKNAME':
+        show = nickname;
+        break;
+      default:
+        show = 'Anonymous';
+    }
     if (props.logged_in) {
-      await Axios.post('/api/reviews/create', {
+      await Axios.post("/api/reviews/create", {
         title: userTitle,
         rating,
         comment: userComment,
         id,
-        nickname: hideUser ? "Anonymous" : nickname
-      })
+        nickname: show,
+      });
       getReviews();
     } else {
       setShowModal(true);
@@ -74,7 +94,7 @@ const Ratings = (props) => {
           </div>
           <ul class="list-group">
             {comments.map((obj) => (
-              <li class="list-group-item" key={obj.id}>
+              <li class="list-group-item" key={obj._id}>
                 <h4>{obj.title}</h4>
                 <h6>Review by {obj.nickname}</h6>
                 <StarRatingComponent
@@ -115,14 +135,35 @@ const Ratings = (props) => {
                 onChange={(e) => setUserComment(e.target.value)}
               ></textarea>
             </div>
-            <div class="form-group form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                value={hideUser}
-                onChange={() => setHideUser((prev) => !prev)}
-              />
-              <label class="form-check-label">Hide Username</label>
+            <div class="form-group">
+              <p>Which should we show</p>
+              <label style={{margin: '0.5rem'}}>
+                <input
+                  type="radio"
+                  value="NAME"
+                  checked={selectedOption === "NAME"}
+                  onChange={(e) => setSelectedOption(e.target.value)}
+                />
+                Name
+              </label>
+              <label style={{margin: '0.5rem'}}>
+                <input
+                  type="radio"
+                  value="NICKNAME"
+                  checked={selectedOption === "NICKNAME"}
+                  onChange={(e) => setSelectedOption(e.target.value)}
+                />
+                Nickname
+              </label>
+              <label style={{margin: '0.5rem'}}>
+                <input
+                  type="radio"
+                  value="ANONYMOUS"
+                  checked={selectedOption === "ANONYMOUS"}
+                  onChange={(e) => setSelectedOption(e.target.value)}
+                />
+                Anonymous
+              </label>
             </div>
             <button className="btn btn-primary" type="submit">
               Submit Review
