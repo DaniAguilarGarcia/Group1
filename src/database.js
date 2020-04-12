@@ -31,9 +31,4 @@ mongoose.connection.on('connected',() => {
 
 mongoose.set('useCreateIndex', true);
 
-/*const DB = mongoose.connection;
-
-DB.on('error', console.error.bind(console, 'connection error:'));
-DB.once('open', () => console.log('DB connected'));
-*/
 module.exports = DB;

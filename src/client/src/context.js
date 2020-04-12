@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useEffect,useState } from "react";
 import BookList from "./components/BookList";
 import axios from 'axios';
+import { query } from "express";
 
 const BookContext = React.createContext();
 
@@ -27,9 +28,9 @@ class BookProvider extends Component {
     maxDate:'',
     sortByDate: 'Newest',
     average_rating: 0.0,
-    maxRating:0.0
+    maxRating:0.0,
+    order: "desc"
   };
-
 
   getBook = () => {
     axios.get('http://localhost:5000/books/')
@@ -45,25 +46,19 @@ class BookProvider extends Component {
     });
   }
   
-
   componentDidMount() {
     this.getBook();
     this.setBooks();
 
     let books = [];
-    let maxPrice = Math.max(books.map(book => book.price));
-    let maxDate = Math.max(books.map(book => book.publication_date));
-    let maxRating = Math.max(books.map(book => book.average_rating));
 
     this.setState({
       books,
       loading: false,
       sortedBooks : books,
       price: 35,
-      publication_date : maxDate,
-      sortByDate : 'Newest',
-      rating : maxRating,
-      maxRating : maxRating
+      publication_date: '',
+      isTopSeller: false
     })
   }
 
@@ -79,25 +74,30 @@ class BookProvider extends Component {
     this.filterBooks
     );
   };
+
   filterBooks = () => {
     let {
-      books, 
+      books,
+      title,
+      author_name, 
       genre, 
       average_rating, 
       price,
       publication_date,
-      sortByDate 
+      isTopSeller
     } = this.state
 
     let tempBooks = [...books];
 
+    publication_date = parseInt(publication_date)
     average_rating = parseInt(average_rating);
     price = parseInt(price);
 
     //filter by genre
-    if (genre != 'all'){
+    if (genre !== 'all'){
       tempBooks = tempBooks.filter(book => book.genre === genre)
       console.log(tempBooks)
+      return tempBooks;
     }
 
      // filter by price
@@ -110,12 +110,10 @@ class BookProvider extends Component {
       console.log(tempBooks);
     }
 
-    // sort by date
-    /*if (sortByDate === 'Oldest'){
-     tempBooks = tempBooks.sort((a,b) => b.book.publication_date - a.book.publication_date)
-      }*/
-
-    
+    // filter by TopSeller
+    if (isTopSeller === true) {
+      tempBooks = tempBooks.filter(book => book.isTopSeller === true);
+    }
 
     this.setState({
       sortedBooks: tempBooks
