@@ -195,7 +195,6 @@ const Wishlists = ({ user }) => {
                                                                 userId: user._id
                                                             })
                                                             .then(res => res.data)
-
                                                         setWishlists(fetchedWishlists)
                                                     }}
                                                         disabled={wishlist2.bookIds.includes(book._id)}
