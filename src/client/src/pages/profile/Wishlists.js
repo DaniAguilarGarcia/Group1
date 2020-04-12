@@ -195,6 +195,10 @@ const Wishlists = ({ user }) => {
                                                                 userId: user._id
                                                             })
                                                             .then(res => res.data)
+<<<<<<< HEAD
+=======
+
+>>>>>>> Add ability to move book from wishlist to cart
                                                         setWishlists(fetchedWishlists)
                                                     }}
                                                         disabled={wishlist2.bookIds.includes(book._id)}
