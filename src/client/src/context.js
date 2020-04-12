@@ -14,14 +14,20 @@ class BookProvider extends Component {
     cartTax: 0,
     cartTotal: 0,
     detailsBooks: [],
-    sortedByAuthor : [],
-    sortedByTitle: [],
-    sortedByPrice: [],
-    sortedByRating: [],
-    sortedByDate:[],
+    sortedBooks : [],
     topSellers: [],
     isTopSeller: false,
-    loading: true
+    loading: false,
+    title :'',
+    genre : 'all',
+    price : 35.00,
+    minPrice : 0,
+    maxPrice : 35.00,
+    publication_date:'',
+    maxDate:'',
+    sortByDate: 'Newest',
+    average_rating: 0.0,
+    maxRating:0.0
   };
 
 
@@ -43,6 +49,77 @@ class BookProvider extends Component {
   componentDidMount() {
     this.getBook();
     this.setBooks();
+
+    let books = [];
+    let maxPrice = Math.max(books.map(book => book.price));
+    let maxDate = Math.max(books.map(book => book.publication_date));
+    let maxRating = Math.max(books.map(book => book.average_rating));
+
+    this.setState({
+      books,
+      loading: false,
+      sortedBooks : books,
+      price: 35,
+      publication_date : maxDate,
+      sortByDate : 'Newest',
+      rating : maxRating,
+      maxRating : maxRating
+    })
+  }
+
+  handleChange = event => {
+    const target = event.target
+    const value = event.target.value
+    const name = event.target.name
+    console.log(target, value,name)
+    this.setState(
+    {
+      [name]: value
+    }, 
+    this.filterBooks
+    );
+  };
+  filterBooks = () => {
+    let {
+      books, 
+      genre, 
+      average_rating, 
+      price,
+      publication_date,
+      sortByDate 
+    } = this.state
+
+    let tempBooks = [...books];
+
+    average_rating = parseInt(average_rating);
+    price = parseInt(price);
+
+    //filter by genre
+    if (genre != 'all'){
+      tempBooks = tempBooks.filter(book => book.genre === genre)
+      console.log(tempBooks)
+    }
+
+     // filter by price
+    tempBooks = tempBooks.filter(book => book.price <= price);
+    console.log(tempBooks)
+
+    // filter by rating
+    if (average_rating !== 0) {
+      tempBooks = tempBooks.filter(book => book.average_rating >= average_rating);
+      console.log(tempBooks);
+    }
+
+    // sort by date
+    /*if (sortByDate === 'Oldest'){
+     tempBooks = tempBooks.sort((a,b) => b.book.publication_date - a.book.publication_date)
+      }*/
+
+    
+
+    this.setState({
+      sortedBooks: tempBooks
+    })
   }
 
   setBooks = () => {
@@ -205,15 +282,24 @@ class BookProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          handleChange: this.handleChange
         }}
       >
         {this.props.children}
       </BookContext.Provider>
+      
     );
   }
 }
 
 const BookConsumer = BookContext.Consumer;
 
-export { BookProvider, BookConsumer };
+export function withBookConsumer(Component){
+  return function ConsumerWrapper(props){
+    return <BookConsumer>
+      {value => <Component {...props} context={value}/>}
+    </BookConsumer>
+  }
+}
+export { BookProvider, BookConsumer, BookContext };

@@ -3,6 +3,7 @@ import Book from "./Book";
 import Title from './Title';
 import styled from "styled-components";
 import { BookConsumer } from "../context";
+import BookContainer from '../components/Sorting/BookContainer'
 
 export default class BookList extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ export default class BookList extends Component {
           <div className="container">
             <Title name="our" title="books" />
             
+            <BookContainer/>
+
             <div className="row">
               <BookConsumer>
               {value => {

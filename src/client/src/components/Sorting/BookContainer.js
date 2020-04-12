@@ -1,36 +1,50 @@
-/*import React from 'react'
+import React from 'react'
 import BookFilter from './BookFilter'
 import BookList from '../../components/BookList'
 import {withBookConsumer} from '../../context'
 
 function BookContainer({context}){
-    const {sortedTitle,sortedAuthor,sortedPrice,sortedRating,sortedDate,books} = context;
 
-return(
-    <>
-        <BookFilter books={books}/>
-        <BookList books={sortedTitle}/>
-    </>
-);
+const {loading, sortedTitle,sortedAuthor,sortedPrice, sortedRating,sortedDate,books} = context
+
+if(loading){
+    return ('Loading...')
 }
-export default withBookConsumer(BookContainer)
-
-/*function BookContainer() {
-    return (
-        <BookConsumer>
-                {value => {
-                    const {sortedTitle,sortedAuthor, sortedPrice,sortedRating,sortedDate,books} = value
-                
-                return(
-                    <div>
-                        Hello From Book BookContainer
-                        <BookFilter books={books}/>
-                        <BookList books={sortedTitle}/>
-                    </div>
-                );
-            }}
-        </BookConsumer>
+    return(
+        <>
+            <BookFilter books = {sortedTitle}/>    
+              
+        </>
     );
 }
 
-export default BookContainer*/
+export default withBookConsumer(BookContainer)
+
+/*import React from 'react'
+import BookFilter from './BookFilter'
+import BookList from '../../components/BookList'
+import {BookConsumer} from '../../context'
+
+export default function BookContainer({context}){
+
+return(
+    <BookConsumer>
+        {
+            (value) => {
+                const {loading, sortedTitle,sortedAuthor,sortedPrice, sortedRating,sortedDate,books} = value
+
+            if(loading){
+                return ('Loading...')
+            }
+                return(
+                    <div>
+                        <BookFilter books = {sortedTitle}/>                      
+                    </div>
+                )
+            }
+        }
+
+    </BookConsumer>
+);
+}
+*/

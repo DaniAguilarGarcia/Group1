@@ -59,6 +59,7 @@
     "react-pose": "^4.0.10",
     "react-shopping-cart": "^1.8.32",
     "react-star-rating-component": "^1.4.1",
+    "request": "^2.88.2",
     "session-file-store": "^1.4.0",
     "styled-components": "^5.0.1",
     "uuid": "^3.4.0",

@@ -12,7 +12,7 @@ import BookList from "./components/BookList";
 import Details from "./components/Details";
 import Modal from "./components/Modal";
 import TopSellers from "./pages/TopSellers";
-import axios from 'axios';
+import axios,* as others from 'axios';
 import ByRating from '../src/pages/Browsing/byRating';
 import ByGenre from '../src/pages/Browsing/byGenre';
 import Authors from './pages/Authors';
@@ -34,7 +34,9 @@ class App extends Component {
       publisher: '',
       genre: '',
       book_description: '',
-      books: []
+      books: [],
+      searchField:'',
+      sort:''
     }
   }
 
@@ -74,33 +76,6 @@ class App extends Component {
       });
   }
 
-
-  handleChange = (target) => {
-    const { title, value } = target;
-    this.setState({ [title]: value });
-  };
-
-  submit = (event) => {
-    event.preventDefault(); //stop browser from refreshing 
-
-    const payload = {
-      title: this.state.title
-    };
-
-    axios({
-      url: '/api/save',
-      method: 'POST',
-      data: payload
-    })
-
-      .then(() => {
-        console.log('Data has been sent to server');
-      })
-      .catch(() => {
-        console.log('Internal Server error')
-      });;
-  };
-
   handleLogin = (user) => {
     this.setState({
       logged_in: true,
@@ -116,11 +91,13 @@ class App extends Component {
   }
 
   render() {
+    
     return <React.Fragment>
 
       <div className="container-fluid">
         <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} />
         <div className="container main-view">
+    
           <Switch>
             <Route path='/login'
               render={(props) => <Login {...props} logged_in={this.state.logged_in} onLogin={this.handleLogin} />}
@@ -134,9 +111,6 @@ class App extends Component {
             <Route path='/register'
               render={(props) => <Register {...props} onLogin={this.handleLogin} />}
             />
-
-
-
             <Route path='/cart' component={Cart}
               render={(props) => <Cart {...props} logged_in={this.state.logged_in} />}
             />
