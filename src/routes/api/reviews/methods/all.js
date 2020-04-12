@@ -1,10 +1,6 @@
 const Review = require('../../../../services/reviews');
 
 module.exports = async (req, res) => {
-  if (!req.isAuthenticated()) {
-      return res.status(401)
-          .send('you need to log in');
-  }
 
   const { id } = req.params;
 

@@ -10,10 +10,10 @@ const Ratings = (props) => {
   const [userComment, setUserComment] = useState("");
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [hideUser, setHideUser] = useState(false);
   const [book, setBook] = useState(undefined);
   const [name, setName] = useState("John Doe");
-  const [selectedOption, setSelectedOption] = useState('NAME')
+  const [selectedOption, setSelectedOption] = useState("NAME");
+  const [purchased, setPurchased] = useState(false);
   let { id } = useParams();
   let history = useHistory();
 
@@ -27,6 +27,9 @@ const Ratings = (props) => {
   }
 
   useEffect(() => {
+    if (id === "978-6282077464" || id === '978-930996540-9') {
+      setPurchased(true);
+    }
     async function getBookDetails() {
       let details = await Axios.get(`/books/id/${id}`);
       setBook(details.data);
@@ -39,7 +42,7 @@ const Ratings = (props) => {
     if (props.user?.nickname) {
       setNickname(props.user.nickname);
     }
-    if(props.user?.name){
+    if (props.user?.name) {
       setName(props.user.name);
     }
   }, [props.user]);
@@ -47,15 +50,15 @@ const Ratings = (props) => {
   const submitReview = async (e) => {
     e.preventDefault();
     let show;
-    switch(selectedOption){
-      case 'NAME':
+    switch (selectedOption) {
+      case "NAME":
         show = name;
         break;
-      case 'NICKNAME':
+      case "NICKNAME":
         show = nickname;
         break;
       default:
-        show = 'Anonymous';
+        show = "Anonymous";
     }
     if (props.logged_in) {
       await Axios.post("/api/reviews/create", {
@@ -82,7 +85,10 @@ const Ratings = (props) => {
     <>
       <div className="row" style={{ marginBottom: "20px" }}>
         <div className="col">
-          <h2>Reviews for: {book?.title}</h2>
+          <h2>
+            Reviews for: {book?.title}{" "}
+            {purchased && <span class="badge badge-info">Purchased</span>}
+          </h2>
           <h3>Average rating:</h3>
           <StarRatingComponent
             name="average_rating"
@@ -109,68 +115,70 @@ const Ratings = (props) => {
         </div>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <h2>Leave your own comment below!</h2>
-          <StarRatingComponent
-            name="rating"
-            starCount={5}
-            value={rating}
-            onStarClick={(val) => setRating(val)}
-          />
-          <form onSubmit={submitReview}>
-            <div className="form-group">
-              <label>Title</label>
-              <input
-                className="form-control"
-                value={userTitle}
-                onChange={(e) => setUserTitle(e.target.value)}
-              ></input>
-            </div>
-            <div className="form-group">
-              <label>Comment</label>
-              <textarea
-                className="form-control"
-                value={userComment}
-                onChange={(e) => setUserComment(e.target.value)}
-              ></textarea>
-            </div>
-            <div class="form-group">
-              <p>Which should we show</p>
-              <label style={{margin: '0.5rem'}}>
+      {purchased && (
+        <div className="row">
+          <div className="col">
+            <h2>Leave your own comment below!</h2>
+            <StarRatingComponent
+              name="rating"
+              starCount={5}
+              value={rating}
+              onStarClick={(val) => setRating(val)}
+            />
+            <form onSubmit={submitReview}>
+              <div className="form-group">
+                <label>Title</label>
                 <input
-                  type="radio"
-                  value="NAME"
-                  checked={selectedOption === "NAME"}
-                  onChange={(e) => setSelectedOption(e.target.value)}
-                />
-                Name
-              </label>
-              <label style={{margin: '0.5rem'}}>
-                <input
-                  type="radio"
-                  value="NICKNAME"
-                  checked={selectedOption === "NICKNAME"}
-                  onChange={(e) => setSelectedOption(e.target.value)}
-                />
-                Nickname
-              </label>
-              <label style={{margin: '0.5rem'}}>
-                <input
-                  type="radio"
-                  value="ANONYMOUS"
-                  checked={selectedOption === "ANONYMOUS"}
-                  onChange={(e) => setSelectedOption(e.target.value)}
-                />
-                Anonymous
-              </label>
-            </div>
-            <button className="btn btn-primary" type="submit">
-              Submit Review
-            </button>
-          </form>
+                  className="form-control"
+                  value={userTitle}
+                  onChange={(e) => setUserTitle(e.target.value)}
+                ></input>
+              </div>
+              <div className="form-group">
+                <label>Comment</label>
+                <textarea
+                  className="form-control"
+                  value={userComment}
+                  onChange={(e) => setUserComment(e.target.value)}
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <p>Which should we show</p>
+                <label style={{ margin: "0.5rem" }}>
+                  <input
+                    type="radio"
+                    value="NAME"
+                    checked={selectedOption === "NAME"}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                  />
+                  Name
+                </label>
+                <label style={{ margin: "0.5rem" }}>
+                  <input
+                    type="radio"
+                    value="NICKNAME"
+                    checked={selectedOption === "NICKNAME"}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                  />
+                  Nickname
+                </label>
+                <label style={{ margin: "0.5rem" }}>
+                  <input
+                    type="radio"
+                    value="ANONYMOUS"
+                    checked={selectedOption === "ANONYMOUS"}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                  />
+                  Anonymous
+                </label>
+              </div>
+              <button className="btn btn-primary" type="submit">
+                Submit Review
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
 
       {showModal && (
         <div
