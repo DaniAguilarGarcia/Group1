@@ -6,7 +6,7 @@ const card_validator = require('card-validator');
 /**
  * @typedef {Object} PaymentMethod
  * @property {string} alias
- * @property {string} pan
+ * @property {string} token
  * @property {string} payer_name
  * @property {string} brand
  * @property {string} last_four
@@ -15,49 +15,63 @@ const card_validator = require('card-validator');
  */
 
 const schema = new mongoose.Schema({
-    alias: String,
-    pan: {
-        type: String,
-        validator: {
-            validate: (value) => {
-                const result = card_validator.number(value);
-                return result.isValid;
-            },
-            message: 'Please enter a valid credit card number',
-        },
-        required: true,
+  alias: String,
+  pan: {
+    type: String,
+    validate: {
+      validator: (value) => {
+        return card_validator.number(value).isValid;
+      },
+      message: 'Please enter a valid credit card number',
     },
-    payer_name: String,
-    brand: String,
-    last_four: String,
-    exp: {
-        type: String,
-        validator: {
-            validate: (value) => {
-                const result = card_validator.expirationDate(value);
-                return result.isValid;
-            },
-            message: 'The expiration is invalid',
-        },
-        required: true,
+  },
+  token: String,
+  payer_name: String,
+  brand: String,
+  last_four: String,
+  exp: {
+    type: String,
+    validate: {
+      validator: (value) => {
+        const result = card_validator.expirationDate(value);
+        return result.isPotentiallyValid;
+      },
+      message: 'The expiration is invalid',
     },
-    address: Address,
+    required: true,
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  address: Address,
 }, {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
 });
 
-schema.pre('save', function(next) {
-    // cc tokenization
-    if (this.pan && this.isModified('pan')) {
-        this.last_four = this.pan.substr(-4);
-        const result = card_validator.number(this.pan);
-        this.brand = result.card.type;
-        this.pan = uuid(); // simulate tokenization
-    }
-    next();
+const preInsertHook = (context) => {
+  if (context.pan) {
+    context.last_four = context.pan.substr(-4);
+    context.brand = card_validator.number(context.pan).card.type;
+    context.token = uuid(); // simulate tokenization
+    context.pan = undefined; // don't store pan
+  }
+  context.cvv = undefined; // don't store cvv
+}
+
+schema.pre('updateOne', function (next) {
+  preInsertHook(this._update.$set);
+  next();
 });
 
-module.exports = schema;
+schema.pre('save', function (next) {
+  preInsertHook(this);
+  next();
+});
+
+const model = new mongoose.model('Method', schema);
+
+module.exports = model;

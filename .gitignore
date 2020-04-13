@@ -2,3 +2,5 @@
 .env
 .env.testing
 /sessions
+NOTES.md
+.DS_Store
