@@ -3,9 +3,9 @@
 {
     "_id": "ObjectId",
     "title": "String",
-    "rating": "int",
+    "rating": "Number",
     "comment": "String",
-    "book_id": "int",
-    "customer_id": "int",
+    "id": "String",
+    "nickname": "int",
 }
 ```

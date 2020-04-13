@@ -15,7 +15,7 @@ class Search extends Component {
     }
 
     getBook = () => {
-        axios.get('http://localhost:5000/books/' + this.state.title)
+        axios.get('/books/' + this.state.title)
         .then((response)=>{
           const data = response.data;
           this.setState({ books: data});
