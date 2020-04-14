@@ -4,13 +4,10 @@ const router = express.Router();
 
 const Books = require('../../../models/books');
 
-
 //Routes
 router.get('/', (req, res) => {
-
-    Books.find({ })
-        .then((data) => {
-            console.log('Data: ', data);
+    Books.find({})
+       .then((data) => {
             res.json(data);
         })
         .catch((error) => {
@@ -46,7 +43,22 @@ router.post('/save', (req, res) => {
         }
     });
     
-});
+    const result = Books.slice(startIndex,endIndex)
+    res.json(result)
+})
+
+/*/Sorting
+router.get('/sort+1', (req, res) => {
+    Books.sort(  price=1 )
+        .then((data) => {
+            res.json(data);
+            console.log(data);
+        })
+        .catch((error) => {
+            console.log('error:', daerrorta);
+        });
+});*/
+       
 
 
 module.exports = router;

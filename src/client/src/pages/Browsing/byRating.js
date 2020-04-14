@@ -6,10 +6,11 @@ class ByRating extends Component {
     constructor(props){
         super(props);
 
-        this.state = props.match.params.rating;
+        this.state = props.match.params.rating; 
     }
+    
       render() {   
-        
+
         return (
         
         <div className="row">
