@@ -1,19 +1,42 @@
-import React, { Component,useState } from "react";
+import React, { Component,useState,useContext } from "react";
 import Book from "./Book";
 import Title from './Title';
 import styled from "styled-components";
-import { BookConsumer } from "../context";
+import { BookConsumer, BookContext } from "../context";
+import {Pagination} from 'react-bootstrap';
 
-export default class BookList extends Component {
-  constructor(props) {
-    super(props)
+const filterBooks = (books, pageStart, pageEnd, active, count) => {
+  var res = [];
+  
+  if (active === 1){
+    pageStart = 1;
+    pageEnd = count - 1;
+   }else {
+    pageStart = count * (active-1);
+    pageEnd = pageStart + (count-2);
+  }
 
-    this.state = {
-      books: []
-  };
+  for (let i = pageStart; i <= pageEnd; i++){
+    if (i >= books.length){
+      break;
+    }else if(i === pageStart) {
+      res.push(books[i-1]);
+      res.push(books[i]);
+    } else {
+      res.push(books[i]);
+    }
+  }
+
+  return res;
+
 }
 
-  render() {
+const BookList = ({books}) => {
+
+const context = useContext(BookContext);
+const {pageStart, pageEnd,pageList, active, count,handleChange} = context;
+let bookData = filterBooks(books, pageStart, pageEnd, active, count)
+let isData = bookData.length > 0;
 
     return (
 
@@ -24,26 +47,34 @@ export default class BookList extends Component {
         <BookWrapper className="py-5">
           <div className="container">
             <Title name="our" title="books" />
-            
-            <div className="row">
-              <BookConsumer>
-              {value => {
-                  return value.books.map(book => {
-                    return <Book key={book.id} book={book} />;
-                  });
-                }}
-              </BookConsumer>
-            </div>
-          </div>
-        </BookWrapper>
-      </React.Fragment>
-      </div>
-      </div>
 
-    
-    
+            <select className="select" onChange={handleChange}>
+              <option value="10">Books Per Page</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+          
+            <div className="row">
+              { isData ? ( 
+                bookData.map(book => {
+                  return <Book key={book.id} book={book} />;
+                })) : (<Title name= "Whoops! Looks like we need to restock!"/>)}
+            </div>
+          
+          </div>
+        
+        </BookWrapper>
+       
+        <Pagination className = "pagination">{pageList}</Pagination>
+      
+      </React.Fragment>
+      
+      </div>
+      </div>
     );
   }
-}
 
 const BookWrapper = styled.section``;
+
+export default BookList;
+

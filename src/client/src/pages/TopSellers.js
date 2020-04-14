@@ -32,15 +32,13 @@ class TopSellers extends PureComponent {
     
     
       render() {   
-        
+
         return (
         
         <div className="row">
           <div className="col">
 
             <h1>Top Sellers</h1>
-
-
 
             <React.Fragment>
               <div className="py-5">

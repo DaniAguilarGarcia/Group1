@@ -3,31 +3,22 @@ import { Link } from 'react-router-dom';
 import './MainNav.scss';
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
-import {Col,Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
+import {Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
 
 class MainNav extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-        
+          books :[]
         };
-    }
 
-    searchChangeHandler(event){
-      this.setState({data: event});
-    }
-  
-    searchSubmitHandler(event){
-      this.setState({submit: true});
-      this.setState({books: event});
-      console.log(this.state.books)
     }
 
     static getDerivedStateFromProps(props, state) {
       return props;
     }
-  
+
   logout = () => {
     fetch('/api/user/logout', {
       method: 'post',
@@ -39,6 +30,8 @@ class MainNav extends Component {
       console.error(err);
     });
   }
+
+
 //style
 
     navRight() {
@@ -92,7 +85,7 @@ class MainNav extends Component {
                 <Link to={'/'} className="navbar-brand">
                     Geek Text
                 </Link>    
-
+                
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -110,6 +103,7 @@ class MainNav extends Component {
                   </Link>             
    
                   <Nav className="justify-content-center" activeKey="/home">
+                  
                   <NavDropdown title="Browse By Genre">
                     <NavDropdown.Item href = '/browsing/bygenre/Novel'>Novel</NavDropdown.Item>
                     <NavDropdown.Item href = '/browsing/bygenre/Biography'>Biography</NavDropdown.Item>

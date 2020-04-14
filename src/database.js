@@ -17,7 +17,7 @@ if (user && password) {
     }
 }
 
-const MONGODB_URI = process.env.NODE_ENV === 'local' ?
+const MONGODB_URI =  process.env.NODE_ENV === 'local' ?
     `mongodb://${address}:${port}/CEN4010` :
     'mongodb+srv://Group1User:CEN4010@cen4010-group1-cluster-dcfnb.mongodb.net/CEN4010?retryWrites=true&w=majority'
 const DB = mongoose.connect(MONGODB_URI, {
@@ -31,9 +31,4 @@ mongoose.connection.on('connected',() => {
 
 mongoose.set('useCreateIndex', true);
 
-/*const DB = mongoose.connection;
-
-DB.on('error', console.error.bind(console, 'connection error:'));
-DB.once('open', () => console.log('DB connected'));
-*/
 module.exports = DB;
