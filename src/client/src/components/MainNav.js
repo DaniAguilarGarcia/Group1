@@ -4,7 +4,6 @@ import './MainNav.scss';
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import {Nav, NavDropdown, InputGroup, Form, Button} from 'react-bootstrap';
-import BookContainer from '../components/Sorting/BookContainer'
 
 class MainNav extends Component {
     constructor(props) {

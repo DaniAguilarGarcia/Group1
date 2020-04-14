@@ -16,6 +16,7 @@ import axios,* as others from 'axios';
 import ByRating from '../src/pages/Browsing/byRating';
 import ByGenre from '../src/pages/Browsing/byGenre';
 import Authors from './pages/Authors';
+import BookContainer from './components/BookContainer';
 
 class App extends Component {
 
@@ -65,7 +66,7 @@ class App extends Component {
   }
 
   getBook = () => {
-    axios.get('/api')
+    axios.get('/books')
       .then((response) => {
         const data = response.data;
         this.setState({ books: data });
@@ -95,7 +96,7 @@ class App extends Component {
     return <React.Fragment>
 
       <div className="container-fluid">
-        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} />
+        <MainNav logged_in={this.state.logged_in} user={this.state.user} search={this.state.search} searchCallBack={this.updateSearch} onLogout={this.handleLogout}/>
         <div className="container main-view">
     
           <Switch>
@@ -115,10 +116,10 @@ class App extends Component {
               render={(props) => <Cart {...props} logged_in={this.state.logged_in} />}
             />
 
-            <Route path='/ratings'
+            <Route path='/ratings/:id'
               render={(props) => <Ratings {...props} user={this.state.user} logged_in={this.state.logged_in} />}
             />
-            <Route exact path="/" component={BookList} />
+            <Route exact path="/" component={BookContainer} />
             <Route path="/details" render={props => <Details {...props} user={this.state.user} />} />
             <Route path="/topsellers" component={TopSellers} />
             <Route path="/browsing/byrating/:rating" component={ByRating} />

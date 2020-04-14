@@ -1,7 +1,7 @@
-import React, { Component, useEffect,useState } from "react";
+import React, { Component} from "react";
 import BookList from "./components/BookList";
 import axios from 'axios';
-import { query } from "express";
+import {Pagination} from 'react-bootstrap';
 
 const BookContext = React.createContext();
 
@@ -18,22 +18,17 @@ class BookProvider extends Component {
     sortedBooks : [],
     topSellers: [],
     isTopSeller: false,
-    loading: false,
-    title :'',
-    genre : 'all',
-    price : 35.00,
-    minPrice : 0,
-    maxPrice : 35.00,
-    publication_date:'',
-    maxDate:'',
-    sortByDate: 'Newest',
-    average_rating: 0.0,
-    maxRating:0.0,
-    order: "desc"
-  };
+    active: 1,
+    count: 10,
+    minCount : 10,
+    pageStart: 0,
+    pageEnd: 10,
+    pageList: []
+    };
+
 
   getBook = () => {
-    axios.get('http://localhost:5000/books/')
+    axios.get('/books/')
     .then((response)=>{
       const data = response.data;
       this.setState({ books: data});
@@ -50,74 +45,9 @@ class BookProvider extends Component {
     this.getBook();
     this.setBooks();
 
-    let books = [];
-
-    this.setState({
-      books,
-      loading: false,
-      sortedBooks : books,
-      price: 35,
-      publication_date: '',
-      isTopSeller: false
-    })
-  }
-
-  handleChange = event => {
-    const target = event.target
-    const value = event.target.value
-    const name = event.target.name
-    console.log(target, value,name)
     this.setState(
-    {
-      [name]: value
-    }, 
-    this.filterBooks
-    );
-  };
-
-  filterBooks = () => {
-    let {
-      books,
-      title,
-      author_name, 
-      genre, 
-      average_rating, 
-      price,
-      publication_date,
-      isTopSeller
-    } = this.state
-
-    let tempBooks = [...books];
-
-    publication_date = parseInt(publication_date)
-    average_rating = parseInt(average_rating);
-    price = parseInt(price);
-
-    //filter by genre
-    if (genre !== 'all'){
-      tempBooks = tempBooks.filter(book => book.genre === genre)
-      console.log(tempBooks)
-      return tempBooks;
-    }
-
-     // filter by price
-    tempBooks = tempBooks.filter(book => book.price <= price);
-    console.log(tempBooks)
-
-    // filter by rating
-    if (average_rating !== 0) {
-      tempBooks = tempBooks.filter(book => book.average_rating >= average_rating);
-      console.log(tempBooks);
-    }
-
-    // filter by TopSeller
-    if (isTopSeller === true) {
-      tempBooks = tempBooks.filter(book => book.isTopSeller === true);
-    }
-
-    this.setState({
-      sortedBooks: tempBooks
-    })
+      {pageList:this.initPagination()
+      });
   }
 
   setBooks = () => {
@@ -130,6 +60,48 @@ class BookProvider extends Component {
       return { books };
     }, this.checkCartItems);
   };
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = event.target.value;
+    const name = target.name;
+    console.log(value)
+
+    this.setState(
+      {
+       count: value
+       }
+      
+     )
+  };
+
+  calculatePagination = (event) => {
+    if(event.target.text != 'undefined'){
+      console.log(event.target.text)
+      let pages = []
+      for (let number = 1; number <= 5; number++) {
+        pages.push(
+          <Pagination.Item onClick={this.calculatePagination.bind(this)} key={number} active={number === parseInt(event.target.text)}>
+            {number}
+          </Pagination.Item>,
+        );
+      this.setState({pageList:pages, active: parseInt(event.target.text)})
+      }
+    }
+  }
+  
+  initPagination = () => {
+    let pages = []
+  
+    for (let number = 1; number <= 5; number++) {
+      pages.push(
+        <Pagination.Item onClick={this.calculatePagination.bind(this)} key={number} active={number === 1}>
+          {number}
+        </Pagination.Item>,
+      );
+    }
+  return pages;
+  }
 
   getItem = id => {
     const book = this.state.books.find(item => item.id === id);
@@ -269,7 +241,7 @@ class BookProvider extends Component {
   render() {
 
       return (
-
+      
       <BookContext.Provider
         value={{
           ...this.state,
@@ -281,23 +253,28 @@ class BookProvider extends Component {
           decrement: this.decrement,
           removeItem: this.removeItem,
           clearCart: this.clearCart,
+          calculatePagination: this.calculatePagination,
+          initPagination: this.initPagination,
           handleChange: this.handleChange
         }}
       >
         {this.props.children}
       </BookContext.Provider>
-      
+     
     );
   }
 }
 
 const BookConsumer = BookContext.Consumer;
 
-export function withBookConsumer(Component){
-  return function ConsumerWrapper(props){
-    return <BookConsumer>
-      {value => <Component {...props} context={value}/>}
-    </BookConsumer>
-  }
+export { BookProvider, BookConsumer, BookContext};
+
+export function withBookConsumer(Component) {
+  return function ConsumerWrapper(props) {
+    return (
+      <BookConsumer>
+        {value => <Component {...props} context={value} />}
+      </BookConsumer>
+    );
+  };
 }
-export { BookProvider, BookConsumer, BookContext };

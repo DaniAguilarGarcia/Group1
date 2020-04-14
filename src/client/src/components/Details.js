@@ -28,16 +28,16 @@ export default class Details extends Component {
   }
 
   componentDidUpdate () {
-    axios
-      .post(`/wishlists/list`, {
-        userId: this.props.user._id
-      })
-      .then(res => {
-        this.setState({
-          wishlists: res.data
-        })
-      })
-      .catch(e => console.error(e)) 
+    // axios
+    //   .post(`/wishlists/list`, {
+    //     userId: this.props.user._id
+    //   })
+    //   .then(res => {
+    //     this.setState({
+    //       wishlists: res.data
+    //     })
+    //   })
+    //   .catch(e => console.error(e)) 
   }
 
   render() {
@@ -150,7 +150,7 @@ export default class Details extends Component {
                       <ButtonContainer>Back to Books</ButtonContainer>
                     </Link>
 
-                    <Link to={{pathname: '/ratings', state: {book: value.detailBook}}}>
+                    <Link to={{pathname: `/ratings/${value.detailBook.id}`}}>
                       <ButtonContainer>Rate Book</ButtonContainer>
                     </Link>
 

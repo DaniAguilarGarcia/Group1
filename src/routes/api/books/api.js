@@ -15,12 +15,33 @@ router.get('/', (req, res) => {
         });
 });
 
-//Paginate
-router.get('/books', (req, res)=>{
-    const page = parseInt(req.query.page)
-    const limit = parseInt(req.query.limit)
-    const startIndex = (page -1) * limit
-    const endIndex = page * limit
+router.get('/:bookname', (req, res) => {
+
+    Books.find({title : req.params.bookname},function(error, book){
+        res.json(book);
+    });
+});
+
+router.get('/id/:id', (req, res) => {
+    Books.findOne({id : req.params.id},function(error, book){
+        res.json(book);
+    });
+});
+
+router.post('/save', (req, res) => {
+    const data = req.title;
+
+    const newBook = new Books(req.body);
+
+    newBook.save((error) => {
+        if(error){
+            res.status(500).json({msg: 'Sorry, internal server error'});
+        }else{
+            res.json({
+                msg: 'we received your data!'
+            });
+        }
+    });
     
     const result = Books.slice(startIndex,endIndex)
     res.json(result)

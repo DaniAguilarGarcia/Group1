@@ -60,3 +60,16 @@
 .text-bright{
   color: var(--lightBlue);
 }
+
+.pagination{
+  justify-content: center;
+  outline-color: #2a2a72;
+  color: var(--mainBlue);
+}
+
+.select {
+  position:relative;
+  outline-color: #2a2a72;
+  color: var(--mainBlue);
+  width:200px;
+}
