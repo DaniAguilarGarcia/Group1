@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import BookList from "./components/BookList";
 import axios from 'axios';
+import {Pagination} from 'react-bootstrap';
 
 const BookContext = React.createContext();
 
@@ -14,15 +15,16 @@ class BookProvider extends Component {
     cartTax: 0,
     cartTotal: 0,
     detailsBooks: [],
-    sortedByAuthor : [],
-    sortedByTitle: [],
-    sortedByPrice: [],
-    sortedByRating: [],
-    sortedByDate:[],
+    sortedBooks : [],
     topSellers: [],
     isTopSeller: false,
-    loading: true
-  };
+    active: 1,
+    count: 10,
+    minCount : 10,
+    pageStart: 0,
+    pageEnd: 10,
+    pageList: []
+    };
 
 
   getBook = () => {
@@ -39,14 +41,13 @@ class BookProvider extends Component {
     });
   }
   
-
   componentDidMount() {
     this.getBook();
     this.setBooks();
-  }
 
-  componentDidUpdate(){
-    
+    this.setState(
+      {pageList:this.initPagination()
+      });
   }
 
   setBooks = () => {
@@ -59,6 +60,48 @@ class BookProvider extends Component {
       return { books };
     }, this.checkCartItems);
   };
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = event.target.value;
+    const name = target.name;
+    console.log(value)
+
+    this.setState(
+      {
+       count: value
+       }
+      
+     )
+  };
+
+  calculatePagination = (event) => {
+    if(event.target.text != 'undefined'){
+      console.log(event.target.text)
+      let pages = []
+      for (let number = 1; number <= 5; number++) {
+        pages.push(
+          <Pagination.Item onClick={this.calculatePagination.bind(this)} key={number} active={number === parseInt(event.target.text)}>
+            {number}
+          </Pagination.Item>,
+        );
+      this.setState({pageList:pages, active: parseInt(event.target.text)})
+      }
+    }
+  }
+  
+  initPagination = () => {
+    let pages = []
+  
+    for (let number = 1; number <= 5; number++) {
+      pages.push(
+        <Pagination.Item onClick={this.calculatePagination.bind(this)} key={number} active={number === 1}>
+          {number}
+        </Pagination.Item>,
+      );
+    }
+  return pages;
+  }
 
   getItem = id => {
     const book = this.state.books.find(item => item.id === id);
@@ -198,7 +241,7 @@ class BookProvider extends Component {
   render() {
 
       return (
-
+      
       <BookContext.Provider
         value={{
           ...this.state,
@@ -209,15 +252,29 @@ class BookProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          calculatePagination: this.calculatePagination,
+          initPagination: this.initPagination,
+          handleChange: this.handleChange
         }}
       >
         {this.props.children}
       </BookContext.Provider>
+     
     );
   }
 }
 
 const BookConsumer = BookContext.Consumer;
 
-export { BookProvider, BookConsumer };
+export { BookProvider, BookConsumer, BookContext};
+
+export function withBookConsumer(Component) {
+  return function ConsumerWrapper(props) {
+    return (
+      <BookConsumer>
+        {value => <Component {...props} context={value} />}
+      </BookConsumer>
+    );
+  };
+}
