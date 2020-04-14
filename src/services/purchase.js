@@ -1,13 +1,13 @@
-const Review = require('../models/orders');
+const Review = require('../models/purchase');
 
 /**
  * @param {Object} data @todo document user model
- * @return {Promise<import('../models/orders').Orders>}
+ * @return {Promise<import('../models/purchase').Purchase>}
  */
 const create = async (data) => {
-  const new_Orders = new Orders(data);
+  const new_Purchase = new Purchase(data);
   try {
-    return await new_Orders.save();
+    return await new_Purchase.save();
   } catch (error) {
     return console.log(error);
   }
@@ -18,7 +18,7 @@ const create = async (data) => {
  * @return {Promise<import('../models/user').User>}
  */
 const findByPurchaseId = async (id) => {
-  return await Orders.find({ id });
+  return await Purchase.find({ id });
 };
 
 module.exports = {
