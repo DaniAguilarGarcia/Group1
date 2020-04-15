@@ -1,4 +1,4 @@
-const Review = require('../../../../services/purchase');
+const Review = require('../../../../services/orders');
 
 module.exports = async (req, res) => {
 
@@ -7,5 +7,5 @@ module.exports = async (req, res) => {
   let orders = await orders.findByPurchaseId(id);
 
   return res.status(200)
-    .send(purchase);
+    .send(orders);
 }

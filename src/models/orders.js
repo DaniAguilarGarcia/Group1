@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 /**
- * @typedef {Object} Purchase
+ * @typedef {Object} Orders
  * @property {string} id
  * @property {string} nickname
  */
@@ -11,6 +11,6 @@ const schema = mongoose.Schema({
     nickname: String,
 });
 
-const model = new mongoose.model('Purchase', schema);
+const model = new mongoose.model('Orders', schema);
 
 module.exports = model;

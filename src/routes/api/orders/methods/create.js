@@ -1,19 +1,19 @@
-const Orders = require('../../../../services/purchase');
+const Orders = require('../../../../services/orders');
 
 module.exports = async (req, res) => {
  /* if (!req.isAuthenticated()) {
       return res.status(401)
           .send('you need to log in');
   } */
-  let purchase;
+  let orders;
   
   try {
-    purchase = await Purchase.create(req.body);
+    orders = await Orders.create(req.body);
   } catch (error) {
     return res.status(422)
         .send(error);
   }
 
   return res.status(201)
-    .send(Purchase);
+    .send(Orders);
 }
